@@ -1,0 +1,156 @@
+/*==========================================
+            start banner css
+==========================================*/
+.registration-banner-content {
+    padding: 105px 0px 30px;
+    text-align: center;
+}
+/*==========================================
+            end banner css
+==========================================*/
+
+/*==========================================
+            start registration css
+==========================================*/
+.fre-authen-wrapper {
+    padding-bottom: 80px;
+}
+.register-employer a,
+.register-freelancer a {
+    background-color: #2b99c9;
+    border-color: #2b99c9;
+}
+.register-employer a:hover,
+.register-freelancer a:hover {
+    background-color: #333333;
+    border-color: #333333;
+    color: #ffffff;
+}
+.fre-register-default > h2 {
+    color: #fff !important;
+    background-color: #2b99c9;
+    padding: 34px 10px;
+}
+.fre-register-default {
+    padding-top: 0px !important;
+}
+.fre-menu-main li.reg-signup a,
+.fre-login > li.reg-signup a {
+    color: #333333;
+}
+.reg-wrapper {
+    background-color: #f9f9f9;
+}
+.fre-register-default {
+    box-shadow: 0px 5px 20px 0px rgba(52, 52, 52, 0.05) !important;
+    -webkit-box-shadow: 0px 5px 20px 0px rgba(52, 52, 52, 0.05) !important;
+    -moz-box-shadow: 0px 5px 20px 0px rgba(52, 52, 52, 0.05) !important;
+}
+/*==========================================
+            end registration css
+==========================================*/
+
+/*===========================================
+            start employer and freelancer css
+===========================================*/
+.fre-page-section {
+    background: #f9f9f9;
+}
+.fre-page-section .row.registration_row {
+    margin: 80px 0;
+    background: #fff;
+    box-shadow: 0px 5px 20px 0px rgba(52, 52, 52, 0.05);
+}
+.fre-page-section .row.registration_row .right_area h2,
+.login-page-wrapper .fre-authen-login h2 {
+    font-size: 29px;
+    color: rgb(51, 51, 51);
+    line-height: 1.43;
+    text-align: center;
+    font-weight: 900;
+    margin: 30px 0 30px;
+}
+.fre-page-section .row.registration_row .right_area .fre-input-field input[type=text],
+.fre-page-section .row.registration_row .right_area .fre-input-field input[type=password],
+.login-page-wrapper .fre-authen-login .fre-input-field input[type=text], 
+.login-page-wrapper .fre-authen-login .fre-input-field input[type=password] {
+    border-width: 1px;
+    border-color: rgb(33, 143, 190);
+    border-style: solid;
+    border-radius: 3px;
+    height: 48px;
+}
+.login-page-wrapper .fre-authen-login {
+    box-shadow: none;
+    padding-top: 1px;
+}
+.fre-page-section .row.registration_row .right_area .btn-submit,
+.login-page-wrapper .fre-authen-login .btn-submit {
+    width: 100%;
+    border: 0;
+    border-radius: 3px;
+    background-color: rgb(32, 148, 198);
+    opacity: 0.949;
+    height: 50px;
+    transition: all .3s ease-in-out;
+}
+.fre-page-section .row.registration_row .right_area .btn-submit:hover,
+.login-page-wrapper .fre-authen-login .btn-submit:hover {
+    color: #fff !important;
+    background: #333333;
+}
+.fre-page-section .row.registration_row .right_area .log_here {
+    color: #000;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 600;
+}
+.fre-page-section .row.registration_row .right_area .log_here a {
+    color: #2b99c9;
+}
+/*===========================================
+            end employer and freelancer css
+===========================================*/
+
+/*==========================================
+                    media: max-width: 1199px
+==========================================*/
+@media only screen and (max-width: 1199px) {
+    
+}
+
+/*==========================================
+                    media: max-width: 991px
+==========================================*/
+@media only screen and (max-width: 991px) {
+    .registration-banner-content {
+        padding: 55px 0px 20px;
+    }
+}
+
+/*==========================================
+                    media: max-width: 767px
+==========================================*/
+@media only screen and (max-width: 767px) {
+    .registration-banner-content {
+        padding: 50px 0 0px;
+    }
+    .fre-authen-wrapper {
+        padding-bottom: 40px;
+    }
+    .fre-page-section .row.registration_row {
+        margin: 40px 0;
+    }
+    .fre-page-section .row.registration_row .right_area h2 {
+        font-size: 25px;
+    }
+}
+
+/*==========================================
+                    media: max-width: 479px
+==========================================*/
+@media only screen and (max-width: 479px) {
+    
+}
+
+

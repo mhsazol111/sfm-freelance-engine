@@ -1,0 +1,78 @@
+body {
+  background-color: #fff !important;
+}
+.cus_mod_transition, .cus_transition {
+  transition: all 0.3s;
+}
+.hsdfsss {
+  color: aliceblue;
+}
+.top-banner-section,
+.background_position {
+  position: relative;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: cover !important;
+}
+.top-banner-section:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  box-shadow: inset 0 0 200px 200px rgba(0, 0, 0, 0.4);
+}
+.top-banner-section .container {
+  position: relative;
+  z-index: 9;
+}
+.top-banner-section .container,
+.top-banner-section .row,
+.top-banner-section .col-lg-12 {
+  height: 100%;
+}
+.top-banner-section .contact-banner-content {
+  padding: 155px 0px;
+}
+.top-banner-section .contact-banner-content {
+  width: 100%;
+  max-width: 810px;
+}
+.top-banner-section .contact-banner-content h1 {
+  font-weight: 900;
+  font-size: 54px;
+  color: #fff;
+  margin-bottom: 30px;
+}
+.top-banner-section .contact-banner-content p {
+  font-size: 18px;
+  color: #fff;
+}
+.banner-bottom-coner {
+  z-index: 9;
+}
+
+/****======= banner end =========****/
+
+.top-banner-section .contact-banner-content p {
+  /* max-width: 375px; */
+  margin: auto;
+}
+
+@media only screen and (max-width: 991px) {
+  .block-posts .posts-container {
+    padding-right: 15px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .top-banner-section .contact-banner-content h1 {
+    font-size: 30px;
+  }
+}
+
+/* single page css */
+
+.project-bid-info-list > li span {
+  display: inline-block !important;
+}

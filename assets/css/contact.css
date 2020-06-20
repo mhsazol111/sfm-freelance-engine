@@ -1,0 +1,117 @@
+/***====== contact css =======***/
+
+.contact_section {
+  padding-bottom: 70px;
+}
+.contact_section .contact_top_section {
+  text-align: center;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.contact_section .contact_top_section h3 {
+  font-size: 24px;
+  color: #05051f;
+  margin-bottom: 35px;
+  font-weight: 700;
+  font-family: "Open Sans";
+}
+.contact_section .contact_top_section p {
+  font-size: 16px;
+  max-width: 810px;
+  margin: auto;
+}
+.contact_content .contact_form{
+  margin-bottom: 25px;
+}
+.contact_content .contact_form .wpcf7-form input:not(.wpcf7-submit),
+.contact_content .contact_form .wpcf7-form textarea {
+  width: 100%;
+  background-color: #f9f9f9;
+  padding: 15px 30px;
+  border: none;
+  margin-bottom: 20px;
+}
+.contact_content .contact_form .wpcf7-form textarea {
+  height: 260px;
+}
+.contact_content .contact_form .wpcf7-form input::-webkit-input-placeholder {
+  color: #8f8f8f;
+}
+.contact_content .contact_form .wpcf7-form input::-moz-placeholder {
+  color: #8f8f8f;
+}
+.contact_content .contact_form .wpcf7-form textarea::-webkit-input-placeholder {
+  color: #8f8f8f;
+}
+.contact_content .contact_form .wpcf7-form textarea::-moz-placeholder {
+  color: #8f8f8f;
+}
+.contact_content .contact_form .wpcf7-form .wpcf7-submit {
+  background-color: #2094c6;
+  padding: 15px 25px;
+  text-transform: uppercase;
+  border-radius: 0;
+  font-weight: 500;
+}
+.contact_content .bar_row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px 30px 40px 30px;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 15px;
+}
+.contact_content .bar_row .left_info {
+  width: 75%;
+}
+.contact_content .bar_row .left_info h3 {
+  font-size: 18px;
+  color: #05051f;
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+.contact_content .bar_row .left_info p,
+.contact_content .bar_row .left_info a {
+  font-size: 12px;
+  color: #05051f;
+  line-height: 20px;
+  margin-bottom: 0;
+}
+.contact_content .bar_row .icon {
+  width: 25%;
+  text-align: center;
+  position: relative;
+}
+.contact_content .bar_row .icon img {
+  max-width: 60px;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.contact_content .bar_row .email_address a {
+  color: #e0e0e0;
+}
+
+@media only screen and (max-width: 1199px) {
+  .contact_section .contact_top_section {
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  .contact_section {
+    padding-bottom: 50px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .contact_section .contact_top_section h3 {
+    line-height: 34px;
+  }
+  .contact_section .contact_top_section {
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 50px;
+  }
+}

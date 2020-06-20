@@ -1,0 +1,63 @@
+{
+    "key": "group_5ed00289e05b5",
+    "title": "Email Options",
+    "fields": [
+        {
+            "key": "field_5eece1a0765cc",
+            "label": "Admin Emails",
+            "name": "admin_emails",
+            "type": "repeater",
+            "instructions": "These emails will receive all the admin notifications ex: New user signup, new project creations, new project assign, etc.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Add Email",
+            "sub_fields": [
+                {
+                    "key": "field_5eece276765cd",
+                    "label": "Admin Email",
+                    "name": "admin_email",
+                    "type": "email",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "acf-options-email-options"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1592582823
+}
