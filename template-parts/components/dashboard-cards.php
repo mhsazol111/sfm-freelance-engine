@@ -39,13 +39,10 @@
 		<?php endif; ?>
     </div>
 
-    <div class="pro_row">
-		<?php if ( 'freelance' == $role_template ) : ?>
-            <div class="count"><?php echo Custom::query_to_post_count( Freelancer::get_projects( get_current_user_id(), 'disputed' ) ); ?></div>
-            <div class="info"><?php _e( 'Resolved Projects', ET_DOMAIN ); ?></div>
-		<?php else : ?>
+	<?php if ( 'employer' == $role_template ) : ?>
+        <div class="pro_row">
             <div class="count"><?php echo Custom::query_to_post_count( Employer::get_projects( get_current_user_id(), 'disputing' ) ); ?></div>
             <div class="info"><?php _e( 'Cancelled Projects', ET_DOMAIN ); ?></div>
-		<?php endif; ?>
-    </div>
+        </div>
+	<?php endif; ?>
 </div><!-- End .project_info -->

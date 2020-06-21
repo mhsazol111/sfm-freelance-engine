@@ -200,7 +200,7 @@ h4.complete-profile-notice {
     flex-wrap: wrap;
 }
 #dashboard_content .project_info .pro_row{
-    flex-basis: calc( 20% - 25px );
+    flex: 1;
     margin-right: 30px;
     text-align: center;
     padding-top: 25px;
@@ -1821,13 +1821,9 @@ label.error, p.input-error {
     line-height: 80px !important;
     background-color: #f7f7f7;
 }
-.employee-edit-form .upload-title {
+.upload-title {
     font-size: 16px;
 }
-/* .fre-project-budget > span, 
-.fre-attached-list > li .attached-size {
-    display: none !important;
-} */
 .fre-project-budget>span {
     display: none !important;
 }
@@ -1872,18 +1868,26 @@ label.error, p.input-error {
     top: 4px;
 }
 .fre-input-field .select2-container, .fre-input-field .select2-container span.select2-selection {
-    height: 44px;
-    line-height: 44px;
+    min-height: 51px;
+    line-height: 51px;
     padding: 0;
     position: relative;
+    border-color: #cccccc;
+}
+#post-project-form input,
+#post-project-form div#country_chosen  {
+    min-height: 51px;
 }
 .bid-location-details .fre-project-budget .select2-container {
     display: block !important;
     width: 100% !important;
     margin-top: -14px;
+    overflow: hidden;
 }
 .bid-location-details .select2-container--default .select2-selection--single .select2-selection__rendered {
     line-height: 44px;
+    white-space: inherit !important;
+    font-size: 14px;
 }
 .bid-location-details .select2-container--default .select2-selection--single .select2-selection__arrow {
     height: 44px;
@@ -1905,7 +1909,8 @@ label.error, p.input-error {
 .fre-input-field .select2-container span.select2-selection ul {
     display: inherit;
     /*height: 44px;*/
-    line-height: 44px;
+    line-height: 51px;
+    margin: 0;
 }
 .fre-input-field .select2-container span.select2-selection span.select2-search input {
     margin: 0;
@@ -2562,7 +2567,16 @@ a.fpp-lightbox-image {
     font-size: 20px;
     padding: 10px 13px;
 }
-
+.uploader-overlay::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    left: 0;
+    top: 0;
+    opacity: .7;
+}
 @media only screen and (max-width: 991px) {
     .public-profile-page {
         padding-top: 50px;
@@ -2753,7 +2767,7 @@ a.fpp-lightbox-image {
     color: #ffc601;
     font-size: 10px;
 }
-.single-bid-wrapper .freelancer_row .freelancer-top .fpp-rating i.off::before, .proposal_rows .head_left .fpp-rating i.off::before, .proposal_rows .head_left .fpp-rating i.off::before, .project_info .fpp-rating i.off::before, .fpp-info-top .fpp-rating i.off::before, .project_info .fpp-rating i.off::before, #dashboard_content .proposals_row .fpp-rating i.off::before {
+.single-bid-wrapper .freelancer_row .freelancer-top .fpp-rating i.off::before, .proposal_rows .head_left .fpp-rating i.off::before, .proposal_rows .head_left .fpp-rating i.off::before, .project_info .fpp-rating i.off::before, .fpp-info-top .fpp-rating i.off::before, .project_info .fpp-rating i.off::before, #dashboard_content .proposals_row .fpp-rating i.off::before, .browse-project-wrapper .project_row .head_right .person_info i.off::before {
     color: #ddd !important;
 }
 .single-bid-wrapper .freelancer_row .freelancer-top .person_info {
@@ -2817,6 +2831,38 @@ a.fpp-lightbox-image {
 #bid-single-inner .head_left .head-left-two a i {
     padding-right: 5px;
 }
+.bid-file-attached {
+    padding-top: 10px;
+}
+.bid-file-attached .file_attached {
+    margin-top: 15px;
+}
+.bid-file-attached .file_attached a {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #eeeeee;
+    font-style: italic;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Open Sans";
+    display: flex;
+    word-break: break-all;
+    position: relative;
+}
+.bid-file-attached .file_attached a:not(:last-child) {
+    margin-bottom: 5px;
+}
+.bid-file-attached .file_attached a i.fa-paperclip {
+    margin-right: 10px;
+    margin-top: 5px;
+}
+.bid-file-attached .file_attached a i.fa-download {
+    color: #2094c6;
+    position: absolute;
+    right: 15px;
+    top: 10px;
+}
 
 
 @media only screen and (min-width: 992px) and (max-width: 1280px) {
@@ -2865,7 +2911,10 @@ a.fpp-lightbox-image {
 } */
 @media only screen and (max-width: 1199px) {
     .bid-location-details.three-column-row .fre-input-field, .three-column-row .input-field {
-        flex-basis: calc(50% - 15px);
+        flex-basis: 100%;
+    }
+    .bid-location-details.three-column-row .fre-input-field:first-child {
+        margin-bottom: 35px;
     }
     #bid-single-inner .head_left .head-left-one {
         width:100%;

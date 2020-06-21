@@ -66,7 +66,7 @@ if ( have_posts() ) : the_post(); ?>
 
 				endif; ?>
                 
-				<?php if ( $user_ID == get_queried_object()->post_author ): ?>
+				<?php if ( $user_ID == get_queried_object()->post_author ) : ?>
                     <div class="dashboard_inn single-projects-bid-wrap">
 						<?php get_template_part( 'template-parts/single-project', 'bidding' ); ?>
                     </div>

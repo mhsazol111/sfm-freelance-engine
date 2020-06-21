@@ -251,7 +251,7 @@ ul#menu-employer, ul#menu-freelance {
 /*****===== end header css =====*****/
 /* banner heading css */
 .fre-bg-content h1 {
-    font-size: 54px;
+    font-size: 44px;
     font-weight: 900;
     color: #fff;
     line-height: 1.2em;
@@ -805,6 +805,9 @@ footer .widget ul li a {
     .sfm-heading h1 {
         font-size: 36px;
     }
+    .fre-background.sfm-top-banner {
+        height: 700px;
+    }
 }
 
 /*==========================================
@@ -991,6 +994,17 @@ footer .widget ul li a {
     }
     body.admin-bar .fre-header-wrap {
         border: none;
+    }
+    .fre-background.sfm-top-banner .fre-bg-content {
+        top: 36%;
+        -webkit-transform: translateY(-36%);
+        -ms-transform: translateY(-36%);
+        transform: translateY(-36%);
+    }
+    .sfm-top-banner .fre-bg-content h1 {
+        font-size: 25px;
+        max-width: 100%;
+        margin-top: 0;
     }
 }
 @media only screen and (min-width: 481px) and (max-width: 560px) {

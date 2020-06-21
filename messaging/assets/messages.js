@@ -10,7 +10,7 @@ jQuery(document).ready(function ($) {
             la_get_message_item(project_id, author);
             liveChatting = setInterval(function () {
                 la_get_unread_item(project_id, author);
-            }, 10000);
+            }, 600000);
         }
     }
     $('.laSidebarMessage').on('click', function (e) {
@@ -27,7 +27,7 @@ jQuery(document).ready(function ($) {
         clearInterval(liveChatting);
         liveChatting = setInterval(function () {
             la_get_unread_item(project_id, author);
-        }, 10000);
+        }, 600000);
     });
     $('#la_message_reply_form').on('submit', function (e) {
         e.preventDefault();

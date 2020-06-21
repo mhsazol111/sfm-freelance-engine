@@ -17,7 +17,7 @@
             });
         }
 
-        if($('.budget-select2').length) {
+        if ($('.budget-select2').length) {
             $('.budget-select2').select2({
                 tags: true
             });
@@ -360,7 +360,15 @@
         $("body").on("submit", "#submit-proposal-form", function (e) {
             e.preventDefault();
 
+            let fileIds = [];
+            if ($(".fre-attached-list li").length) {
+                $("li.image-item").each(function () {
+                    fileIds.push($(this).attr("id"));
+                });
+            }
+
             let formData = new FormData(this);
+            formData.append("proposal_files", fileIds);
             formData.append("action", "sfm_submit_proposal");
             sfmAjaxFormSubmit(formData);
         });
@@ -448,5 +456,86 @@
                 },
             });
         }
+
+
+        // Custom File Upload
+        if ($('#sfm_file_upload_container').length) {
+            let uploader = new plupload.Uploader({
+                browse_button: 'sfm_file_uploader', // this can be an id of a DOM element or the DOM element itself
+                drop_element: 'sfm_file_uploader',
+                container: 'sfm_file_upload_container',
+                url: ajaxObject.upload,
+                runtimes: 'html5,gears,flash,silverlight,browserplus,html4',
+                multiple_queues: true,
+                multipart: true,
+                urlstream_upload: true,
+                upload_later: false,
+                filters: {
+                    mime_types: [
+                        {title: "Image files", extensions: "jpg,gif,png,jpgeg"},
+                        {title: "Zip files", extensions: "zip"},
+                        {title: "Doc files", extensions: "docx,xlsx,xls,doc,pdf"}
+                    ],
+                    max_file_size: "200mb",
+                    prevent_duplicates: true
+                }
+            });
+            uploader.init();
+
+            uploader.bind('FilesAdded', function (up, files) {
+                uploader.start();
+            });
+
+            uploader.bind('BeforeUpload', function (e) {
+                $('button[type="submit"]').attr('disabled', true);
+                $('#sfm_file_uploader').addClass('uploader-overlay').append('<div class="fre-loading-wrap"><div class="fre-loading"></div></div>');
+            });
+
+            uploader.bind('FileUploaded', function (up, file, result) {
+                console.log(file, result);
+                $('#image-list').append(`
+                <li class="image-item" id="${result.response}">
+                    <div class="attached-name"><p>${file.name}</p></div>
+                    <div class="attached-size">${file.size / 100}kb</div>
+                    <div class="attached-remove"><span class="delete-img delete" id="${result.response}"><i class="fa fa-times" aria-hidden="true"></i></span></div>
+                </li>`);
+            });
+
+            uploader.bind('UploadComplete', function (up, files) {
+                $('button[type="submit"]').attr('disabled', false);
+                $('#sfm_file_uploader').removeClass('uploader-overlay')
+                $('.fre-loading-wrap').remove();
+            });
+
+            uploader.bind('Error', function (up, err) {
+                alert("Error #" + err.code + ": " + err.message);
+                $('.fre-loading-wrap').remove();
+            });
+
+            // Delete uploaded image
+            $('body').on('click', '.delete-img', function (e) {
+                e.preventDefault();
+
+                let fileId = $(this).attr('id');
+                $.ajax({
+                    method: 'POST',
+                    url: ajaxObject.ajaxUrl,
+                    data: {
+                        action: 'sfm_file_delete',
+                        id: fileId
+                    },
+                    success: function (res) {
+                        if (res.success) {
+                            $('.image-item#' + fileId).remove();
+                        }
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                })
+            });
+        }
+
+
     });
 })(jQuery);

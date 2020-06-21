@@ -95,7 +95,7 @@ get_header();
                 <div class="dashboard_inn">
 
                     <div class="dashboard_title">
-                        <h2>Browse Projects</h2>
+                        <h2><?php _e( 'Browse Projects', ET_DOMAIN ) ?></h2>
                         <hr>
                     </div>
 

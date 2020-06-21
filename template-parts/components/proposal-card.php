@@ -13,12 +13,12 @@ $employers = Employer::get_employer( $project->employer_id );
     <div class="p_info">
         <div class="p-info-wraper">
             <div class="info-left">
-                <h4>Project: <?php echo $project->title; ?></h4>
-                <p class="degination">Client: <?php echo $employers->display_name; ?></p>
+                <h4><?php _e( 'Project:', ET_DOMAIN ) ?> <?php echo $project->title; ?></h4>
+                <p class="degination"><?php _e( 'Client:', ET_DOMAIN ) ?> <?php echo $employers->display_name; ?></p>
             </div>
         </div>
-        <p>Bids on: <span><?php echo date( 'F j, Y', strtotime( $proposal->post_date ) ); ?></span> | Total Bids:
+        <p><?php _e( 'Bids on:', ET_DOMAIN ) ?> <span><?php echo date( 'F j, Y', strtotime( $proposal->post_date ) ); ?></span> | <?php _e( 'Total Bids:', ET_DOMAIN ) ?>
             <span><?php echo $project->total_bids; ?></span></p>
-        <a class="ie_btn" href="<?php echo $proposal->guid; ?>">View Bid</a>
+        <a class="ie_btn" href="<?php echo $proposal->guid; ?>"><?php _e( 'View Bid', ET_DOMAIN ) ?></a>
     </div>
 </div><!-- End .proposals_row -->

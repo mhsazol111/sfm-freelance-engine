@@ -121,7 +121,7 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
                 echo $status_arr[ $post->post_status ];
                 ?></span> |
             <i class="far fa-clock"></i><?php _e( 'Posted on: ', ET_DOMAIN ); ?><span
-                    class="secondary-color"><?php echo $project->post_date; ?></span>
+                    class="secondary-color"><?php echo $project->post_date; ?></span> |
 			<?php if ( $post->post_status == 'close' || $post->post_status == 'disputing' ) { ?>
                 <i class="fas fa-trophy"></i>
 				<?php _e( 'Winning Bid: ', ET_DOMAIN ); ?>
@@ -129,7 +129,14 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
 			<?php } ?>
 				<i class="fas fa-trophy"></i>
 				<?php _e( 'Budget: ', ET_DOMAIN ); ?>
-				<span><?php echo $project->budget; ?></span> |
+				<span><?php 
+				$budgets = $project->et_budget; 
+				if(is_numeric($budgets)){ ?>
+					CHF <?php echo $budgets;
+				}else{ 
+					echo $budgets;
+				}
+				?></span> |
                 <i class="fas fa-hourglass-half"></i>
 				<?php _e( 'Deadline: ', ET_DOMAIN ); ?>
                 <span><?php echo date_i18n( "F j, Y", strtotime( $project->project_deadline ) );; ?></span>
@@ -140,12 +147,12 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
         <div class="project-detail-action">
 			<?php if ( $user_role == FREELANCER ): ?>
                 <!-- <div class="project-detail-action"> -->
-                <form action="" method="POST" class="edit-form" enctype="multipart/form-data">
-                    <button type="submit" name="submit_auth" class="send_message"><i class="far fa-envelope"
-                                                                                     aria-hidden="true"></i> Send
-                        Message
-                    </button>
-                </form>
+<!--                <a class="send_message" style="margin-right: 10px;" href="--><?php //echo esc_url(get_site_url() . '/messages?a_id=' . get_current_user_id() . '&p_id=' . $project->ID ) ?><!--"><i class="far fa-envelope"></i> --><?php //_e('Send Message', ET_DOMAIN); ?><!--</a>-->
+<!--                <form action="" method="POST" class="edit-form" enctype="multipart/form-data">-->
+<!--                    <button type="submit" name="submit_auth" class="send_message">-->
+<!--                        <i class="far fa-envelope" aria-hidden="true"></i> Send Message-->
+<!--                    </button>-->
+<!--                </form>-->
                 <!-- </div> -->
 			<?php endif; ?>
 

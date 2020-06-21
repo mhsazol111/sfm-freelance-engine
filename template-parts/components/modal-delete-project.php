@@ -6,14 +6,14 @@
                     <i class="fa fa-times"></i>
                 </button>
                 <h4 class="modal-title">
-					<?php _e( "Delete Project", ET_DOMAIN ) ?>
+                    <?php echo get_field( 'delete_project_title', 'option' ); ?>
                 </h4>
             </div>
             <div class="modal-body">
                 <form role="form" id="form_delete_project" class="fre-modal-form">
                     <input type="hidden" id="project_id" name="project_id">
                     <div class="fre-content-confirm">
-                        <h2><?php _e( 'Are you sure you want to delete this project?', ET_DOMAIN ); ?></h2>
+                        <?php echo get_field( 'delete_project_content', 'option' ); ?>
                     </div>
                     <div class="fre-form-btn">
                         <button type="submit" class="fre-normal-btn" id="submit_project_action"><?php _e( "Confirm", ET_DOMAIN ) ?></button>

@@ -328,7 +328,10 @@ p {
     line-height: 50px;
   }
   section#home-section-four .stwo-right.two {
-	margin-top: 30px;
+	  margin-top: 30px;
+  }
+  .fre-background.sfm-top-banner .fre-bg-content {
+    top: 55%;
   }
 }
 @media only screen and (max-width: 767px) {
@@ -405,6 +408,12 @@ p {
   }
   .cus-btn a {
     font-size: 14px;
+  }
+  .sfm-top-banner .fre-bg-content h1 {
+      font-size: 30px;
+  }
+  .fre-background.sfm-top-banner .fre-bg-content {
+    top: 50%;
   }
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {

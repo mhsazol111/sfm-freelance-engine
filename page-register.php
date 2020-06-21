@@ -176,30 +176,30 @@ $freelancer_singup_img   = get_field( 'freelancer_signup_image' );
                                 <input type="password" name="repeat_pass" id="repeat_pass"
                                        placeholder="<?php _e( 'Confirm Your Password', ET_DOMAIN ); ?>" required>
                             </div>
-                            <div class="fre-input-field">
+                            <!-- <div class="fre-input-field">
                                 <div class="select-box">
                                     <div class="select_icon"
                                         style="background-image: url('http://sfm.idevs.site/wp-content/themes/freelanceengine-child/inc/images/select-icon.svg');">
                                     </div>
                                     <select name="fre_country" id="fre_country" class="sfm-select2" required>
-                                        <option value=""><?php _e( 'Select Country', ET_DOMAIN ); ?></option>
+                                        <option value=""><?php //_e( 'Select Country', ET_DOMAIN ); ?></option>
                                         <?php
-                                        $countries           = get_terms( array(
-                                            'taxonomy'   => 'country',
-                                            'hide_empty' => false,
-                                        ) );
-                                        $selected_country_id = get_the_terms( $user_profile_post_id, 'country' );
-                                        foreach ( $countries as $country ) {
-                                            if ( $selected_country_id ) {
-                                                echo '<option value="' . $country->term_id . '" ' . ( $selected_country_id[0]->term_id == $country->term_id ? 'selected' : '' ) . '>' . $country->name . '</option>';
-                                            } else {
-                                                echo '<option value="' . $country->term_id . '">' . $country->name . '</option>';
-                                            }
-                                        }
+                                        // $countries           = get_terms( array(
+                                        //     'taxonomy'   => 'country',
+                                        //     'hide_empty' => false,
+                                        // ) );
+                                        // $selected_country_id = get_the_terms( $user_profile_post_id, 'country' );
+                                        // foreach ( $countries as $country ) {
+                                        //     if ( $selected_country_id ) {
+                                        //         echo '<option value="' . $country->term_id . '" ' . ( $selected_country_id[0]->term_id == $country->term_id ? 'selected' : '' ) . '>' . $country->name . '</option>';
+                                        //     } else {
+                                        //         echo '<option value="' . $country->term_id . '">' . $country->name . '</option>';
+                                        //     }
+                                        // }
                                         ?>
                                     </select>
                                 </div>
-                            </div>
+                            </div> -->
 							<?php ae_gg_recaptcha( $container = 'fre-input-field' ); ?>
 							<?php
 							$tos      = et_get_page_link( 'tos', array(), false );

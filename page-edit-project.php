@@ -19,7 +19,7 @@ get_header();
             <section id="dashboard_content">
                 <div class="dashboard_inn">
                     <div class="dashboard_title">
-                        <h2><?php _e( 'Post a project', ET_DOMAIN ); ?></h2>
+                        <h2><?php _e( 'Edit project', ET_DOMAIN ); ?></h2>
                         <hr>
                     </div>
 

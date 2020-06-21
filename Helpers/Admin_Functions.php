@@ -33,15 +33,8 @@ class Admin_Functions {
 			update_user_meta( $user_id, 'account_status', 'active' );
 
 			// Send Approved notification
-			$to      = get_userdata( $user_id )->user_email;
-			$subject = __( 'Account Approved.', ET_DOMAIN );
-			$message = __( "Thanks for your patience, Your account has been approved by SFM. Please update your profile information after login and proceed", ET_DOMAIN );
-			$headers = array(
-				"Content-Type: text/html",
-				"charset=UTF-8",
-				"From: SFM <email@sfm.com>"
-			);
-			wp_mail( $to, $subject, $message, $headers );
+			$user_email = get_userdata( $user_id )->user_email;
+			do_action( 'pending_user_approval_email', $user_email );
 
 			echo wp_json_encode( [
 				'success'  => true,

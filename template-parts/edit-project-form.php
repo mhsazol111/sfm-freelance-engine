@@ -96,11 +96,23 @@
                 <div class="bid-location-details three-column-row">
                     <div class="fre-input-field">
                         <label class="fre-field-title"
-                               for="project-budget"><?php _e( 'Budget for your project', ET_DOMAIN ); ?></label>
+                               for="project-budget"><?php _e( 'Budget', ET_DOMAIN ); ?></label>
                         <div class="fre-project-budget">
-                            <input type="number" id="et_budget" class="input-item text-field is_number numberVal"
+                            <!-- <input type="number" id="et_budget" class="input-item text-field is_number numberVal"
                                    name="et_budget"
-                                   value="<?php echo get_post_meta( $_REQUEST['id'], 'et_budget', true ); ?>" required>
+                                   value="<?php //echo get_post_meta( $_REQUEST['id'], 'et_budget', true ); ?>" required> -->
+                            <select name="et_budget" id="et_budget" class="budget-select2" required>
+                                <?php
+                                $e_budget = get_post_meta( $_REQUEST['id'], 'et_budget', true );
+                                if($e_budget == 'To be determined'): ?>
+                                    <option value="To be determined" selected><?php _e( 'To be determined', ET_DOMAIN ); ?></option>
+                                <?php elseif($e_budget == 'Negotiable'): ?>
+                                    <option value="Negotiable" selected><?php _e( 'Negotiable', ET_DOMAIN ); ?></option>
+                                <?php else : ?>
+                                    <option value="<?php echo $e_budget ?>" selected><?php echo $e_budget ?></option>
+                                <?php endif
+                                ?>
+                            </select>
                         </div>
                     </div>
                     <div class="fre-input-field">
@@ -153,7 +165,7 @@
                         <p class="fre-allow-upload">
 							<?php _e( 'Upload maximum 5 files with extensions including png, jpg, pdf, xls, and doc format', ET_DOMAIN ); ?>
                         </p>
-                        <h3 class="upload-title">File Attached</h3>
+                        <h3 class="upload-title"><?php _e( 'File Attached', ET_DOMAIN ); ?></h3>
                         <ul class="fre-attached-list gallery-image carousel-list" id="image-list"></ul>
                         <ul class="fre-attached-list gallery-image carousel-list">
 							<?php
@@ -188,7 +200,7 @@
                 <input type="hidden" name="project_id" id="project_id" class="project_id" value="<?php echo $_REQUEST['id']; ?>">
                 <div class="fre-post-project-btn">
                     <button class="fre-btn submit" type="submit"
-                            name="submit"><?php _e( "Post a project", ET_DOMAIN ); ?></button>
+                            name="submit"><?php _e( "Update project", ET_DOMAIN ); ?></button>
                 </div>
             </div>
         </form>

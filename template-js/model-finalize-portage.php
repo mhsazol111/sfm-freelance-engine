@@ -6,14 +6,14 @@
                     <i class="fa fa-times"></i>
                 </button>
                 <h4 class="modal-title">
-                    <?php echo get_field( 'bid_retraction_title', 'option' ); ?>
+                    <?php echo get_field( 'finalize_portage_title', 'option' ); ?>
                     <?php //_e( "Bid Retraction new", ET_DOMAIN ) ?>
                 </h4>
             </div>
             <div class="modal-body">
                 <form role="form" id="form-finalize-portage" class="form-finalize-portage fre-modal-form">
                     <div class="fre-content-confirm">
-                        <?php echo get_field( 'bid_retraction_content', 'option' ); ?>
+                        <?php echo get_field( 'finalize_portage_content', 'option' ); ?>
                         <!-- <h2><?php //_e( 'Are you sure you want to cancel your bid on this project?', ET_DOMAIN ); ?></h2>
                         <p><?php //_e( 'Once you cancel the bid, this project will be removed from your working list. However, you can bid this project again after canceling.', ET_DOMAIN ); ?></p> -->
                     </div>

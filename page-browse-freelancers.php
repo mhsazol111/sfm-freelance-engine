@@ -81,7 +81,7 @@ $loop = new WP_Query( $query_args );
 								endwhile;
 								echo Custom::pagination( $loop );
 							else :
-								echo "Nothing Found";
+								echo _e( 'Nothing Found', ET_DOMAIN );
 							endif;
 							?>
                         </div>

@@ -73,12 +73,12 @@ $bid_freelancer = Freelancer::get_freelancer( $bid->freelancer_id );
 
             <div class="head_right">
 				<?php //if ( $show_bid_info ) {?>
-                <p class="hidden-lg hidden-md hidden-sm"><?php _e( 'Bid', ET_DOMAIN ); ?></p>
-                <h3>CHF <?php echo $bid->bid_daily_wage ?> Per Day</h3>
-                <span>For <?php echo $bid->bid_work_days; ?> <?php echo $bid->bid_work_days > 1 ? 'days' : 'day'; ?></span>
-                <p>Accomplished by: <span><?php echo date( "d-M-Y", strtotime( $bid->bid_deadline ) ); ?></span></p>
-				<p>Company budget: <span><?php echo $project->budget; ?></span></p>
-				<p>Company Deadline: <span><?php echo date_i18n( "F j, Y", strtotime( $project->project_deadline ) );; ?></span></p>
+                <!-- <p class="hidden-lg hidden-md hidden-sm"><?php //_e( 'Bid', ET_DOMAIN ); ?></p> -->
+                <h3>CHF <?php echo $bid->bid_daily_wage ?> <?php _e( '/Day', ET_DOMAIN ) ?></h3>
+                <span><?php _e( 'For', ET_DOMAIN ) ?> <?php echo $bid->bid_work_days; ?> <?php echo $bid->bid_work_days > 1 ? 'days' : 'day'; ?></span>
+                <p><?php _e( 'Accomplished by:', ET_DOMAIN ) ?> <span><?php echo date( "d-M-Y", strtotime( $bid->bid_deadline ) ); ?></span></p>
+				<p><?php _e( 'Company budget:', ET_DOMAIN ) ?> <span><?php echo $project->budget; ?></span></p>
+				<p><?php _e( 'Company Deadline:', ET_DOMAIN ) ?> <span><?php echo date_i18n( "F j, Y", strtotime( $project->project_deadline ) );; ?></span></p>
 				<?php 
 				// echo "<pre>";
 				// pri_dump($project);
@@ -130,12 +130,11 @@ $bid_freelancer = Freelancer::get_freelancer( $bid->freelancer_id );
 		<?php if ( $user_ID == $project->post_author ): ?>
             <div class="d_footer">
                 <div class="footer_left">
-                    <!-- <a class="ie_btn send_message" href="#"><i class="far fa-envelope"></i> Send Message</a> -->
-                    <form action="" method="POST" class="edit-form" enctype="multipart/form-data">
-                        <button type="submit" name="submit_<?php echo $convert->post_author; ?>"
-                                class="ie_btn send_message"><i class="far fa-envelope"></i> Send Message
-                        </button>
-                    </form>
+                     <a class="ie_btn send_message" href="<?php echo esc_url(get_site_url() . '/messages?a_id=' . $bid->freelancer_id . '&p_id=' . $project->ID ) ?>"><i class="far fa-envelope"></i> <?php _e('Send Message', ET_DOMAIN); ?></a>
+<!--                    <form action="" method="POST" class="edit-form" enctype="multipart/form-data">-->
+<!--                        <button type="submit" name="submit_--><?php //echo $convert->post_author; ?><!--" class="ie_btn send_message"><i class="far fa-envelope"></i> Send Message-->
+<!--                        </button>-->
+<!--                    </form>-->
                 </div>
 
                 <div class="footer_right">

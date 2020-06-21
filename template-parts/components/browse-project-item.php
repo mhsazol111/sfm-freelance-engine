@@ -10,12 +10,12 @@ $originalDate = $project->project_deadline;
         <div class="head_left">
             <h3><a href="<?php echo $project->url; ?>"><?php echo $project->title; ?></a></h3>
             <div class="e_nav">
-                Posted on: <span><?php echo date( 'F j, Y', strtotime( $project->post_date ) ); ?></span> &nbsp;|&nbsp;
-                Categories:
+            <?php _e( 'Posted on:', ET_DOMAIN ) ?> <span><?php echo date( 'F j, Y', strtotime( $project->post_date ) ); ?></span> &nbsp;|&nbsp;
+            <?php _e( 'Categories:', ET_DOMAIN ) ?>
 				<?php
 				echo Employer::get_project_terms( $project->id, 'project_category', true, '', true );
 				?> &nbsp;|&nbsp;
-                Bids: <span><?php echo $project->total_bids ?? 0; ?></span>
+                <?php _e( 'Bids:', ET_DOMAIN ) ?> <span><?php echo $project->total_bids ?? 0; ?></span>
             </div>
             <div class="content">
 				<?php
@@ -50,11 +50,18 @@ $originalDate = $project->project_deadline;
                     </div>
                 </div>
                 <div class="freelancer_info">
-                    <p><strong><i class="far fa-money-bill-alt"></i> Budget:</strong> <span>$<?php echo $project->et_budget; ?></span>
+                    <p><strong><i class="far fa-money-bill-alt"></i> <?php _e( 'Budget:', ET_DOMAIN ) ?></strong> <span><?php
+                    $budgets = $project->et_budget; 
+                    if(is_numeric($budgets)){ ?>
+                        CHF <?php echo $budgets;
+                    }else{ 
+                        echo $budgets;
+                    }
+                    ?></span>
                     </p>
-                    <p><strong><i class="far fa-clock"></i> Deadline:</strong> <span><?php echo $newDate = date("d-M-Y", strtotime($originalDate)); ?></span></p>
+                    <p><strong><i class="far fa-clock"></i> <?php _e( 'Deadline:', ET_DOMAIN ) ?></strong> <span><?php echo $newDate = date("d-M-Y", strtotime($originalDate)); ?></span></p>
 <!--                    <p><strong><i class="fas fa-user-check"></i> Hired So Far:</strong> <span>--><?php //echo $project->total_bids; ?><!--</span>-->
-                    <p><strong><i class="far fa-check-circle"></i> Completed Project:</strong>
+                    <p><strong><i class="far fa-check-circle"></i> <?php _e( 'Completed Project:', ET_DOMAIN ) ?></strong>
                         <span><?php echo Custom::query_to_post_count( Employer::get_projects( $project->id, 'complete' ) ); ?></span>
                     </p>
                 </div>

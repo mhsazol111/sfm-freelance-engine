@@ -64,14 +64,14 @@
                 <div class="bid-location-details three-column-row">
                     <div class="fre-input-field">
                         <label class="fre-field-title"
-                               for="et_budget"><?php _e( 'Budget for your project (CHF)', ET_DOMAIN ); ?><span><?php _e( '(fill without currency)', ET_DOMAIN ); ?></span></label>
+                               for="et_budget"><?php _e( 'Budget (CHF)', ET_DOMAIN ); ?></label>
                         <div class="fre-project-budget">
                             <!-- <input type="number" id="et_budget" class="input-item text-field is_number numberVal"
                                    name="et_budget" required> -->
                             <select name="et_budget" id="et_budget" class="budget-select2" required>
-                                <option></option>
-                                <option><?php _e( 'To be determined', ET_DOMAIN ); ?></option>
-                                <option><?php _e( 'Negotiable', ET_DOMAIN ); ?></option>
+                                <option value=""><?php _e( 'Input your budget or Select from dropdown', ET_DOMAIN ); ?></option>
+                                <option value="To be determined"><?php _e( 'To be determined', ET_DOMAIN ); ?></option>
+                                <option value="Negotiable"><?php _e( 'Negotiable', ET_DOMAIN ); ?></option>
                             </select>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                         <p class="fre-allow-upload">
 							<?php _e( 'Upload maximum 5 files with extensions including png, jpg, pdf, xls, and doc format', ET_DOMAIN ); ?>
                         </p>
-                        <h3 class="upload-title">File Attached</h3>
+                        <h3 class="upload-title"><?php _e( "File Attached", ET_DOMAIN ); ?></h3>
                         <ul class="fre-attached-list gallery-image carousel-list" id="image-list"></ul>
                     </div>
                 </div>

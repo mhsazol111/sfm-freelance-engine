@@ -24,7 +24,14 @@ $bid             = Freelancer::get_bid( get_the_ID() );
 $project_id = $bid->project_id;
 $project    = Employer::get_project( $project_id );
 $employer   = Employer::get_employer( $project->employer_id );
-//pri_dump($employer);
+
+$attachment = get_children( array(
+	'numberposts' => - 1,
+	'order' => 'ASC',
+	'post_parent' => $bid_convert->ID,
+	'post_type' => 'attachment',
+), OBJECT );
+// pri_dump($attachment);
 if ( have_posts() ) {
 	the_post(); ?>
 
@@ -41,15 +48,15 @@ if ( have_posts() ) {
                             <div class="head-left-one">
                                 <h3><?php the_title(); ?></h3>
                                 <div class="e_nav">
-                                    Posted on: <span><?php echo $convert->post_date; ?></span> &nbsp;|&nbsp; Project
-                                    Status:
+                                    <?php _e( 'Posted on:', ET_DOMAIN ) ?> <span><?php echo $convert->post_date; ?></span> &nbsp;|&nbsp; <?php _e( 'Project
+                                    Status:', ET_DOMAIN ) ?>
                                     <span><?php echo $convert->status_text; ?></span>
-                                    &nbsp;|&nbsp; Total Bids: <span><?php echo $bid_convert->total_bids; ?></span>
+                                    &nbsp;|&nbsp; <?php _e( 'Total Bids:', ET_DOMAIN ) ?> <span><?php echo $bid_convert->total_bids; ?></span>
 
                                 </div>
                                 <div class="e_nav nav2">
-                                    Posted By: <span><?php echo $employer->display_name; ?></span> &nbsp;|&nbsp;
-                                    Company: <span><?php echo $employer->company_name; ?></span>
+                                    <?php _e( 'Posted By:', ET_DOMAIN ) ?> <span><?php echo $employer->display_name; ?></span> &nbsp;|&nbsp;
+                                    <?php _e( 'Company:', ET_DOMAIN ) ?> <span><?php echo $employer->company_name; ?></span>
                                 </div>
                             </div>
                             <div class="head-left-two">
@@ -69,7 +76,7 @@ if ( have_posts() ) {
 //                                    }
                                 // }
                             ?>
-                                <a href="<?php echo get_permalink($project_id) ?>" class="ie_btn">View Project</a>
+                                <a href="<?php echo get_permalink($project_id) ?>" class="ie_btn"><?php _e( 'View Project', ET_DOMAIN ) ?></a>
                             </div>
                             <div class="divider">
                                 </hr>
@@ -77,6 +84,23 @@ if ( have_posts() ) {
                             <div class="content">
 								<?php the_content(); ?>
                             </div>
+                            <div class="divider">
+                                </hr>
+                            </div>
+                            <?php if ( ! empty( $attachment ) ): ?>
+                                <div class="bid-file-attached">
+                                    <h4><?php _e( 'File Attached', ET_DOMAIN ); ?></h4>
+                                    <div class="file_attached">
+                                        <?php
+                                        foreach ( $attachment as $key => $att ) {
+                                            echo '<a href="' . $att->guid . '" download><i class="fas fa-paperclip"></i><span>' . $att->post_title . '</span> <i
+                                            class="fas fa-download"></i></a>';
+                                        }
+
+                                        ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class=" head_right">
                             <div class="freelancer_row">
@@ -96,13 +120,13 @@ if ( have_posts() ) {
                                     </div>
                                 </div>
                                 <div class="freelancer_info">
-                                    <p><i class="far fa-money-bill-alt" aria-hidden="true"></i> Proposal:
-                                        <span>CHF <?php echo $bid->bid_daily_wage; ?>/Days</span></p>
-                                    <p><i class="far fa-clock" aria-hidden="true"></i> Work Days:
-                                        <span>In <?php echo $bid->bid_work_days; ?> Day</span></p>
-                                    <p><i class="far fa-clock" aria-hidden="true"></i> Deadline:
+                                    <p><i class="far fa-money-bill-alt" aria-hidden="true"></i> <?php _e( 'Proposal:', ET_DOMAIN ) ?>
+                                        <span>CHF <?php echo $bid->bid_daily_wage; ?><?php _e( '/Days', ET_DOMAIN ) ?></span></p>
+                                    <p><i class="far fa-clock" aria-hidden="true"></i> <?php _e( 'Work Days:', ET_DOMAIN ) ?>
+                                        <span><?php _e( 'In', ET_DOMAIN ) ?> <?php echo $bid->bid_work_days; ?> <?php _e( 'Day', ET_DOMAIN ) ?></span></p>
+                                    <p><i class="far fa-clock" aria-hidden="true"></i> <?php _e( 'Deadline:', ET_DOMAIN ) ?>
                                         <span><?php echo date( "d-M-Y", strtotime( $bid->bid_deadline ) ); ?></span></p>
-                                    <p><i class="far fa-check-circle" aria-hidden="true"></i> Completed Project:
+                                    <p><i class="far fa-check-circle" aria-hidden="true"></i> <?php _e( 'Completed Project:', ET_DOMAIN ) ?>
                                         <span><?php echo $bid_convert->total_projects_worked; ?></span>
                                     </p>
                                 </div>

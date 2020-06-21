@@ -36,9 +36,9 @@ if ( USER_ROLE == 'freelancer' ) {
                 <?php endif; ?>
             </p>
 			<?php if ( USER_ROLE == 'freelancer' ) : ?>
-                <a class="ie_btn" href="<?php echo home_url( 'projects' ) ?>">Browse Projects</a>
+                <a class="ie_btn" href="<?php echo home_url( 'projects' ) ?>"><?php _e( 'Browse Projects', ET_DOMAIN ) ?></a>
 			<?php else : ?>
-                <a class="ie_btn" href="<?php echo home_url( 'post-project' ) ?>">Post a Project</a>
+                <a class="ie_btn" href="<?php echo home_url( 'post-project' ) ?>"><?php _e( 'Post a Project', ET_DOMAIN ) ?></a>
 			<?php endif; ?>
         </div>
     </div>

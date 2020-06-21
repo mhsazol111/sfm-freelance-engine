@@ -70,17 +70,18 @@ get_header();
                     </div>
 
                     <div class="message_container">
-						<?php if ( count( $message_titles ) > 0 ) : ?>
+						<?php
+						$is_new_message = ! empty( $a_id ) && ! empty( $p_id );
+						$check_url      = array_filter( $message_titles, function ( $mt ) use ( $a_id, $p_id ) {
+							return ( $mt->ID == $p_id ) && ( $mt->author_id == $a_id );
+						} );
+						$has_active     = count( $check_url ) > 0;
+
+						if ( count( $message_titles ) > 0 ) : ?>
                             <div class="message_title">
 
                                 <div class="la_message_inn">
 									<?php
-									$check_url      = array_filter( $message_titles, function ( $mt ) use ( $a_id, $p_id ) {
-										return ( $mt->ID == $p_id ) && ( $mt->author_id == $a_id );
-									} );
-									$has_active     = count( $check_url ) > 0;
-									$is_new_message = ! empty( $a_id ) && ! empty( $p_id );
-
 									if ( ! $has_active && $is_new_message ) {
 										$proj     = get_post( $p_id );
 										$userdata = EMPLOYER == ae_user_role() ? get_userdata( $a_id ) : '';
@@ -93,8 +94,10 @@ get_header();
                                         <div class="m_t_row active">
                                             <a href="javascript:void(0)" class="laSidebarMessage"
                                                data-project="<?= $proj->ID; ?>" data-author="<?= $a_id; ?>">
-												<?php echo get_avatar( $avater_user, 35 ); ?>
-												<?= wp_strip_all_tags( $proj->post_title ); ?> <?php if ( EMPLOYER == ae_user_role() ) { ?> - (<?= get_the_author_meta( 'display_name', $avater_user ); ?>) <?php } ?></a>
+												<?php // echo get_avatar( $avater_user, 35 ); ?>
+                                                <h3><?php if ( EMPLOYER == ae_user_role() ) { ?><?= get_the_author_meta( 'display_name', $avater_user ); ?><?php } ?></h3>
+                                                <p><?= wp_strip_all_tags( $proj->post_title ); ?></p>
+                                            </a>
                                         </div>
 										<?php
 									}
@@ -150,12 +153,12 @@ get_header();
                             </div><!-- .message_title -->
 
                             <div class="la_author_messages m_c_row">
-                                <div id="la_message_ajax_container" class="la_is_loading"></div>
+                                    <div id="la_message_ajax_container" class="la_is_loading"></div>
                                 <div class="la_message_reply_container">
                                     <form id="la_message_reply_form">
 										<?php wp_nonce_field( '_la_message_reply', 'reply_nonce' ); ?>
-                                        <input type="hidden" name="project_id" value="1">
-                                        <input type="hidden" name="author_id" value="1">
+                                        <input type="hidden" name="project_id" value="<?php echo $p_id; ?>">
+                                        <input type="hidden" name="author_id" value="<?php echo $a_id; ?>">
                                         <div class="la_message_writer">
                                             <!-- <textarea name="reply_message" id="la_reply_msg" class="form-control" rows="3" placeholder="<?php //esc_html_e( 'Write a reply...', 'link-able' );
 											?>"></textarea> -->
@@ -189,6 +192,15 @@ get_header();
             </section>
         </div>
     </div>
-
+    <?php if (isset($p_id) && isset($a_id)) ?>
+    <script>
+        ;(function ($) {
+            $(document).ready(function () {
+                setTimeout(function() {
+                    $(".m_t_row.active .laSidebarMessage").click();
+                },10);
+            });
+        })(jQuery);
+    </script>
 <?php
 get_footer();

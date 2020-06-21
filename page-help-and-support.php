@@ -2,6 +2,9 @@
     /**
      * Template Name: Help and Support
      */
+    if ( ! get_user_meta( get_current_user_id(), 'user_profile_id', true ) ) {
+        wp_redirect( home_url() . '/edit-profile' );
+    }
 
     get_header();
 

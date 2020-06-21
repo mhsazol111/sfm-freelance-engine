@@ -9,17 +9,24 @@ $employer   = Employer::get_employer( $project->employer_id );
             <div class="head_left">
                 <h3><a href="<?php echo $project->url; ?>"><?php echo $project->title; ?></a></h3>
                 <div class="e_nav">
-                    Posted on: <span><?php echo date( 'F j, Y', strtotime( $project->post_date ) ); ?></span> &nbsp;|&nbsp;
-                    Categories:
+                    <?php _e( 'Posted on:', ET_DOMAIN ) ?> <span><?php echo date( 'F j, Y', strtotime( $project->post_date ) ); ?></span> &nbsp;|&nbsp;
+                    <?php _e( 'Categories:', ET_DOMAIN ) ?>
                     <div class="cats">
 						<?php
 						$categories = Employer::get_project_terms( $project->id, 'project_category', true, '', true );
 						echo $categories;
 						?>
                     </div> &nbsp;|&nbsp;
-                    Bids: <span><?php echo ($project->total_bids ?? 0); ?></span> &nbsp;|&nbsp;
-                    Budget: <span>$<?php echo $project->et_budget; ?></span> &nbsp;|&nbsp;
-                    Deadline: <span><?php echo date( 'F j, Y', strtotime( $project->project_deadline ) ); ?></span>
+                    <?php _e( 'Bids:', ET_DOMAIN ) ?> <span><?php echo ($project->total_bids ?? 0); ?></span> &nbsp;|&nbsp;
+                    <?php _e( 'Budget:', ET_DOMAIN ) ?> <span><?php
+                    $budgets = $project->et_budget; 
+                    if(is_numeric($budgets)){ ?>
+                        CHF <?php echo $budgets;
+                    }else{ 
+                        echo $budgets;
+                    }
+                    ?></span> &nbsp;|&nbsp;
+                    <?php _e( 'Deadline:', ET_DOMAIN ) ?> <span><?php echo date( 'F j, Y', strtotime( $project->project_deadline ) ); ?></span>
                 </div>
             </div>
             <div class="head_right">
@@ -38,7 +45,13 @@ $employer   = Employer::get_employer( $project->employer_id );
                         echo '<span class="ie_btn_small ie_btn_red">Drafted</span>';
                     }
 				?>
-                <h3>$<?php echo $project->et_budget; ?></h3>
+                <h3><?php
+                if(is_numeric($budgets)){ ?>
+                    CHF <?php echo $budgets;
+                }else{ 
+                    echo $budgets;
+                }
+                ?></h3>
                 <span><?php echo date( 'F j, Y', strtotime( $project->project_deadline ) ); ?></span>
             </div>
         </div>
@@ -60,11 +73,11 @@ $employer   = Employer::get_employer( $project->employer_id );
             </div>
             <div class="footer_right">
                 <a class="ie_btn ie_btn_blue" href="<?php echo $project->url ?>">
-                    <i class="far fa-eye" aria-hidden="true"></i> View Project
+                    <i class="far fa-eye" aria-hidden="true"></i> <?php _e( 'View Project', ET_DOMAIN ) ?>
                 </a>
                 <?php if ( 'publish' == $project->status || 'draft' == $project->status ) { ?>
                     <a class="ie_btn ie_btn_green" href="<?php echo et_get_page_link( 'edit-project' ) ?>?id=<?php echo $project->id; ?>">
-                        <i class="far fa-edit" aria-hidden="true"></i> Edit
+                        <i class="far fa-edit" aria-hidden="true"></i> <?php _e( 'Edit', ET_DOMAIN ) ?>
                     </a>
                 <?php } ?>
                 <!-- <a class="ie_btn ie_btn_green" href="<?php //echo et_get_page_link( 'submit-project' ) ?>?id=<?php //echo $project->id; ?>">
@@ -72,12 +85,12 @@ $employer   = Employer::get_employer( $project->employer_id );
                 </a> -->
 				<?php if ( 'draft' == $project->status ) : ?>
                     <a id="project-delete" class="ie_btn ie_btn_red custom-project-action" data-action="delete" data-project-id="<?php echo $project->id; ?>">
-                        <i class="fas fa-archive" aria-hidden="true"></i> Delete
+                        <i class="fas fa-archive" aria-hidden="true"></i> <?php _e( 'Delete', ET_DOMAIN ) ?>
                     </a>
 				<?php endif; ?>
 				<?php if ( 'publish' == $project->status ) : ?>
                     <a id="project-archive" class="ie_btn ie_btn_red custom-project-action" data-action="archive" data-project-id="<?php echo $project->id; ?>">
-                        <i class="fas fa-archive" aria-hidden="true"></i> Archive
+                        <i class="fas fa-archive" aria-hidden="true"></i> <?php _e( 'Archive', ET_DOMAIN ) ?>
                     </a>
 				<?php endif; ?>
             </div>

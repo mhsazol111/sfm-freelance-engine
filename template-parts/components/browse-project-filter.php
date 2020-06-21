@@ -14,7 +14,7 @@ $budget_range = Custom::get_project_meta_range( 'et_budget' );
     <form id="browse-project-form">
         <div class="form-group">
             <input type="text" class="form-control" id="project-search" name="project-search"
-                   placeholder="Search Projects by keyword">
+                   placeholder="<?php _e( 'Search Projects by keyword', ET_DOMAIN ) ?>">
             <button type="submit"><i class="fas fa-search"></i></button>
         </div>
 
@@ -22,7 +22,7 @@ $budget_range = Custom::get_project_meta_range( 'et_budget' );
             <div class="select_icon"
                  style="background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/inc/images/select-icon.svg');"></div>
             <select class="custom-select form-control" id="project-skill" name="project-skill">
-                <option value="">Select Projects by Skill</option>
+                <option value=""><?php _e( 'Select Projects by Skill', ET_DOMAIN ) ?></option>
 				<?php
 				foreach ( $skills as $skill ) {
 					$selected = ( $current_skill == $skill->slug ? 'selected' : '' );
@@ -36,7 +36,7 @@ $budget_range = Custom::get_project_meta_range( 'et_budget' );
             <div class="select_icon"
                  style="background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/inc/images/select-icon.svg');"></div>
             <select class="custom-select form-control" id="project-category" name="project-category">
-                <option value="">Select Project Category</option>
+                <option value=""><?php _e( 'Select Project Category', ET_DOMAIN ) ?></option>
 				<?php
 				foreach ( $categories as $category ) {
 					$selected = ( $current_category == $category->slug ? 'selected' : '' );
@@ -50,7 +50,7 @@ $budget_range = Custom::get_project_meta_range( 'et_budget' );
             <div class="select_icon"
                  style="background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/inc/images/select-icon.svg');"></div>
             <select class="custom-select form-control" id="project-bid" name="project-bid">
-                <option value="">Number of Bids</option>
+                <option value=""><?php _e( 'Number of Bids', ET_DOMAIN ) ?></option>
 				<?php
 				foreach ( $bids_range as $br ) {
 					echo '<option value="' . $br . '">' . $br . '</option>';
@@ -63,7 +63,7 @@ $budget_range = Custom::get_project_meta_range( 'et_budget' );
             <div class="select_icon"
                  style="background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/inc/images/select-icon.svg');"></div>
             <select class="custom-select form-control" id="project-country" name="project-country">
-                <option value="">Select Country</option>
+                <option value=""><?php _e( 'Select Country', ET_DOMAIN ) ?></option>
 				<?php
 				foreach ( $countries as $country ) {
 					echo '<option value="' . $country->slug . '">' . $country->name . '</option>';
@@ -73,7 +73,7 @@ $budget_range = Custom::get_project_meta_range( 'et_budget' );
         </div>
 
         <div class="form-group budget_range">
-            <span class="d_label">Budget Range</span>
+            <span class="d_label"><?php _e( 'Budget Range', ET_DOMAIN ) ?></span>
             <div id="project-budget-step"></div>
 
             <input type="hidden" name="project-min-budget" id="project-min-budget"
@@ -83,7 +83,7 @@ $budget_range = Custom::get_project_meta_range( 'et_budget' );
         </div>
 
         <div class="clear_div">
-            <button id="clear-browse-form">Clear all filters</button>
+            <button id="clear-browse-form"><?php _e( 'Clear all filters', ET_DOMAIN ) ?></button>
         </div>
     </form>
     <script>

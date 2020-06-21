@@ -160,7 +160,7 @@ $currency = ae_get_option( 'currency', array(
 
 
                     <div class="latest_messages">
-                        <h4>Latest Messages</h4>
+                        <h4><?php _e( 'Latest Messages', ET_DOMAIN ) ?></h4>
 
 
 						<?php // Employer::get_messages( get_current_user_id() ); ?>
@@ -168,7 +168,7 @@ $currency = ae_get_option( 'currency', array(
 						<?php get_template_part( 'template-parts/components/message', 'card' ); ?>
 
                         <div class="view_all_nfo">
-                            <a href="<?php echo get_site_url() . '/messages'; ?>">View All Messages</a>
+                            <a href="<?php echo get_site_url() . '/messages'; ?>"><?php _e( 'View All Messages', ET_DOMAIN ) ?></a>
                         </div>
                     </div><!-- End .latest_messages -->
 
@@ -183,11 +183,11 @@ $currency = ae_get_option( 'currency', array(
 									include( locate_template( 'template-parts/components/proposal-card.php' ) );
 								}
 							} else {
-								echo '<p>No New Proposals Found!</p>';
+								_e( 'No New Proposals Found!', ET_DOMAIN );
 							}
 							?>
                             <div class="view_all_nfo">
-                                <a href="<?php echo esc_url( home_url( 'projects' ) ); ?>">View All Projects</a>
+                                <a href="<?php echo esc_url( home_url( 'projects' ) ); ?>"><?php _e( 'View All Projects', ET_DOMAIN ) ?></a>
                             </div>
 
 						<?php else : ?>
@@ -199,12 +199,12 @@ $currency = ae_get_option( 'currency', array(
 									include( locate_template( 'template-parts/components/bid-card.php' ) );
 								}
 							} else {
-								echo '<p>No New Bids Found!</p>';
+								_e( 'No New Bids Found!', ET_DOMAIN );
 							}
 							?>
 
                             <div class="view_all_nfo">
-                                <a href="<?php echo esc_url( home_url( 'my-projects' ) ); ?>">View All Projects</a>
+                                <a href="<?php echo esc_url( home_url( 'my-projects' ) ); ?>"><?php _e( 'View All Projects', ET_DOMAIN ) ?></a>
                             </div>
 
 						<?php endif; ?>

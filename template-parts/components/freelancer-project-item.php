@@ -13,8 +13,8 @@ $employer   = Employer::get_employer( $project->employer_id );
             <div class="head_left">
                 <h3><a href="<?php echo $project->url; ?>"><?php echo $project->title; ?></a></h3>
                 <div class="e_nav">
-                    Posted on: <span><?php echo date( 'F j, Y', strtotime( $project->post_date ) ); ?></span> &nbsp;|&nbsp;
-                    Categories:
+					<?php _e( 'Posted on:', ET_DOMAIN ) ?> <span><?php echo date( 'F j, Y', strtotime( $project->post_date ) ); ?></span> &nbsp;|&nbsp;
+                    <?php _e( 'Categories:', ET_DOMAIN ) ?>
                     <div class="cats">
 						<?php
 						$categories = Employer::get_project_terms( $project->id, 'project_category', true, '', true );
@@ -23,10 +23,17 @@ $employer   = Employer::get_employer( $project->employer_id );
                     </div>
 				</div>
 				<div class="e_nav nav2">
-					Posted By: <span><?php echo $employer->display_name; ?></span> &nbsp;|&nbsp;
-					Company: <span><?php echo $employer->company_name; ?></span> &nbsp;|&nbsp;
-					Budget: <span>$<?php echo $project->et_budget; ?></span> &nbsp;|&nbsp;
-					Deadline: <span><?php echo date( 'F j, Y', strtotime( $project->project_deadline ) ); ?></span>
+					<?php _e( 'Posted By:', ET_DOMAIN ) ?> <span><?php echo $employer->display_name; ?></span> &nbsp;|&nbsp;
+					<?php _e( 'Company:', ET_DOMAIN ) ?> <span><?php echo $employer->company_name; ?></span> &nbsp;|&nbsp;
+					<?php _e( 'Budget:', ET_DOMAIN ) ?> <span><?php
+					$budgets = $project->et_budget; 
+                    if(is_numeric($budgets)){ ?>
+                        CHF <?php echo $budgets;
+                    }else{ 
+                        echo $budgets;
+                    }
+					?></span> &nbsp;|&nbsp;
+					<?php _e( 'Deadline:', ET_DOMAIN ) ?> <span><?php echo date( 'F j, Y', strtotime( $project->project_deadline ) ); ?></span>
 				</div>
             </div>
             <div class="head_right">
@@ -63,12 +70,12 @@ $employer   = Employer::get_employer( $project->employer_id );
             </div>
             <div class="footer_right">
 				<?php if ( ( 'close' == $project->status ) || ( 'complete' == $project->status ) || ( 'disputing' == $project->status ) || ( 'disputed' == $project->status ) ) : ?>
-                    <a class="ie_btn ie_btn_blue" href="/messages<?php //echo $project->url . '?workspace=1'; ?>">
-                        <i class="far fa-eye" aria-hidden="true"></i> Go to Workspace
+                    <a class="ie_btn ie_btn_blue" href="<?php echo $project->url; ?>">
+                        <i class="far fa-eye" aria-hidden="true"></i> <?php _e( 'View Project', ET_DOMAIN ); ?>
                     </a>
 				<?php else : ?>
                     <a class="ie_btn ie_btn_blue" href="<?php echo $project->url ?>">
-                        <i class="far fa-eye" aria-hidden="true"></i> View Project
+                        <i class="far fa-eye" aria-hidden="true"></i> <?php _e( 'View Project', ET_DOMAIN ) ?>
                     </a>
 				<?php endif; ?>
             </div>

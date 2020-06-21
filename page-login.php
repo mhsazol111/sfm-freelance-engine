@@ -26,7 +26,7 @@ if ( isset( $_GET['ae_redirect_url'] ) ) {
                 <div class="col-lg-12">
                     <div class="registration-banner-content">
                         <?php //if ( !empty( $ie_freelancer_title ) ) : ?>
-                            <h1 class="ie-banner-title">Log in and get to work</h1>
+                            <h1 class="ie-banner-title"><?php _e( 'Log in and get to work', ET_DOMAIN ) ?></h1>
                         <?php //endif;?>
                     </div>
                 </div>

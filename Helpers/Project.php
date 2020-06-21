@@ -290,16 +290,11 @@ class Project {
 			}
 		}
 
+
 		// Send Admin notification about new project
-		$admin_email = get_option( 'admin_email' );
-		$subject     = get_field( 'user_sign_up_admin_notification', 'option' )['subject'];
-		$message     = get_field( 'user_sign_up_admin_notification', 'option' )['message'];
-		$headers     = array(
-			"Content-Type: text/html",
-			"charset=UTF-8",
-			"From: SFM <email@sfm.com>"
-		);
-		wp_mail( $admin_email, $subject, $message, $headers );
+		if ( !isset($form_data['project_id']) && $form_data['project_id'] == '' ) {
+            do_action('post_project_notification', get_current_user_id(), $project_id);
+        }
 
 		echo wp_json_encode( array(
 			'status'   => true,

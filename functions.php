@@ -66,6 +66,8 @@ function sfm_load_scripts() {
 	wp_localize_script( 'sfm-ajax-scripts', 'ajaxObject', array(
 		'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
 		'currentUserId' => get_current_user_id(),
+		'upload'        => admin_url( 'admin-ajax.php?action=sfm_file_upload' ),
+//		'delete'        => admin_url( 'admin-ajax.php?action=sfm_file_delete' ),
 	) );
 }
 

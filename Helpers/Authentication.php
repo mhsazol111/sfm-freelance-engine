@@ -146,74 +146,77 @@ class Authentication {
 		$errors    = [];
 		$has_error = false;
 
-		// Check required fields
-//		if ( $form_data['first_name'] == '' ) {
-//			$errors[]  = array( 'name' => 'first_name', 'message' => 'First Name is required!' );
+//		 Check required fields
+		if ( $form_data['first_name'] == '' ) {
+			$errors[]  = array( 'name' => 'first_name', 'message' => 'First Name is required!' );
+			$has_error = true;
+		}
+		if ( $form_data['last_name'] == '' ) {
+			$errors[]  = array( 'name' => 'last_name', 'message' => 'Last Name is required!' );
+			$has_error = true;
+		}
+		if ( $form_data['user_email'] == '' ) {
+			$errors[]  = array( 'name' => 'user_email', 'message' => 'Email Address is required!' );
+			$has_error = true;
+		}
+		if ( email_exists( $form_data['user_email'] ) ) {
+			$errors[]  = array( 'name' => 'user_email', 'message' => 'This email address is taken' );
+			$has_error = true;
+		}
+		if ( $form_data['user_login'] == '' ) {
+			$errors[]  = array( 'name' => 'user_login', 'message' => 'Username is required!' );
+			$has_error = true;
+		}
+		if ( username_exists( $form_data['user_login'] ) ) {
+			$errors[]  = array( 'name' => 'user_login', 'message' => 'This username is taken' );
+			$has_error = true;
+		}
+		if ( $form_data['user_pass'] == '' ) {
+			$errors[]  = array( 'name' => 'user_pass', 'message' => 'Password is required!' );
+			$has_error = true;
+		}
+		if ( $form_data['repeat_pass'] == '' ) {
+			$errors[]  = array( 'name' => 'repeat_pass', 'message' => 'Password Confirmation is required!' );
+			$has_error = true;
+		}
+		if ( $form_data['user_pass'] != $form_data['repeat_pass'] ) {
+			$errors[]  = array( 'name' => 'repeat_pass', 'message' => 'Password didn\'t match' );
+			$has_error = true;
+		}
+//		if ( $form_data['fre_country'] == '' ) {
+//			$errors[]  = array( 'name' => 'fre_country', 'message' => 'Please select a country!' );
 //			$has_error = true;
 //		}
-//		if ( $form_data['last_name'] == '' ) {
-//			$errors[]  = array( 'name' => 'last_name', 'message' => 'Last Name is required!' );
-//			$has_error = true;
-//		}
-//		if ( $form_data['user_email'] == '' ) {
-//			$errors[]  = array( 'name' => 'user_email', 'message' => 'Email Address is required!' );
-//			$has_error = true;
-//		}
-//		if ( email_exists( $form_data['user_email'] ) ) {
-//			$errors[]  = array( 'name' => 'user_email', 'message' => 'This email address is taken' );
-//			$has_error = true;
-//		}
-//		if ( $form_data['user_login'] == '' ) {
-//			$errors[]  = array( 'name' => 'user_login', 'message' => 'Username is required!' );
-//			$has_error = true;
-//		}
-//		if ( username_exists( $form_data['user_login'] ) ) {
-//			$errors[]  = array( 'name' => 'user_login', 'message' => 'This username is taken' );
-//			$has_error = true;
-//		}
-//		if ( $form_data['user_pass'] == '' ) {
-//			$errors[]  = array( 'name' => 'user_pass', 'message' => 'Password is required!' );
-//			$has_error = true;
-//		}
-//		if ( $form_data['repeat_pass'] == '' ) {
-//			$errors[]  = array( 'name' => 'repeat_pass', 'message' => 'Password Confirmation is required!' );
-//			$has_error = true;
-//		}
-//		if ( $form_data['user_pass'] != $form_data['repeat_pass'] ) {
-//			$errors[]  = array( 'name' => 'repeat_pass', 'message' => 'Password didn\'t match' );
-//			$has_error = true;
-//		}
-//
-//		if ( $has_error && $errors ) {
-//			echo wp_json_encode( array( 'status' => false, 'errors' => $errors ) );
-//			die();
-//		}
+
+		if ( $has_error && $errors ) {
+			echo wp_json_encode( array( 'status' => false, 'errors' => $errors ) );
+			die();
+		}
 
 		// Create User Account
-//		$user_id = wp_insert_user( array(
-//			'first_name' => sanitize_text_field( $form_data['first_name'] ),
-//			'last_name'  => sanitize_text_field( $form_data['last_name'] ),
-//			'user_email' => sanitize_text_field( $form_data['user_email'] ),
-//			'user_login' => sanitize_text_field( $form_data['user_login'] ),
-//			'user_pass'  => sanitize_text_field( $form_data['user_pass'] ),
-//			'role'       => $_REQUEST['role'],
-//		) );
+		$user_id = wp_insert_user( array(
+			'first_name' => sanitize_text_field( $form_data['first_name'] ),
+			'last_name'  => sanitize_text_field( $form_data['last_name'] ),
+			'user_email' => sanitize_text_field( $form_data['user_email'] ),
+			'user_login' => sanitize_text_field( $form_data['user_login'] ),
+			'user_pass'  => sanitize_text_field( $form_data['user_pass'] ),
+			'role'       => $_REQUEST['role'],
+		) );
 //
 //		// Set account status to pending
-//		update_user_meta( $user_id, 'account_status', 'pending' );
+		update_user_meta( $user_id, 'account_status', 'pending' );
 
 		// Send email notification
-        $user_id = 1;
 		do_action( 'user_register_email', $_REQUEST['role'], $user_id, sanitize_text_field( $form_data['user_email'] ) );
 
 		// Login with new user
-//		wp_set_current_user( $user_id );
-//		wp_set_auth_cookie( $user_id );
+		wp_set_current_user( $user_id );
+		wp_set_auth_cookie( $user_id );
 
 		echo wp_json_encode( [
 			'status'   => true,
 			'message'  => __( 'Registration Successful!', ET_DOMAIN ),
-//			'redirect' => home_url() . '/dashboard'
+			'redirect' => home_url() . '/dashboard'
 		] );
 
 		wp_die();

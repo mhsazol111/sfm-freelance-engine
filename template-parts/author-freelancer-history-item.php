@@ -1,5 +1,4 @@
 <?php
-
 /**
  * the template for displaying the freelancer work (bid success a project)
  *# this template is loaded in template/bid-history-list.php
@@ -19,12 +18,6 @@ if(!$current || !isset( $current->project_title )){
 $project = Employer::get_project($current->post_parent);
 $id = $project->employer_id;
 $employer = Employer::get_employer($id);
-
-
-    // echo '<pre>';
-	// print_r( $employer );
-	// echo '</pre>';
-
 ?>
 <div class="fpp-completed-project-items">
     <div class="left-content">
@@ -32,15 +25,15 @@ $employer = Employer::get_employer($id);
             <img src="<?php echo $employer->et_avatar_url ?>" alt="">
         </div>
         <h4><?php echo $employer->name ?></h4>
-        <span>Given Ratings</span>
+        <span><?php _e( 'Given Ratings', ET_DOMAIN ) ?></span>
         <div class="fpp-reviw-rating">
             <span class="rate-it" data-score="<?php echo $current->rating_score; ?>"></span>
         </div>
         <span class="date"><?php  _e($current->project_post_date,ET_DOMAIN)?></span>
     </div>
     <div class="right-content">
-        <h4 class="project-title"><span>Project:</span> <a href="<?php echo $current->project_link; ?>" title="<?php echo esc_attr($current->project_title) ?>"><?php echo $current->project_title ?></a></h4>
-        <span>Client Feedback:</span>
+        <h4 class="project-title"><span><?php _e( 'Project:', ET_DOMAIN ) ?></span> <a href="<?php echo $current->project_link; ?>" title="<?php echo esc_attr($current->project_title) ?>"><?php echo $current->project_title ?></a></h4>
+        <span><?php _e( 'Client Feedback:', ET_DOMAIN ) ?></span>
         <div class="review-content">
             <p>
             <?php if(isset($current->project_comment) && !empty($current->project_comment)){ ?>

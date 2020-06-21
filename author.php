@@ -158,9 +158,9 @@ if( isset($convert->hour_rate) )
                                               <span><?php printf( __('Completed Projects: %s' ,ET_DOMAIN), intval($projects_worked) ); ?> </span>
                                           </div>
                                           <div class="fpp-wage-rate">
-                                              <span>Wage Rate:</span>
+                                              <span><?php _e( 'Wage Rate:', ET_DOMAIN ) ?></span>
                                               <span>
-                                                  <b>$<?php echo $author_freelancer->daily_wage_rate; ?> </b>/day
+                                                  <b>CHF <?php echo $author_freelancer->daily_wage_rate; ?> </b><?php _e( '/day', ET_DOMAIN ) ?>
                                                   <?php 
                                                       // if($hour_rate > 0)
                                                       // echo '<span>'.sprintf( __( '<b>%s</b> /day ',ET_DOMAIN), fre_price_format( $hour_rate ) ).'</span>'; 
@@ -189,7 +189,7 @@ if( isset($convert->hour_rate) )
                                   </div>
                               </div>
                               <div class="fpp-summery">
-                                  <h4 class="fpp-title">About Me</h4>
+                                  <h4 class="fpp-title"><?php _e( 'About Me', ET_DOMAIN ) ?></h4>
                                   <?php if ( ! empty( $convert ) ) { ?>
                                       <div class="fpp-summery-content <?php echo $class_name ?>-summery">
                                           <?php
@@ -204,7 +204,7 @@ if( isset($convert->hour_rate) )
                               </div>
                               <?php if ( fre_share_role() || ae_user_role( $author_id ) == FREELANCER ) { ?>
                                 <div class="fpp-skills">
-                                    <h4 class="fpp-title">Skills & Experiences</h4>
+                                    <h4 class="fpp-title"><?php _e( 'Skills & Experiences', ET_DOMAIN ) ?></h4>
                                     <div class="fpp-skills-wrap">
                                         <ul>
                                             <?php if ( isset( $convert->tax_input['skill'] ) && $convert->tax_input['skill'] ) {

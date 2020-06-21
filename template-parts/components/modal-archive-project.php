@@ -6,15 +6,14 @@
                     <i class="fa fa-times"></i>
                 </button>
                 <h4 class="modal-title">
-					<?php _e( "Archive Project", ET_DOMAIN ) ?>
+                    <?php echo get_field( 'archive_project_title', 'option' ); ?>
                 </h4>
             </div>
             <div class="modal-body">
                 <form role="form" id="form_archive_project" class="fre-modal-form">
                     <input type="hidden" id="project_id" name="project_id">
                     <div class="fre-content-confirm">
-                        <h2><?php _e( 'Are you sure you want to archive this project?', ET_DOMAIN ); ?></h2>
-                        <p><?php _e( "Once you archive this project, it'll no longer available to freelancer.", ET_DOMAIN ) ?></p>
+                        <?php echo get_field( 'archive_project_content', 'option' ); ?>
                     </div>
                     <div class="fre-form-btn">
                         <button type="submit" class="fre-normal-btn"><?php _e( "Confirm", ET_DOMAIN ) ?></button>

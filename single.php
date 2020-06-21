@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="author-wrapper">
-                    <span>By <?php the_author_posts_link();?></span> |
+                    <span><?php _e( 'By', ET_DOMAIN ) ?> <?php the_author_posts_link();?></span> |
                     <span><?php //the_date( 'F Y' );?></span>
 
                     <?php
@@ -111,7 +111,7 @@
         <div class="col-md-12">
             <div class="related_post">
                 <div class="related_post_head">
-                    <h1>Related Post</h1>
+                    <h1><?php _e( 'Related Post', ET_DOMAIN ) ?></h1>
                     <hr>
                 </div>
                 <div class="related_post_content">

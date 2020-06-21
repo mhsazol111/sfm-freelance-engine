@@ -1,1 +1,1 @@
-<h4>No Project Found!</h4>
+<h4><?php _e( 'No Project Found!', ET_DOMAIN ) ?></h4>

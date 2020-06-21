@@ -63,7 +63,14 @@ if ( isset( $_REQUEST['id'] ) && $_REQUEST['id'] != '' && USER_ROLE == 'freelanc
 										<?php echo Employer::get_project_terms( $project->ID, 'project_category', true, 'span', true ); ?>
                                     </p> | 
                                     <p> <?php _e( 'Budget:', ET_DOMAIN ); ?>
-                                        <span>CHF <?php echo $project->et_budget; ?>
+                                        <span><?php 
+                                        $budgets = $project->et_budget; 
+                                        if(is_numeric($budgets)){ ?>
+                                            CHF <?php echo $budgets;
+                                        }else{ 
+                                            echo $budgets;
+                                        }
+                                        ?>
                                     </p> |
                                     <p><?php _e( 'Deadline:', ET_DOMAIN ); ?>
                                         <span><?php echo date( 'F j, Y', strtotime( $project->project_deadline ) ); ?>
@@ -106,7 +113,7 @@ if ( isset( $_REQUEST['id'] ) && $_REQUEST['id'] != '' && USER_ROLE == 'freelanc
                                 <h3 class="profile-title"><?php _e( 'Project Terms', ET_DOMAIN ); ?></h3>
                                 <div class="project-terms">
                                     <div class="input-field">
-                                        <label for="bid_daily_wage"><?php _e( 'Daily wage for this project (CHF)', ET_DOMAIN ); ?><span><?php _e( '(fill without currency)', ET_DOMAIN ); ?></span></label>
+                                        <label for="bid_daily_wage"><?php _e( 'Daily wage (CHF)', ET_DOMAIN ); ?><span><?php _e( '(fill without currency)', ET_DOMAIN ); ?></span></label>
                                         <input type="number" name="bid_daily_wage" id="bid_daily_wage"
                                                class="form-control number numberVal" min="0"
                                                placeholder="Amount of daily wage" required/>
@@ -128,19 +135,22 @@ if ( isset( $_REQUEST['id'] ) && $_REQUEST['id'] != '' && USER_ROLE == 'freelanc
                                     </div>
                                 </div>
 
-                                <div class="file-upload-optional">
-                                    <div class="upload-file">
-                                        <label for="input-file-now"><?php _e( 'Add attachment (Optional)', ET_DOMAIN ); ?></label>
-                                        <div class="file-upload-wrapper">
-                                            <input type="file" id="input-file-now" class="file-upload"
-                                                   name="my_image_upload[]" multiple/>
-                                            <label class="custom-file-label" for="input-file-now"><?php _e( 'Upload file', ET_DOMAIN ); ?></label>
+                                <div class="fre-input-field" id="gallery_place">
+                                    <label class="fre-field-title" for=""><?php _e( 'Add attachment (Optional)', ET_DOMAIN ); ?></label>
+                                    <div class="edit-gallery-image" id="sfm_file_upload_container">
+                                        <div id="carousel_container">
+                                            <a href="javascript:void(0)" style="display: block"
+                                               class="img-gallery fre-project-upload-file secondary-color" id="sfm_file_uploader">
+					                            <?php _e( "Upload Files", ET_DOMAIN ); ?>
+                                            </a>
+                                            <span class="et_ajaxnonce hidden" id="<?php echo wp_create_nonce( 'submit_proposal_nonce' ); ?>"></span>
                                         </div>
+                                        <p class="fre-allow-upload">
+				                            <?php _e( 'Upload maximum 5 files with extensions including png, jpg, pdf, xls, and doc format', ET_DOMAIN ); ?>
+                                        </p>
+                                        <h3 class="upload-title"><?php _e( "File Attached", ET_DOMAIN ); ?></h3>
+                                        <ul class="fre-attached-list gallery-image carousel-list" id="image-list"></ul>
                                     </div>
-                                    <p class="upload-massage"><?php _e( 'Upload maximum 5 files with extensions including png, jpg,
-                                        pdf, xls and doc format', ET_DOMAIN ); ?></p>
-                                    <div id="append_img"></div>
-                                    <div class="apn"></div>
                                 </div>
 
                                 <input type="hidden" name="project_id" value="<?php echo $_REQUEST['id']; ?>"/>

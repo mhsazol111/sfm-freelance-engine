@@ -4,6 +4,12 @@
 class Bid {
 
 	public function __construct() {
+		add_action( 'wp_ajax_sfm_file_upload', array( $this, 'sfm_handle_file_upload' ) );
+		add_action( 'wp_ajax_nopriv_sfm_file_upload', array( $this, 'sfm_handle_file_upload' ) );
+
+		add_action( 'wp_ajax_sfm_file_delete', array( $this, 'sfm_handle_file_delete' ) );
+		add_action( 'wp_ajax_nopriv_sfm_file_delete', array( $this, 'sfm_handle_file_delete' ) );
+
 		add_action( 'wp_ajax_sfm_submit_proposal', array( $this, 'submit_proposal' ) );
 		add_action( 'wp_ajax_nopriv_sfm_submit_proposal', array( $this, 'submit_proposal' ) );
 
@@ -11,6 +17,45 @@ class Bid {
 		add_action( 'wp_ajax_nopriv_sfm_accept_proposal', array( $this, 'accept_proposal' ) );
 	}
 
+
+	// SFM Custom Uploader With pUpload
+	public function sfm_handle_file_upload() {
+		header( 'Content-Type: application/json' );
+
+		if ( isset( $_FILES['file'] ) && $_FILES['file']['name'] != '' ) {
+			// These files need to be included as dependencies when on the front end.
+			require_once ABSPATH . 'wp-admin/includes/image.php';
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			require_once ABSPATH . 'wp-admin/includes/media.php';
+
+			$attachment_id = media_handle_upload( 'file', 0 );
+
+			if ( is_wp_error( $attachment_id ) ) {
+				$errors[] = array( 'name' => 'file', 'message' => 'Error uploading image' );
+				echo wp_json_encode( array( 'status' => false, 'errors' => $errors ) );
+				wp_die();
+			}
+
+			echo wp_json_encode( $attachment_id );
+		}
+
+		wp_die();
+	}
+
+
+	public function sfm_handle_file_delete() {
+		header( 'Content-Type: application/json' );
+
+		if ( isset( $_POST['id'] ) && $_POST['id'] != '') {
+			wp_delete_attachment( $_POST['id'], true );
+			echo wp_json_encode( [ 'success' => true ] );
+		}
+
+		wp_die();
+	}
+
+
+	// Submit a proposal
 	public function submit_proposal() {
 		header( 'Content-Type: application/json' );
 
@@ -67,6 +112,17 @@ class Bid {
 		$old_project_bids = get_post_meta( $form_data['project_id'], 'total_bids', true );
 		update_post_meta( $form_data['project_id'], 'total_bids', ( $old_project_bids + 1 ) );
 
+		// Update Images
+		if ( $form_data['proposal_files'] != '' ) {
+			$image_ids = explode( ',', $form_data['proposal_files'] );
+			foreach ( $image_ids as $attachment ) {
+				wp_update_post( array(
+					'ID'          => $attachment,
+					'post_parent' => $new_bid,
+				) );
+			}
+		}
+
 		// Create a new notification
 		$notify_content = 'type=new_bid&project=' . $form_data['project_id'] . '&bid=' . $new_bid;
 		$notification   = wp_insert_post( array(
@@ -83,15 +139,8 @@ class Bid {
 		update_post_meta( $new_bid, 'notify_id', $notification );
 
 		// Send an Email to Project author
-		$author_email = get_userdata( $project->post_author )->user_email;
-		$subject      = 'You have a new bid on your project';
-		$message      = "Hi there, You have a new bid on your following project: <a href='" . get_permalink( $project->ID ) . "'>" . $project->post_title . "</a>. Thank you.";
-		$headers      = array(
-			"Content-Type: text/html",
-			"charset=UTF-8",
-			"From: SFM <email@sfm.com>"
-		);
-		wp_mail( $author_email, $subject, $message, $headers );
+		$employer_email = get_userdata( $project->post_author )->user_email;
+		do_action( 'new_bid_notification', $employer_email, $project );
 
 		echo wp_json_encode( [
 			'status'   => true,
@@ -174,19 +223,10 @@ class Bid {
 		update_user_meta( $freelancer_id, 'fre_new_notify', $notification );
 
 		// Send email to freelancer and admin
-		$admin_email  = get_option( 'admin_email' );
-		$freelancer   = get_userdata( $freelancer_id );
 		$employer     = get_userdata( $employer_id );
 		$company_name = get_user_meta( $employer_id, 'company_name', true );
-		$subject      = 'New Project Started!';
-		$message      = "Hi there, The following project: <a href='" . get_permalink( $project->ID ) . "'>" . $project->post_title . "</a> is started. The project was created by {$employer->display_name} from {$company_name} and it has been assigned to {$freelancer->display_name}. Please contact with them. Thank you.";
-		$headers      = array(
-			"Content-Type: text/html",
-			"charset=UTF-8",
-			"From: SFM <email@sfm.com>"
-		);
-		wp_mail( $admin_email, $subject, $message, $headers );
-		wp_mail( $freelancer->user_email, __( 'Proposal Accepted!', ET_DOMAIN ), __( "Congratulation! Your proposal on <a href='" . get_permalink( $project->ID ) . "'>" . $project->post_title . "</a> has been accepted. Keep up the good work. Thank you.", ET_DOMAIN ), $headers );
+		$freelancer   = get_userdata( $freelancer_id );
+		do_action( 'accept_proposal_notification', $project, $employer, $company_name, $freelancer );
 
 		echo wp_json_encode( [
 			'status'   => true,

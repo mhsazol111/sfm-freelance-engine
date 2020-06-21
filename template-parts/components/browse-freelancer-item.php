@@ -3,6 +3,7 @@ $fre_id = get_the_author_meta( 'ID' );
 $freelancer = Freelancer::get_freelancer( $fre_id );
 
 $s_a_permalink = $freelancer->slug;
+$s_a_thumb_id = $freelancer->et_avatar;
 $s_a_thumb = $freelancer->et_avatar_url;
 $s_a_d_name = $freelancer->display_name;
 $s_a_designation = $freelancer->job_title;
@@ -16,7 +17,7 @@ $s_a_rating = $freelancer->rating_score;
 <div class="single-archive-profile-wrapper">
     <div class="s-a-left-thumbnail">
         <a href="<?php echo $s_a_permalink; ?>">
-            <img src="<?php echo $s_a_thumb; ?>" alt="<?php echo $s_a_d_name; ?>">
+            <img src="<?php echo wp_get_attachment_image_url($s_a_thumb_id, 'thumbnail'); ?>" alt="<?php echo $s_a_d_name; ?>">
         </a>
     </div>
     <div class="s-a-right-content">
@@ -27,7 +28,7 @@ $s_a_rating = $freelancer->rating_score;
                 <span class="rate-it" data-score="<?php echo $s_a_rating; ?>"></span>
             </li>
             <li><span><?php printf( __('%s projects worked' ,ET_DOMAIN), intval($s_a_t_projects) ); ?></span></li>
-            <li><span><strong><?php printf( __('%s /day' ,ET_DOMAIN), intval($s_a_rate) ); ?></strong></span></li>
+            <li><span><strong><?php printf( __('CHF %s /day' ,ET_DOMAIN), intval($s_a_rate) ); ?></strong></span></li>
         </ul>
         <div class="deccription">
             <p>

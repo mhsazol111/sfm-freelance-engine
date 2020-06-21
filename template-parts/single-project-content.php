@@ -121,8 +121,8 @@ $country 	= get_the_terms($employer->user_profile_id, 'country');
             <hr class="bottom_hr">
 
             <div class="open_projects">
-                <a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">Open Projects by this
-                    Client</a>
+                <a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php _e( 'Open Projects by this
+                    Client', ET_DOMAIN ) ?></a>
             </div>
         </div><!-- End .proposals_row -->
 
