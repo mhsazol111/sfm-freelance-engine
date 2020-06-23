@@ -24,17 +24,15 @@ if ( have_rows( 'contact_us' ) ):
                         </div>
                     </div>
                 </div>
-
-                <div class="banner-bottom-coner">
-                    <a href="#">
+                <a href="#">
+                    <div class="banner-bottom-coner">
                         <div class="bottom-btn-wrapper">
                             <p><?php echo _e( 'SPS', ET_DOMAIN ); ?></p>
                             <img src="/wp-content/uploads/2020/04/arrow.svg"
-                                 alt="<?php echo _e( 'arrow', ET_DOMAIN ); ?>">
+                                    alt="<?php echo _e( 'arrow', ET_DOMAIN ); ?>">
                         </div>
-                    </a>
-                </div>
-
+                    </div>
+                </a>
             </section>
 		<?php endif; ?>
 

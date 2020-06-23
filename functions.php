@@ -612,20 +612,6 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 }
 
 
-//function wpdocs_this_screen() {
-//	$currentScreen = get_current_screen();
-//	$pending       = new Pending_Users_Table();
-//	if ( $currentScreen->id === "users" && isset( $_REQUEST['account_status'] ) && $_REQUEST['account_status'] == 'pending' ) {
-//		$pending->set_data( $data );
-//		$pending->display();
-//		$pending->prepare_items();
-//	}
-//}
-//
-//add_action( 'current_screen', 'wpdocs_this_screen' );
-//
-
-
 function pending_users_submenu() {
 	add_users_page(
 		__( 'Pending Users', ET_DOMAIN ),

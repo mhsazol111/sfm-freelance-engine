@@ -169,20 +169,36 @@ if( isset($convert->hour_rate) )
                                           </div>
                                           <div class="fpp-social-link">
                                               <ul class="fre">
-                                                <li><a href="<?php echo $author_freelancer->facebook; ?>" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                                                <li><a href="<?php echo $author_freelancer->twitter; ?>" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                                                <li><a href="<?php echo $author_freelancer->linkedin; ?>" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
-                                                <li><a href="skype:<?php echo $author_freelancer->skype; ?>" target="_blank"><i class="fab fa-skype"></i></a></li>
+                                                <?php if( !empty($author_freelancer->facebook) ) : ?>
+                                                  <li><a href="<?php echo $author_freelancer->facebook; ?>" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                                                <?php endif ?>
+                                                <?php if( !empty($author_freelancer->twitter) ) : ?>
+                                                  <li><a href="<?php echo $author_freelancer->twitter; ?>" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                                                <?php endif ?>
+                                                <?php if( !empty($author_freelancer->linkedin) ) : ?>
+                                                  <li><a href="<?php echo $author_freelancer->linkedin; ?>" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                                                <?php endif ?>
+                                                <?php if( !empty($author_freelancer->skype) ) : ?>
+                                                  <li><a href="skype:<?php echo $author_freelancer->skype; ?>" target="_blank"><i class="fab fa-skype"></i></a></li>
+                                                <?php endif ?>
                                               </ul>
                                           </div>
                                       <?php } ?>
                                       <?php if ( fre_share_role() || ae_user_role( $author_id ) != FREELANCER ) { ?>
                                           <div class="fpp-social-link">
                                               <ul class="emplo">
-                                                <li><a href="<?php echo $author_freelancer->facebook; ?>" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                                                <li><a href="<?php echo $author_freelancer->twitter; ?>" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                                                <li><a href="<?php echo $author_freelancer->linkedin; ?>" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
-                                                <li><a href="skype:<?php echo $author_freelancer->skype; ?>" target="_blank"><i class="fab fa-skype"></i></a></li>
+                                                <?php if( !empty($author_employer->facebook) ) : ?>
+                                                  <li><a href="<?php echo $author_employer->facebook; ?>" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                                                <?php endif ?>
+                                                <?php if( !empty($author_employer->twitter) ) : ?>
+                                                  <li><a href="<?php echo $author_employer->twitter; ?>" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                                                <?php endif ?>
+                                                <?php if( !empty($author_employer->linkedin) ) : ?>
+                                                  <li><a href="<?php echo $author_employer->linkedin; ?>" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                                                <?php endif ?>
+                                                <?php if( !empty($author_employer->skype) ) : ?>
+                                                  <li><a href="skype:<?php echo $author_employer->skype; ?>" target="_blank"><i class="fab fa-skype"></i></a></li>
+                                                <?php endif ?>
                                               </ul>
                                           </div>
                                       <?php } ?>

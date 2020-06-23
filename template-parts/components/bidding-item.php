@@ -92,8 +92,8 @@ $bid_freelancer = Freelancer::get_freelancer( $bid->freelancer_id );
 
 				<?php
 				if ( $bid->content ) {
-					$link = '<a href="/bid/' . $bid->slug . '">Read More</a>';
-					echo wp_trim_words( $bid->content, 20, '... ' );
+					$link = '<a href="/bid/' . $bid->slug . '">View Details</a>';
+					echo wp_trim_words( $bid->content, 80, '... ' );
 					echo $link;
 				}
 

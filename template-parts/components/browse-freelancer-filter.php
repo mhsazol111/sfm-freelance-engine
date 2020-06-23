@@ -1,5 +1,8 @@
 <?php
-$skills     = Custom::all_terms( 'skill' );
+$skills    = Custom::all_terms( 'skill' );
+$countries = $terms = get_terms( 'country', array(
+	'hide_empty' => false,
+) );
 ?>
 <div class="search_fields">
     <form id="browse-freelancer-form" method="POST">
@@ -16,8 +19,20 @@ $skills     = Custom::all_terms( 'skill' );
                 <option><?php _e( 'Select freelancers by Skill', ET_DOMAIN ) ?></option>
 				<?php
 				foreach ( $skills as $skill ) {
-					$selected = ( $current_skill == $skill->term_id ? 'selected' : '' );
-					echo sprintf( '<option value="%s" %s>%s</option>', $skill->term_id, $selected, $skill->name );
+					echo sprintf( '<option value="%s">%s</option>', $skill->term_id, $skill->name );
+				}
+				?>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <div class="select_icon"
+                 style="background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/inc/images/select-icon.svg');"></div>
+            <select class="custom-select form-control" id="freelancer-country" name="freelancer-country">
+                <option><?php _e( 'Select freelancers by Country', ET_DOMAIN ) ?></option>
+				<?php
+				foreach ( $countries as $country ) {
+					echo sprintf( '<option value="%s">%s</option>', $country->term_id, $country->name );
 				}
 				?>
             </select>

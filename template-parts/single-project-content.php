@@ -90,9 +90,9 @@ $country 	= get_the_terms($employer->user_profile_id, 'country');
 
         <div class="proposals_row">
             <div class="thumb_content">
-                <div class="thumb background_position" style="background-image: url('');">
+                <div class="thumb background_position">
                     <a class="" href="<?php echo $employer->slug; ?>">
-                        <div class="thumb background_position" style="background-image: url('');">
+                        <div class="thumb background_position">
 							<img src="<?php echo $employer->et_avatar_url; ?>" alt="<?php echo $employer->display_name; ?>">
                         </div>
                     </a>
@@ -135,7 +135,6 @@ $country 	= get_the_terms($employer->user_profile_id, 'country');
     <div class="project-detail-extend-01">
 
 		<?php
-
 		//milestone
 
 		$args = array(
@@ -146,7 +145,7 @@ $country 	= get_the_terms($employer->user_profile_id, 'country');
 
 			'post_status' => 'any',
 
-			'post_parent' => $project->ID,
+			'post_parent' => $project->id,
 
 			'orderby' => 'meta_value',
 

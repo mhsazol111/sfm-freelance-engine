@@ -46,18 +46,18 @@ $budget_range = Custom::get_project_meta_range( 'et_budget' );
             </select>
         </div>
 
-        <div class="select_box form-group">
+        <!-- <div class="select_box form-group">
             <div class="select_icon"
-                 style="background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/inc/images/select-icon.svg');"></div>
+                 style="background-image: url('<?php //echo get_stylesheet_directory_uri(); ?>/inc/images/select-icon.svg');"></div>
             <select class="custom-select form-control" id="project-bid" name="project-bid">
-                <option value=""><?php _e( 'Number of Bids', ET_DOMAIN ) ?></option>
+                <option value=""><?php //_e( 'Number of Bids', ET_DOMAIN ) ?></option>
 				<?php
-				foreach ( $bids_range as $br ) {
-					echo '<option value="' . $br . '">' . $br . '</option>';
-				}
+				// foreach ( $bids_range as $br ) {
+				// 	echo '<option value="' . $br . '">' . $br . '</option>';
+				// }
 				?>
             </select>
-        </div>
+        </div> -->
 
         <div class="select_box form-group">
             <div class="select_icon"
@@ -72,35 +72,35 @@ $budget_range = Custom::get_project_meta_range( 'et_budget' );
             </select>
         </div>
 
-        <div class="form-group budget_range">
-            <span class="d_label"><?php _e( 'Budget Range', ET_DOMAIN ) ?></span>
+        <!-- <div class="form-group budget_range">
+            <span class="d_label"><?php //_e( 'Budget Range', ET_DOMAIN ) ?></span>
             <div id="project-budget-step"></div>
 
             <input type="hidden" name="project-min-budget" id="project-min-budget"
                    value="">
             <input type="hidden" name="project-max-budget" id="project-max-budget"
                    value="">
-        </div>
+        </div> -->
 
         <div class="clear_div">
             <button id="clear-browse-form"><?php _e( 'Clear all filters', ET_DOMAIN ) ?></button>
         </div>
     </form>
-    <script>
+    <!-- <script>
         ;(function ($) {
             $(document).ready(function () {
                 let stepSlider = document.getElementById("project-budget-step");
 
                 noUiSlider.create(stepSlider, {
-                    start: ['<?php echo min( $budget_range ); ?>', '<?php echo max( $budget_range ); ?>'],
+                    start: ['<?php //echo min( $budget_range ); ?>', '<?php //echo max( $budget_range ); ?>'],
                     connect: true,
                     // step: 10,
                     margin: 10,
                     // tooltips: [true, true],
                     tooltips: [wNumb({decimals: 0}), wNumb({decimals: 0})],
                     range: {
-                        min: <?php echo min( $budget_range ); ?>,
-                        max: <?php echo max( $budget_range ); ?>,
+                        min: <?php //echo min( $budget_range ); ?>,
+                        max: <?php //echo max( $budget_range ); ?>,
                     },
                     format: wNumb({
                         decimals: 0
@@ -116,6 +116,6 @@ $budget_range = Custom::get_project_meta_range( 'et_budget' );
 
             });
         })(jQuery);
-    </script>
+    </script> -->
 </div>
 <hr class="clear">

@@ -14,7 +14,6 @@
 img {
     max-width: 100%;
 }
-
 /* Menu */
 .fre-menu-main li a {
     color: #fff;
@@ -241,6 +240,25 @@ header #main_header .fre-login-wrap ul li:last-child a:hover {
 }
 .smf-header-wrapper .fre-account-wrap .fre-notification {
     margin-left: 1px;
+    width: 120px;
+}
+.smf-header-wrapper .fre-account-wrap .fre-notification .notification-title {
+    font-size: 14px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 10px;
+    color: #333;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.sticky-header.smf-header-wrapper .fre-account-wrap .fre-notification .notification-title {
+   color: #fff; 
+}
+.smf-header-wrapper .fre-account-wrap .fre-notification:hover .notification-title,
+header#employer-header-wrap .fre-notification.dropdown-toggle:hover i,
+header#freelance-header-wrap .fre-notification.dropdown-toggle:hover i {
+    color: #1fbdbd !important;
 }
 ul#menu-employer, ul#menu-freelance {
     margin-right: 23px;
@@ -1005,6 +1023,12 @@ footer .widget ul li a {
         font-size: 25px;
         max-width: 100%;
         margin-top: 0;
+    }
+    .smf-header-wrapper .fre-account-wrap .fre-notification .notification-title {
+        display: none;
+    }
+    .smf-header-wrapper .fre-account-wrap .fre-notification {
+        width: 22px;
     }
 }
 @media only screen and (min-width: 481px) and (max-width: 560px) {

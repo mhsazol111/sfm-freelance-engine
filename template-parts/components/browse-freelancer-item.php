@@ -7,11 +7,11 @@ $s_a_thumb_id = $freelancer->et_avatar;
 $s_a_thumb = $freelancer->et_avatar_url;
 $s_a_d_name = $freelancer->display_name;
 $s_a_designation = $freelancer->job_title;
-$s_a_experience = $freelancer->et_experience;
-$s_a_t_projects = $freelancer->total_projects_worked;
+$s_a_experience = isset($freelancer->et_experience) ? $freelancer->et_experience : '';
+$s_a_t_projects = isset($freelancer->total_projects_worked) ? $freelancer->total_projects_worked : 0;
 $s_a_rate = $freelancer->daily_wage_rate;
 $s_a_details = $freelancer->describe_more;
-$s_a_rating = $freelancer->rating_score;
+$s_a_rating = isset($freelancer->rating_score) ? $freelancer->rating_score : '';
 ?>
 
 <div class="single-archive-profile-wrapper">

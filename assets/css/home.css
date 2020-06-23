@@ -135,7 +135,8 @@ p {
 }
 .sfm-categories ul {
   display: flex;
-  margin: 0;
+  margin-left: -15px;
+  margin-right: -15px;
   padding: 0;
   flex-wrap: wrap;
   justify-content: center;
@@ -144,7 +145,7 @@ p {
 
 .sfm-categories li {
   list-style: none;
-  width: calc(15.33333% - 15px);
+  width: calc(20% - 30px);
   font-size: 20px;
   height: 100px;
   margin: 15px;
@@ -476,6 +477,10 @@ p {
   }
 }
 @media only screen and (max-width: 480px) {
+  .sfm-categories ul {
+    margin-left: 0;
+    margin-right: 0;
+  }
 	.sfm-categories li {
 		width: calc(50% - 10px);
 		margin: 0 0 20px 0;
@@ -527,8 +532,8 @@ p {
     margin-right: 10%;
   }
 }
-@media only screen and (min-width: 1025px) and (max-width: 1199px) {
-  .sfm-categories li {
-    width: calc(14.33333% - 15px);
-  }
-}
+/*@media only screen and (min-width: 1025px) and (max-width: 1199px) {*/
+/*  .sfm-categories li {*/
+/*    width: calc(14.33333% - 15px);*/
+/*  }*/
+/*}*/

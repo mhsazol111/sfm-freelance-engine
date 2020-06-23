@@ -27,6 +27,8 @@
 #post-control.block-posts .blog-content p {
     color: #05051f;
     margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 28px;
 }
 #post-control.block-posts .tag,
 #post-control.block-posts .tag a {
@@ -97,6 +99,7 @@
     flex-wrap: wrap;
     width: min-content;
     margin: auto;
+    justify-content: flex-end;
 }
 #post-control.block-posts #commentform .comment-form-author {
     order: 1;
@@ -112,17 +115,17 @@
 }
 #post-control.block-posts #commentform .comment-form-url {
     order: 3;
-    width: 170px;
-    margin-right: 20px;
+    width: 255px;
+    margin-right: 0;
     position: relative;
 }
 #post-control.block-posts #commentform .form-submit {
-    order: 4;
-    width: 60px;
+    order: 6;
+    width: 150px;
     position: relative;
 }
 #post-control.block-posts #commentform .form-item {
-    order: 5;
+    order: 4;
     width: 920px;
     position: relative;
 }
@@ -179,6 +182,7 @@
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     pointer-events: none;
+    display: none;
 }
 #post-control.block-posts #commentform input#submit {
     background: #20bafd;
@@ -282,22 +286,27 @@
         margin-bottom: 25px;
     }
     #post-control.block-posts #commentform .comment-form-author {
-        width: 275px;
-        margin-right: 40px;
+        /* width: 275px; */
+        /* margin-right: 40px; */
+        width: 100%;
+        margin: 0;
     }
-    #post-control.block-posts #commentform .form-submit {
+    /* #post-control.block-posts #commentform .form-submit {
         order: 2;
         width: 261px;
-    }
+    } */
     #post-control.block-posts #commentform .comment-form-email {
-        order: 3;
-        margin-top: 0;
+        /* order: 3; */
+        /* margin-top: 0; */
+        width: 46%;
+        margin-right: 34px;
     }
     #post-control.block-posts #commentform .comment-form-url {
-        order: 4;
-        width: 265px;
-        margin-right: 0px;
-        margin-top: 0;
+        /* order: 4; */
+        /* width: 265px; */
+        /* margin-right: 0px; */
+        /* margin-top: 0; */
+        width: 48%;
     }
     #post-control.block-posts #commentform .form-submit i {
         top: 35%;

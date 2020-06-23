@@ -363,6 +363,13 @@ class Freelancer {
 				'terms'    => $form_data['freelancer-skill'],
 			);
 		}
+		if ( isset( $form_data['freelancer-country'] ) && $form_data['freelancer-country'] != '' ) {
+			$query_args['tax_query'][] = array(
+				'taxonomy' => 'country',
+				'field'    => 'term_id',
+				'terms'    => $form_data['freelancer-country'],
+			);
+		}
 
 		$loop = new WP_Query( $query_args );
 

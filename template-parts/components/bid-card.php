@@ -16,7 +16,7 @@ $project     = Employer::get_project( $bid_details->project_id );
             <div class="info-left">
                 <h4><?php echo $freelancer->name; ?></h4>
                 <p class="degination"><?php echo $freelancer->et_professional_title; ?></p>
-                <p><?php _e( "Completed Project:", ET_DOMAIN ); ?> <span><?php echo $freelancer->total_projects_worked; ?></span></p>
+                <p><?php _e( "Completed Project:", ET_DOMAIN ); ?> <span><?php echo isset($freelancer->total_projects_worked) ? $freelancer->total_projects_worked : 0; ?></span></p>
             </div>
             <div class="info-right">
                 <p class="info-price">CHF <?php echo $bid_details->bid_daily_wage; ?><?php _e( "/day", ET_DOMAIN ); ?></p>

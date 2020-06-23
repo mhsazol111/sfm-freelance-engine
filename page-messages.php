@@ -137,8 +137,7 @@ get_header();
                                                class="laSidebarMessage <?= $isActive ? 'active' : ''; ?> <?= 'unread' == $mt->status ? 'strong' : ''; ?> "
                                                data-project="<?= $mt->ID; ?>" data-author="<?= $mt->author_id; ?>">
 												<?php //echo get_avatar( $avater_user, 35 ); ?>
-                                                <h3><?php if ( EMPLOYER == ae_user_role() ) { ?> <?= get_the_author_meta( 'display_name', $avater_user );
-													} ?></h3>
+                                                <h3><?= get_the_author_meta( 'display_name', $avater_user ); ?></h3>
                                                 <p><?= wp_strip_all_tags( $mt->post_title ); ?></p>
                                             </a>
                                         </div><!-- End .m_t_row -->

@@ -38,7 +38,7 @@ global $current_user;
 
 <?php
 if ( is_page_template( 'page-register.php' ) ) {
-	$role = isset($_REQUEST['role']) ? $_REQUEST['role'] : '';
+	$role = isset( $_REQUEST['role'] ) ? $_REQUEST['role'] : '';
 }
 
 $role_template = 'employer';
@@ -133,7 +133,8 @@ if ( is_page_template( 'template-home.php' ) || is_page_template( 'template-blog
                     <div class="fre-account-wrap  smf-acc dropdown">
                         <a class="fre-notification smf-notification sfm-header-notifi dropdown-toggle"
                            data-toggle="dropdown" href="">
-                            <i class="fa fa-bell-o" aria-hidden="true"></i>
+                            <i class="fa fa-bell-o" aria-hidden="true"></i> <div
+                                    class="notification-title"><?php _e( 'Notifications', ET_DOMAIN ); ?></div>
 							<?php
 							if ( function_exists( 'fre_user_have_notify' ) ) {
 								$notify_number = fre_user_have_notify();
@@ -167,6 +168,9 @@ if ( is_page_template( 'template-home.php' ) || is_page_template( 'template-blog
                             <ul class="dropdown-menu">
                                 <li>
                                     <a href="<?php echo et_get_page_link( "profile" ) ?>"><?php _e( 'Dashboard', ET_DOMAIN ); ?></a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo esc_url(get_site_url() . '/help-and-support') ?>"><?php _e( 'Help and Support', ET_DOMAIN ); ?></a>
                                 </li>
 								<?php do_action( 'fre_header_before_notify' ); ?>
                                 <li><a href="<?php echo wp_logout_url(); ?>"><?php _e( 'Logout', ET_DOMAIN ); ?></a>

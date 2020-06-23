@@ -84,7 +84,7 @@
         $("#post-control.block-posts #commentform .form-submit").append(
             '<i class="fa fa-send"></i>'
         );
-        $("#post-control.block-posts #commentform #submit").val("");
+        //$("#post-control.block-posts #commentform #submit").val("");
 
         $("#post-control.block-posts #commentform input").on(
             "focusin",
