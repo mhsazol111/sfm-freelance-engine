@@ -676,6 +676,7 @@ h4.complete-profile-notice {
     font-family: 'Open Sans';
     margin-top: 15px;
     margin-bottom: 20px;
+    line-height: 24px;
 }
 .employer-my-project .project_row .head_right span.ie_btn_small {
     font-size: 12px;
@@ -2047,6 +2048,7 @@ label.error, p.input-error {
 .input-field.details textarea {
     width: 100%;
     padding: 20px;
+    line-height: 26px;
 }
 h3.profile-title {
     font-weight: 700;
@@ -2750,6 +2752,7 @@ a.fpp-lightbox-image {
     font-family: "Open Sans";
     margin-top: 20px;
     margin-bottom: 25px;
+    line-height: 26px;
 }
 .single-bid-wrapper #bid-single-inner .footer_left a {
     font-size: 14px;
@@ -3273,6 +3276,7 @@ a.fpp-lightbox-image {
 .message_content .m_c_row .info p{
 	margin-bottom: 0;
     font-size: 14px;
+    line-height: 26px;
     font-family: 'Open Sans';
     color: #333;
 }

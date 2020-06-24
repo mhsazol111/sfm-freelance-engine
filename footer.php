@@ -19,7 +19,7 @@
 
     
     $show_footer_widgets = false;
-    if ( is_page_template( 'template-home.php' ) || is_page_template( 'template-blog.php' ) || is_page_template( 'template-contact.php' ) || is_page_template( 'page-register.php' ) || is_page_template( 'template-faq.php' ) || is_page_template( 'page-account-not-verified.php' ) || is_single() || is_404() ) {
+    if ( is_page_template( 'template-home.php' ) || is_page_template( 'template-blog.php' ) || is_page_template( 'template-contact.php' ) || is_page_template( 'page-register.php' ) || is_page_template( 'template-faq.php' ) || is_page_template( 'page-account-not-verified.php' ) || is_singular('post') || is_404() ) {
         $show_footer_widgets = true;
     }
     

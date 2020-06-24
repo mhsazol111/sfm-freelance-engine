@@ -133,6 +133,11 @@ class Authentication {
 		foreach ( $metas as $key => $value ) {
 			update_user_meta( $user_id, $key, $value );
 		}
+
+		if ( 'active' == sanitize_text_field( $_POST['account_status'] ) ) {
+			$user_email = get_userdata( $user_id )->user_email;
+			do_action( 'pending_user_approval_email', $user_email );
+		}
 	}
 
 
@@ -183,10 +188,10 @@ class Authentication {
 			$errors[]  = array( 'name' => 'repeat_pass', 'message' => 'Password didn\'t match' );
 			$has_error = true;
 		}
-//		if ( $form_data['fre_country'] == '' ) {
-//			$errors[]  = array( 'name' => 'fre_country', 'message' => 'Please select a country!' );
-//			$has_error = true;
-//		}
+		if ( $form_data['user_country'] == '' ) {
+			$errors[]  = array( 'name' => 'user_country', 'message' => 'Please select a country!' );
+			$has_error = true;
+		}
 
 		if ( $has_error && $errors ) {
 			echo wp_json_encode( array( 'status' => false, 'errors' => $errors ) );
@@ -205,6 +210,7 @@ class Authentication {
 //
 //		// Set account status to pending
 		update_user_meta( $user_id, 'account_status', 'pending' );
+		update_user_meta( $user_id, 'user_country_id', $form_data['user_country'] );
 
 		// Send email notification
 		do_action( 'user_register_email', $_REQUEST['role'], $user_id, sanitize_text_field( $form_data['user_email'] ) );

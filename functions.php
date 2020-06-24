@@ -19,7 +19,6 @@ function sfm_load_scripts() {
 	if ( is_page_template( 'template-faq.php' ) ) {
 		wp_enqueue_style( 'faq-css', get_stylesheet_directory_uri() . '/assets/css/faq.css', null, time(), 'all' );
 	}
-	//portfolio page script
 	if ( is_page_template( 'page-my-portfolios.php' ) ) {
 		wp_enqueue_script( 'profile-child', get_template_directory_uri() . '/assets/js/profile.js', array( 'jquery' ), time(), true );
 	}
@@ -38,7 +37,6 @@ function sfm_load_scripts() {
 		wp_enqueue_style( 'noui-css', '//cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.css', null, '14.0.3', 'all' );
 	}
 
-
 	wp_enqueue_style( 'sfm-dashboard', get_stylesheet_directory_uri() . '/assets/css/dashboard.css', null, time(), 'all' );
 	wp_enqueue_style( 'magnific-css', '//cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css', null, '1.1.0', 'all' );
 	wp_enqueue_style( 'owl-css', '//cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css', null, '2.3.4', 'all' );
@@ -56,10 +54,8 @@ function sfm_load_scripts() {
 	wp_enqueue_script( 'noty-js', '//cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js', array( 'jquery' ), '3.1.4', true );
 	wp_enqueue_style( 'noty-css', '//cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css', null, '3.1.4', 'all' );
 
-	//if ( is_user_logged_in() ) {
 	wp_enqueue_style( 'select2-css', '//cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css', null, '4.1.0', 'all' );
 	wp_enqueue_script( 'select2-js', '//cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js', array( 'jquery' ), '4.1.0', true );
-	//}
 
 	wp_enqueue_script( 'custom-script', get_stylesheet_directory_uri() . '/assets/js/custom.js', array( 'jquery' ), time(), true );
 	wp_enqueue_script( 'sfm-ajax-scripts', get_stylesheet_directory_uri() . '/assets/js/sfm-ajax-scripts.js', array( 'jquery' ), time(), true );
@@ -83,13 +79,6 @@ function sfm_enqueue_admin_script() {
 
 add_action( 'admin_enqueue_scripts', 'sfm_enqueue_admin_script' );
 
-
-// function my_acf_init() {
-//     acf_update_setting('google_api_key', 'AIzaSyAG3T-wRVijpw-eECOOUW2O5WyhdfPiHIs');
-// }
-// add_action('acf/init', 'my_acf_init');
-
-// shortcode include
 require_once get_theme_file_path( 'inc/shortcodes.php' );
 
 /**
@@ -105,7 +94,6 @@ function sfm_child_sidebar_register() {
 		'before_title'  => '<h2 class="widgettitle">',
 		'after_title'   => '</h2>',
 	) );
-
 }
 
 add_action( 'widgets_init', 'sfm_child_sidebar_register' );
@@ -115,7 +103,6 @@ add_action( 'widgets_init', 'sfm_child_sidebar_register' );
  * @param $wp_customize
  */
 function my_register_additional_customizer_settings( $wp_customize ) {
-
 	$wp_customize->add_setting( 'dark_logo_das', array(
 		'default'   => '',
 		'transport' => 'refresh',
@@ -134,7 +121,6 @@ add_action( 'customize_register', 'my_register_additional_customizer_settings' )
  * @param $api
  */
 function custom_option_api( $api ) {
-
 	$api->add_section( 'contact_area', array(
 		'title'    => 'Contact Area',
 		'priority' => 10,
@@ -149,38 +135,6 @@ function custom_option_api( $api ) {
 		'label'   => 'Phone',
 		'type'    => 'text',
 	) );
-
-	// $api->add_section( 'footer-social', array(
-	// 	'title'    => 'Footer Social',
-	// 	'priority' => 11,
-	// ) );
-	// $api->add_setting( 'instagram', array(
-	// 	'default'   => "https://www.instagram.com/",
-	// 	'transport' => 'refresh',
-	// ) );
-	// $api->add_control( 'instagram', array(
-	// 	'section' => 'footer-social',
-	// 	'label'   => 'Instagram',
-	// 	'type'    => 'text',
-	// ) );
-	// $api->add_setting( 'facebook', array(
-	// 	'default'   => "https://www.facebook.com/",
-	// 	'transport' => 'refresh',
-	// ) );
-	// $api->add_control( 'facebook', array(
-	// 	'section' => 'footer-social',
-	// 	'label'   => 'Facebook',
-	// 	'type'    => 'text',
-	// ) );
-	// $api->add_setting( 'twitter', array(
-	// 	'default'   => "https://twitter.com/",
-	// 	'transport' => 'refresh',
-	// ) );
-	// $api->add_control( 'twitter', array(
-	// 	'section' => 'footer-social',
-	// 	'label'   => 'Twitter',
-	// 	'type'    => 'text',
-	// ) );
 }
 
 add_action( 'customize_register', 'custom_option_api' );
@@ -222,185 +176,6 @@ function social_link_option_api( $wp_customize ) {
 }
 
 add_action( 'customize_register', 'social_link_option_api' );
-
-
-//add_action( 'wp_print_scripts', 'my_enqueue_scripts' );
-//
-//function my_enqueue_scripts() {
-//	wp_enqueue_script( 'tiny_mce' );
-//	if ( function_exists( 'wp_tiny_mce' ) ) {
-//		wp_tiny_mce();
-//	}
-//
-//}
-
-// function update_user_form(){
-
-//     if( ! isset( $_POST['first_name']) && empty( $_POST['first_name'] )) {
-//         $errors[] = __( 'First name is required.', ET_DOMAIN);
-//     }
-
-//     if( ! isset( $_POST['last_name']) && empty( $_POST['last_name'] )) {
-//         $errors[] = __( 'Last name is required.', ET_DOMAIN);
-//     }
-
-// if( ! isset( $_POST['display_name']) && empty( $_POST['display_name'] )) {
-//     $errors[] = __( 'Display name is required.', ET_DOMAIN);
-// }
-
-// if( count( $errors ) > 0 ) {
-//     die();
-// }
-
-// $user_details = serialize( array(
-//     'first_name'    => sanitize_text_field( $_POST['first_name'] ),
-//     'last_name'     => sanitize_text_field( $_POST['last_name'] ),
-// ) );
-
-// update_user_meta( $user_id, 'user_details', $user_details);
-
-//}
-
-
-// function sfm_profile_picture_url( $url, $user_id ) {
-
-// 	$att_id = get_user_meta( $user_id, 'sfm_profile_picture', true );
-
-// 	if ( $att_id ) {
-// 		$att_url = wp_get_attachment_url( $att_id );
-
-// 		if ( ! empty( $att_url ) ) {
-// 			return $att_url;
-// 		}
-// 	}
-
-// 	return $url;
-// }
-
-// add_filter( 'get_avatar_url', 'sfm_profile_picture_url', 10, 2 );
-
-/**
- * @param $name
- * @param $value
- */
-function sfm_image_uploader_field( $name, $value = '' ) {
-	$image      = ' button">Upload image';
-	$image_size = 'thumbnail'; // it would be better to use thumbnail size here (150x150 or so)
-	$display    = 'none'; // display state ot the "Remove image" button
-
-	if ( $image_attributes = wp_get_attachment_image_src( $value, $image_size ) ) {
-
-		// $image_attributes[0] - image URL
-		// $image_attributes[1] - image width
-		// $image_attributes[2] - image height
-
-		$image   = '"><img src="' . $image_attributes[0] . '" style="max-width:200px;display:block;" />';
-		$display = 'inline-block';
-
-	}
-
-	return '
-	<div style="margin: 0 10px 55px 10px;max-width:250px;display:inline-block;">
-		<a href="#" class="sfm_upload_image_button' . $image . '</a>
-		<input type="hidden" name="' . $name . '" id="' . $name . '" value="' . $value . '" />
-		<p class="hide-if-no-js howto">Click the image</p>
-		<a href="#" class="sfm_remove_image_button" style="display:inline-block;display:' . $display . '">Remove image</a>
-	</div>';
-}
-
-// metabox
-function bid_attachment_file_meta() {
-	add_meta_box(
-		'attachment',
-		'Attachment File',
-		'bid_attachment_file_cal_back',
-		array( 'bid' ),
-		'normal',
-		'default'
-	);
-}
-
-add_action( 'add_meta_boxes', 'bid_attachment_file_meta' );
-
-/**
- * @param $post
- */
-function bid_attachment_file_cal_back( $post ) {
-	echo sfm_image_uploader_field( 'bid_attachment_file_1', get_post_meta( $post->ID, 'bid_attachment_file_1', true ) );
-	echo sfm_image_uploader_field( 'bid_attachment_file_2', get_post_meta( $post->ID, 'bid_attachment_file_2', true ) );
-	echo sfm_image_uploader_field( 'bid_attachment_file_3', get_post_meta( $post->ID, 'bid_attachment_file_3', true ) );
-	echo sfm_image_uploader_field( 'bid_attachment_file_4', get_post_meta( $post->ID, 'bid_attachment_file_4', true ) );
-	echo sfm_image_uploader_field( 'bid_attachment_file_5', get_post_meta( $post->ID, 'bid_attachment_file_5', true ) );
-}
-
-/**
- * @param $post_id
- *
- * @return mixed
- */
-function bid_attachment_file_database( $post_id ) {
-
-	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-		return $post_id;
-	}
-
-	if ( isset( $_POST['bid_attachment_file_1'] ) ) {
-		update_post_meta( $post_id, 'bid_attachment_file_1', $_POST['bid_attachment_file_1'] );
-	}
-
-	if ( isset( $_POST['bid_attachment_file_2'] ) ) {
-		update_post_meta( $post_id, 'bid_attachment_file_2', $_POST['bid_attachment_file_2'] );
-	}
-
-	if ( isset( $_POST['bid_attachment_file_3'] ) ) {
-		update_post_meta( $post_id, 'bid_attachment_file_3', $_POST['bid_attachment_file_3'] );
-	}
-
-	if ( isset( $_POST['bid_attachment_file_4'] ) ) {
-		update_post_meta( $post_id, 'bid_attachment_file_4', $_POST['bid_attachment_file_4'] );
-	}
-
-	if ( isset( $_POST['bid_attachment_file_5'] ) ) {
-		update_post_meta( $post_id, 'bid_attachment_file_5', $_POST['bid_attachment_file_5'] );
-	}
-
-	if ( array_key_exists( 'project_id', $_POST ) ) {
-		update_post_meta(
-			$post_id,
-			'project_id',
-			sanitize_textarea_field( $_POST['project_id'] )
-		);
-	}
-
-}
-
-add_action( 'save_post', 'bid_attachment_file_database' );
-// metabox
-
-/**
- * @param $file_handler
- * @param $post_id
- * @param $set_thu
- *
- * @return mixed
- */
-function multiple_handle_attachment( $file_handler, $post_id, $set_thu = false ) {
-	// check to make sure its a successful upload
-	if ( $_FILES[ $file_handler ]['error'] !== UPLOAD_ERR_OK ) {
-		__return_false();
-	}
-
-	require_once ABSPATH . "wp-admin" . '/includes/image.php';
-	require_once ABSPATH . "wp-admin" . '/includes/file.php';
-	require_once ABSPATH . "wp-admin" . '/includes/media.php';
-
-	$attach_id = media_handle_upload( $file_handler, $post_id );
-	if ( is_numeric( $attach_id ) ) {
-		update_post_meta( $post_id, '_my_file_upload', $attach_id );
-	}
-
-	return $attach_id;
-}
 
 require_once dirname( __FILE__ ) . '/messaging/_loader.php';
 /* OLD CODE */
@@ -518,9 +293,7 @@ add_action( 'init', 'register_fre_missing_taxonomy' );
 
 /**
  * Convert a multi-dimensional array into a single-dimensional array.
- *
  * @param array $array The multi-dimensional array.
- *
  * @return array
  */
 function array_flatten( $array ) {
@@ -541,7 +314,6 @@ function array_flatten( $array ) {
 
 /**
  * Print_r Code with better look and feel
- *
  * @param $code
  */
 function pri_dump( $code ) {

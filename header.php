@@ -131,19 +131,23 @@ if ( is_page_template( 'template-home.php' ) || is_page_template( 'template-blog
 				<?php } else { ?>
 
                     <div class="fre-account-wrap  smf-acc dropdown">
-                        <a class="fre-notification smf-notification sfm-header-notifi dropdown-toggle"
-                           data-toggle="dropdown" href="">
-                            <i class="fa fa-bell-o" aria-hidden="true"></i> <div
-                                    class="notification-title"><?php _e( 'Notifications', ET_DOMAIN ); ?></div>
-							<?php
-							if ( function_exists( 'fre_user_have_notify' ) ) {
-								$notify_number = fre_user_have_notify();
-								if ( $notify_number ) {
-									echo '<span class="dot-noti"></span>';
+						<?php if ( is_user_logged_in() && current_user_can( 'administrator' ) ) : ?>
+							
+						<?php else: ?>
+							<a class="fre-notification smf-notification sfm-header-notifi dropdown-toggle"
+							data-toggle="dropdown" href="">
+								<i class="fa fa-bell-o" aria-hidden="true"></i> <div
+										class="notification-title"><?php _e('Notifications', ET_DOMAIN); ?></div>
+								<?php
+								if (function_exists('fre_user_have_notify')) {
+									$notify_number = fre_user_have_notify();
+									if ($notify_number) {
+										echo '<span class="dot-noti"></span>';
+									}
 								}
-							}
-							?>
-                        </a>
+								?>
+							</a>
+						<?php endif ?>
 
 						<?php fre_user_notification( $user_ID, 1, 5 ); ?>
 

@@ -247,7 +247,7 @@ header #main_header .fre-login-wrap ul li:last-child a:hover {
     height: 100%;
     position: absolute;
     right: 0;
-    top: 10px;
+    top: 9px;
     color: #333;
     font-weight: 600;
     letter-spacing: 1px;
@@ -259,6 +259,15 @@ header #main_header .fre-login-wrap ul li:last-child a:hover {
 header#employer-header-wrap .fre-notification.dropdown-toggle:hover i,
 header#freelance-header-wrap .fre-notification.dropdown-toggle:hover i {
     color: #1fbdbd !important;
+}
+.page-template-template-home .smf-header-wrapper .fre-account-wrap .fre-notification .notification-title,
+.page-template-template-blog .smf-header-wrapper .fre-account-wrap .fre-notification .notification-title,
+.page-template-page-account-not-verified .smf-header-wrapper .fre-account-wrap .fre-notification .notification-title,
+.page-template-template-contact .smf-header-wrapper .fre-account-wrap .fre-notification .notification-title,
+.page-template-template-faq .smf-header-wrapper .fre-account-wrap .fre-notification .notification-title,
+.page-template-template-home.smf-header-wrapper .fre-account-wrap .fre-notification .notification-title,
+.error404 .smf-header-wrapper .fre-account-wrap .fre-notification .notification-title{
+    color: #fff;
 }
 ul#menu-employer, ul#menu-freelance {
     margin-right: 23px;
@@ -1279,9 +1288,9 @@ footer .widget ul li a {
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
   }
-  .contact_content .bar_row .email_address a {
+  /* .contact_content .bar_row .email_address a {
     color: #e0e0e0;
-  }
+  } */
   
   @media only screen and (max-width: 1199px) {
     .contact_section .contact_top_section {

@@ -282,6 +282,9 @@ class Freelancer {
 		wp_set_post_terms( $user_profile_post, $form_data['project_skills'], 'skill' );
 		wp_set_post_terms( $user_profile_post, $form_data['country_you_live'], 'country' );
 
+		// Remove old country term id from user meta
+		delete_user_meta( $freelancer_id, 'user_country_id' );
+
 		// Update Professional Job title
 		update_post_meta( $user_profile_post, 'et_professional_title', sanitize_text_field( $form_data['job_title'] ) );
 		update_post_meta( $user_profile_post, 'user_role', USER_ROLE );

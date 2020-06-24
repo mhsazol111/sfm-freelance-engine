@@ -14,30 +14,33 @@ $user_profile_post_id = get_user_meta( $author_id, 'user_profile_id', true );
 
         <div class="input-field fre-input-field">
             <div class="select-box">
-                <label class="fre-field-title" for="project_category"><?php _e( 'Interested Project Categories', ET_DOMAIN ) ?></label>
+                <label class="fre-field-title"
+                       for="project_category"><?php _e( 'Interested Project Categories', ET_DOMAIN ) ?></label>
                 <select name="project_category[]" id="project_category" class="sfm-select2" multiple required>
                     <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
 
-			        <?php
-			        $categories = get_terms( array(
-				        'taxonomy'   => 'project_category',
-				        'hide_empty' => false,
-			        ) );
+					<?php
+					$categories = get_terms( array(
+						'taxonomy'   => 'project_category',
+						'hide_empty' => false,
+					) );
 
-			        $user_categories = get_the_terms( $user_profile_post_id, 'project_category' );
-			        $selected_cats = [];
-			        foreach ($user_categories as $cat) {
-			            $selected_cats[] = $cat->term_id;
-                    }
+					$user_categories = get_the_terms( $user_profile_post_id, 'project_category' );
+					$selected_cats   = [];
+					if ( $user_categories ) {
+						foreach ( $user_categories as $cat ) {
+							$selected_cats[] = $cat->term_id;
+						}
+					}
 
-			        foreach ( $categories as $cat ) {
-				        if ( in_array($cat->term_id, $selected_cats) ) {
-					        echo '<option value="' . $cat->term_id . '" selected>' . $cat->name . '</option>';
-				        } else {
-					        echo '<option value="' . $cat->term_id . '">' . $cat->name . '</option>';
-				        }
-			        }
-			        ?>
+					foreach ( $categories as $cat ) {
+						if ( in_array( $cat->term_id, $selected_cats ) ) {
+							echo '<option value="' . $cat->term_id . '" selected>' . $cat->name . '</option>';
+						} else {
+							echo '<option value="' . $cat->term_id . '">' . $cat->name . '</option>';
+						}
+					}
+					?>
 
                 </select>
             </div>
@@ -49,26 +52,28 @@ $user_profile_post_id = get_user_meta( $author_id, 'user_profile_id', true );
                 <select name="project_skills[]" id="project_skills" class="sfm-select2" multiple required>
                     <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
 
-			        <?php
-			        $skills = get_terms( array(
-				        'taxonomy'   => 'skill',
-				        'hide_empty' => false,
-			        ) );
+					<?php
+					$skills = get_terms( array(
+						'taxonomy'   => 'skill',
+						'hide_empty' => false,
+					) );
 
-			        $user_skills = get_the_terms( $user_profile_post_id, 'skill' );
-			        $selected_skill = [];
-			        foreach ($user_skills as $skill) {
-				        $selected_skill[] = $skill->term_id;
-			        }
+					$user_skills    = get_the_terms( $user_profile_post_id, 'skill' );
+					$selected_skill = [];
+					if ( $user_skills ) {
+						foreach ( $user_skills as $skill ) {
+							$selected_skill[] = $skill->term_id;
+						}
+					}
 
-			        foreach ( $skills as $skill ) {
-				        if ( in_array($skill->term_id, $selected_skill) ) {
-					        echo '<option value="' . $skill->term_id . '" selected>' . $skill->name . '</option>';
-				        } else {
-					        echo '<option value="' . $skill->term_id . '">' . $skill->name . '</option>';
-				        }
-			        }
-			        ?>
+					foreach ( $skills as $skill ) {
+						if ( in_array( $skill->term_id, $selected_skill ) ) {
+							echo '<option value="' . $skill->term_id . '" selected>' . $skill->name . '</option>';
+						} else {
+							echo '<option value="' . $skill->term_id . '">' . $skill->name . '</option>';
+						}
+					}
+					?>
 
                 </select>
             </div>
@@ -139,20 +144,26 @@ $user_profile_post_id = get_user_meta( $author_id, 'user_profile_id', true );
             <div class="select-box">
                 <select name="country_you_live" id="country_you_live" class="sfm-select2" required>
                     <option value=""><?php _e( 'Select Country', ET_DOMAIN ) ?></option>
-			        <?php
-			        $countries           = get_terms( array(
-				        'taxonomy'   => 'country',
-				        'hide_empty' => false,
-			        ) );
-			        $selected_country_id = get_the_terms( $user_profile_post_id, 'country' );
-			        foreach ( $countries as $country ) {
-				        if ( $selected_country_id ) {
-					        echo '<option value="' . $country->term_id . '" ' . ( $selected_country_id[0]->term_id == $country->term_id ? 'selected' : '' ) . '>' . $country->name . '</option>';
-				        } else {
-					        echo '<option value="' . $country->term_id . '">' . $country->name . '</option>';
-				        }
-			        }
-			        ?>
+					<?php
+					$countries = get_terms( array(
+						'taxonomy'   => 'country',
+						'hide_empty' => false,
+					) );
+
+					$user_country_id         = get_user_meta( get_current_user_id(), 'user_country_id', true );
+					$user_profile_country    = get_the_terms( $user_profile_post_id, 'country' );
+					$user_profile_country_id = $user_profile_country != '' ? $user_profile_country[0]->term_id : '';
+
+					$selected_country_id = $user_country_id ? $user_country_id : $user_profile_country_id;
+
+					foreach ( $countries as $country ) {
+						if ( $selected_country_id ) {
+							echo '<option value="' . $country->term_id . '" ' . ( $selected_country_id == $country->term_id ? 'selected' : '' ) . '>' . $country->name . '</option>';
+						} else {
+							echo '<option value="' . $country->term_id . '">' . $country->name . '</option>';
+						}
+					}
+					?>
                 </select>
             </div>
         </div>
