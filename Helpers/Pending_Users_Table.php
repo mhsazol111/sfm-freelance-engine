@@ -20,6 +20,7 @@ class Pending_Users_Table extends WP_List_Table {
 			'name'     => __( 'Name', ET_DOMAIN ),
 			'email'    => __( 'Email', ET_DOMAIN ),
 			'username' => __( 'Username', ET_DOMAIN ),
+			'company'  => __( 'Company', ET_DOMAIN ),
 			'status'   => __( 'Status', ET_DOMAIN ),
 			'action'   => __( 'Action', ET_DOMAIN ),
 		];

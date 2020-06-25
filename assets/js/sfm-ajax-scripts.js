@@ -285,6 +285,7 @@
 
             sfmAjaxFormSubmit(formData);
         });
+        
 
         /** ======================
          * Project Post and Update
@@ -301,8 +302,18 @@
             });
         }
 
+        // Post a project popup
         $(document).on("submit", "#post-project-form", function (e) {
             e.preventDefault();
+            if ($(this).valid()) {
+                $("#modal_post_project").modal("show");
+            }
+        });
+
+        // Post a Project Popup Accept & Publish project
+        $("#accept-post-project-pop").on("click", function (e) {
+            e.preventDefault();
+            $("#modal_post_project").modal("hide");
 
             let imageIds = [];
             if ($(".fre-attached-list li").length) {
@@ -311,7 +322,7 @@
                 });
             }
 
-            let formData = new FormData(this);
+            let formData = new FormData($("#post-project-form")[0]);
             formData.append("project_images", imageIds);
             formData.append("action", "sfm_project_post_and_update");
             formData.append("currentUserId", ajaxObject.currentUserId);

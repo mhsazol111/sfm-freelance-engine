@@ -50,7 +50,14 @@ if ( have_posts() ) {
                                 <div class="e_nav">
                                     <?php _e( 'Posted on:', ET_DOMAIN ) ?> <span><?php echo $convert->post_date; ?></span> &nbsp;|&nbsp; <?php _e( 'Project
                                     Status:', ET_DOMAIN ) ?>
-                                    <span><?php echo $convert->status_text; ?></span>
+                                    <span><?php 
+                                    $bid_stat = $convert->status_text;
+                                    if('ACTIVE' == strtoupper($bid_stat)) {
+                                        echo "Pending";
+                                    }else{
+                                        echo $bid_stat;
+                                    }
+                                    ?></span>
                                     &nbsp;|&nbsp; <?php _e( 'Total Bids:', ET_DOMAIN ) ?> <span><?php echo $bid_convert->total_bids; ?></span>
 
                                 </div>

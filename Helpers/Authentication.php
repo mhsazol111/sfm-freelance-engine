@@ -188,6 +188,12 @@ class Authentication {
 			$errors[]  = array( 'name' => 'repeat_pass', 'message' => 'Password didn\'t match' );
 			$has_error = true;
 		}
+		if($_REQUEST['role']=='employer') {
+			if ( $form_data['company_name'] == '' ) {
+				$errors[]  = array( 'name' => 'company_name', 'message' => 'Company Name is required!' );
+				$has_error = true;
+			}
+		}
 		if ( $form_data['user_country'] == '' ) {
 			$errors[]  = array( 'name' => 'user_country', 'message' => 'Please select a country!' );
 			$has_error = true;
@@ -210,7 +216,8 @@ class Authentication {
 //
 //		// Set account status to pending
 		update_user_meta( $user_id, 'account_status', 'pending' );
-		update_user_meta( $user_id, 'user_country_id', $form_data['user_country'] );
+		update_user_meta( $user_id, 'user_country_id', sanitize_text_field( $form_data['user_country'] ) );
+		update_user_meta( $user_id, 'company_name', sanitize_text_field( $form_data['company_name'] ) );
 
 		// Send email notification
 		do_action( 'user_register_email', $_REQUEST['role'], $user_id, sanitize_text_field( $form_data['user_email'] ) );

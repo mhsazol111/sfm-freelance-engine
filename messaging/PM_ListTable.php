@@ -194,11 +194,11 @@ class PM_ListTable extends WP_List_Table {
 		<div class="actions alignleft">
 			<form method="get">
 			<select name="filter_status" id="filter_author">
-				<option value=""><?php esc_html_e('Show All Status', 'link-able' ); ?></option>
-				<option value="read" <?= isset( $_REQUEST['filter_status'] ) && $_REQUEST['filter_status'] == 'read' ? 'selected' : ''; ?>><?php esc_html_e('Read', 'link-able' ); ?></option>
-				<option value="unread" <?= isset( $_REQUEST['filter_status'] ) && $_REQUEST['filter_status'] == 'unread' ? 'selected' : ''; ?>><?php esc_html_e('Unread', 'link-able' ); ?></option>
+				<option value=""><?php esc_html_e('Show All Status', ET_DOMAIN ); ?></option>
+				<option value="read" <?= isset( $_REQUEST['filter_status'] ) && $_REQUEST['filter_status'] == 'read' ? 'selected' : ''; ?>><?php esc_html_e('Read', ET_DOMAIN ); ?></option>
+				<option value="unread" <?= isset( $_REQUEST['filter_status'] ) && $_REQUEST['filter_status'] == 'unread' ? 'selected' : ''; ?>><?php esc_html_e('Unread', ET_DOMAIN ); ?></option>
 			</select>
-				<?php submit_button( __('Filter', 'link-able'), 'button', 'filter_submit', false ); ?>
+				<?php submit_button( __('Filter', ET_DOMAIN), 'button', 'filter_submit', false ); ?>
 				<input type="hidden" name="page" value="<?= esc_attr($_REQUEST['page']) ?>"/>
 			</form>
 		</div>

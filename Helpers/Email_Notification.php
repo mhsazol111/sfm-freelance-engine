@@ -9,8 +9,10 @@ class Email_Notification {
 	public function __construct() {
 		$emails       = get_field( 'admin_emails', 'option' );
 		$emails_array = [];
-		foreach ( $emails as $email ) {
-			$emails_array[] = $email['admin_email'];
+		if ( $emails ) {
+			foreach ( $emails as $email ) {
+				$emails_array[] = $email['admin_email'];
+			}
 		}
 		$this->admin_emails = $emails_array;
 

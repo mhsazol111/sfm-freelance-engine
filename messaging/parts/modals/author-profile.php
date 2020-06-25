@@ -36,19 +36,19 @@ $a_rating  = Fre_Review::freelancer_rating_score( $author->ID );
                     </div>
 
                     <div class="my-author-bio">
-                        <span class="bold btn-block"><?php esc_html_e( 'Author bio:', 'link-able' ); ?></span>
+                        <span class="bold btn-block"><?php esc_html_e( 'Author bio:', ET_DOMAIN ); ?></span>
 			            <?php
                         $author_bio = $author->description;
                         if ( ! empty( $author_bio ) ) {
 			                echo '<p>' . $author_bio . '</p>';
                         } else {
-	                        echo '<p>' . esc_html__( 'This author is new and has not yet added their author bio.', 'linkable' ) . '</p>';
+	                        echo '<p>' . esc_html__( 'This author is new and has not yet added their author bio.', ET_DOMAIN ) . '</p>';
                         } ?>
                     </div>
                     <div class="my-author-feedbacks">
 			            <?php $feedback = get_latest_feedback( $author->ID );
 			            if ( count( $feedback ) > 0 ) { ?>
-                            <span class="bold btn-block"><?php esc_html_e( 'Feedback & ratings from others who have worked with this author:', 'link-able' ); ?></span>
+                            <span class="bold btn-block"><?php esc_html_e( 'Feedback & ratings from others who have worked with this author:', ET_DOMAIN ); ?></span>
 				            <?php foreach ( $feedback as $k => $fb ) {
 					            $r_score   = isset( $fb['rating_score'] ) ? $fb['rating_score'] : 0;
 					            $r_feed    = isset( $fb['rating_feedback'] ) ? $fb['rating_feedback'] : 'No feedback given!';

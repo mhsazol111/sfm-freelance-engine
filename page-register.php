@@ -92,7 +92,7 @@ $freelancer_singup_img   = get_field( 'freelancer_signup_image' );
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="register-employer">
-                                    <h3><?php _e( 'Employer By Company', ET_DOMAIN ); ?></h3>
+                                    <h3><?php _e( 'Company', ET_DOMAIN ); ?></h3>
                                     <p><?php _e( 'Post project, find freelancers and hire favorite to work.', ET_DOMAIN ); ?></p>
                                     <a class="fre-small-btn primary-bg-color"
                                        href="<?php echo et_get_page_link( 'register', array( 'role' => EMPLOYER ) ); ?>"><?php _e( 'Sign Up', ET_DOMAIN ); ?></a>
@@ -145,7 +145,7 @@ $freelancer_singup_img   = get_field( 'freelancer_signup_image' );
                 <div class="col-md-6 col-sm-12 col-xs-12 right_area">
                     <div class="">
 						<?php if ( $role == 'employer' ) { ?>
-                            <h2><?php _e( 'Sign Up Employer Account', ET_DOMAIN ); ?></h2>
+                            <h2><?php _e( 'Sign Up Company Account', ET_DOMAIN ); ?></h2>
 						<?php } else { ?>
                             <h2><?php _e( 'Sign Up Freelancer Account', ET_DOMAIN ); ?></h2>
 						<?php } ?>
@@ -176,6 +176,12 @@ $freelancer_singup_img   = get_field( 'freelancer_signup_image' );
                                 <input type="password" name="repeat_pass" id="repeat_pass"
                                        placeholder="<?php _e( 'Confirm Your Password', ET_DOMAIN ); ?>" required>
                             </div>
+                            <?php if ( $role == 'employer' ) { ?>
+                                <div class="fre-input-field">
+                                    <input type="text" name="company_name" id="company_name"
+                                        placeholder="<?php _e('Company Name', ET_DOMAIN); ?>" required>
+                                </div>
+                            <?php } ?>
                             <div class="fre-input-field">
                                 <div class="select-box">
                                     <div class="select_icon"

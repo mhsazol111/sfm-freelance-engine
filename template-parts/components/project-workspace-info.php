@@ -41,7 +41,7 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
             <div class="rate-it" data-score="<?php echo get_comment_meta( $comment_for_freelancer[0]->comment_ID, 'et_rate', true ); ?>"></div>
 			<?php if ( empty( $comment_for_employer ) ) { ?>
                 <a href="#" id="<?php the_ID(); ?>"
-                   class="fre-normal-btn btn-complete-project"> <?php _e( 'Review for Employer', ET_DOMAIN ); ?></a>
+                   class="fre-normal-btn btn-complete-project"> <?php _e( 'Review for Company', ET_DOMAIN ); ?></a>
 			<?php } ?>
         </div>
     </div>

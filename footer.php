@@ -200,6 +200,7 @@
     get_template_part( 'template-js/modal', 'reject-project' );
     get_template_part( 'template-js/modal', 'cancel-bid' );
     get_template_part( 'template-js/modal', 'remove-bid' );
+    get_template_part( 'template-js/modal', 'post-project' );
 
     get_template_part( 'template-js/modal', 'delete-file' );
     get_template_part( 'template-js/modal', 'lock-file' );

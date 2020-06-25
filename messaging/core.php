@@ -93,7 +93,7 @@ class LAPrivateMessaging{
 	 */
 	public function create_menu_page() {
 		add_menu_page(
-			__( 'Private messages', 'link-able' ),
+			__( 'Private messages', ET_DOMAIN ),
 			'Private Messages',
 			'manage_options',
 			'la-private-messages',

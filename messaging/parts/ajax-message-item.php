@@ -22,7 +22,7 @@ $country           = get_the_terms( $author_profile_id, 'country' );
                 <p><?php _e( $country[0]->name, ET_DOMAIN ); ?>, <?php echo get_the_author_meta( 'city_name', $author_id ); ?></p>
             </div>
             <div class="btn_div">
-                <a class="ie_btn" href="<?= esc_url( $project_url ); ?>"><i class="fa fa-check-circle-o"></i> Go to Workroom</a>
+                <a class="ie_btn" href="<?= esc_url( $project_url ); ?>"><i class="fa fa-check-circle-o"></i> <?php _e('Go to Workroom', ET_DOMAIN); ?></a>
             </div>
         </div><!-- End .m_c_row -->
 

@@ -15,21 +15,6 @@
 						}
 						?>
                     </select>
-					<?php
-//					ae_tax_dropdown( 'project_category',
-//						array(
-//							'attr'            => 'data-chosen-width="100%" data-chosen-disable-search="" multiple data-placeholder="' . sprintf( __( "Choose maximum %s categories", ET_DOMAIN ), ae_get_option( 'max_cat', 5 ) ) . '"',
-//							'class'           => 'fre-chosen-category required',
-//							'class'           => 'fre-chosen-multi',
-//							'hide_empty'      => false,
-//							'hierarchical'    => true,
-//							'id'              => 'project_category',
-//							'show_option_all' => false,
-//							'selected'        => [],
-//							'name'            => 'project_category[]'
-//						)
-//					);
-					?>
                 </div>
                 <div class="fre-input-field">
                     <label class="fre-field-title"

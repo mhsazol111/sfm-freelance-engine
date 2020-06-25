@@ -9,7 +9,7 @@
  License:      GNU General Public License v2 or later
  License URI:  http://www.gnu.org/licenses/gpl-2.0.html
  Tags:         Freelancing Website
- Text Domain:  freelanceengine
+ Text Domain:  enginetheme
 */
 img {
     max-width: 100%;
@@ -73,6 +73,42 @@ header#employer-header-wrap.register-page-header #main_header .fre-menu-main li 
 header#employer-header-wrap.register-page-header #main_header .desktop_phone a.smf-phone {
     color: #333 !important;
 } */
+
+/* WPML CSS */
+#main_header .fre-menu-main li.wpml-ls-current-language ul.sub-menu {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+    top: 105px;
+    padding: 15px 0;
+    width: 60px;
+    left: -20px;
+    border-radius: 2px;
+    box-shadow: 0px 2px 5px 3px rgba(225,225,225,0.4);
+}
+#main_header .fre-menu-main li.wpml-ls-current-language:hover ul.sub-menu {
+    opacity: 1;
+    visibility: visible;
+    top: 87px;
+}
+#main_header .fre-menu-main li.wpml-ls-current-language {
+    position: relative;
+}
+#main_header .fre-menu-main li.wpml-ls-current-language ul.sub-menu li a {
+    padding: 0 15px !important;
+    display: inline-block;
+}
+#main_header .fre-menu-main li.wpml-ls-current-language ul.sub-menu li {
+    padding: 0;
+    text-align: center;
+    display: block;
+}
+#main_header .fre-menu-main li.wpml-ls-current-language ul.sub-menu li:not(:last-child) {
+    margin-bottom: 15px;
+}
+/* WPML CSS */
+
 .container.header-full-width {
     width: 100%;
 }

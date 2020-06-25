@@ -359,7 +359,7 @@ function get_latest_feedback( $freelancer_id, $type= 'freelancer', $limit = 5 ) 
 function get_author_tag_name ( $author ) {
     $profile_title = get_user_meta( $author->ID, 'et_professional_title', true );
     if( empty( $profile_title ) ) {
-        return __( 'Author', 'linkable' );
+        return __( 'Author', ET_DOMAIN );
     }
 	return $profile_title;
 }

@@ -86,9 +86,9 @@ require_once get_theme_file_path( 'inc/shortcodes.php' );
  */
 function sfm_child_sidebar_register() {
 	register_sidebar( array(
-		'name'          => __( 'Footer 5', 'textdomain' ),
+		'name'          => __( 'Footer 5', ET_DOMAIN ),
 		'id'            => 'fre-footer-5',
-		'description'   => __( 'Widgets in this area will be shown on all posts and pages.', 'textdomain' ),
+		'description'   => __( 'Widgets in this area will be shown on all posts and pages.', ET_DOMAIN ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
 		'before_title'  => '<h2 class="widgettitle">',
@@ -327,8 +327,8 @@ function pri_dump( $code ) {
 if ( ! function_exists( 'sfm_register_nav_menu' ) ) {
 	function sfm_register_nav_menu() {
 		register_nav_menus( array(
-			'freelance_menu' => __( 'Freelance Menu', 'ET_DOMAIN' ),
-			'employer_menu'  => __( 'Employer Menu', 'ET_DOMAIN' ),
+			'freelance_menu' => __( 'Freelance Menu', ET_DOMAIN ),
+			'employer_menu'  => __( 'Employer Menu', ET_DOMAIN ),
 		) );
 	}
 
@@ -413,6 +413,7 @@ function pending_users_admin_view() {
 			'name'     => '<a href="' . get_edit_user_link( $user->ID ) . '">' . $user->display_name . '</a>',
 			'email'    => $user->user_email,
 			'username' => $user->user_login,
+			'company'  => get_user_meta($user->ID, 'company_name', true),
 			'status'   => 'Pending',
 			'action'   => '<a href="' . get_edit_user_link( $user->ID ) . '">View Profile</a> | <a href="#" id="user-approve" class="pending-user-action" data-action="approve" data-user_id="' . $user->ID . '">Approve</a> | <a href="' . wp_nonce_url( "users.php?action=delete&amp;user={$user->ID}", 'bulk-users' ) . '" id="user-delete" class="pending-user-action" data-action="delete" data-user_id="' . $user->ID . '">Delete</a>',
 		);
