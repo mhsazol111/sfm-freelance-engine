@@ -76,3 +76,12 @@ body {
 .project-bid-info-list > li span {
   display: inline-block !important;
 }
+
+div#sfm_invitations_items {
+  padding: 10px 10px;
+  border: 1px solid #ccc;
+}
+div#sfm_invitations_items p {
+  margin: 0;
+  padding: 5px 0;
+}

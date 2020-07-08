@@ -125,8 +125,8 @@
             items: 3,
             nav: true,
             navText: [
-                '<img src="/wp-content/themes/sfm-child/inc/images/slider_arrow_left.svg" alt="arrow left">',
-                '<img src="/wp-content/themes/sfm-child/inc/images/slider_arrow_right.svg" alt="arrow right">',
+                '<img src="'+ajaxObject.site_root+'/wp-content/themes/sfm-child/inc/images/slider_arrow_left.svg" alt="arrow left">',
+                '<img src="'+ajaxObject.site_root+'/wp-content/themes/sfm-child/inc/images/slider_arrow_right.svg" alt="arrow right">',
             ],
             dots: false,
             responsive: {

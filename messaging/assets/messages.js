@@ -31,8 +31,9 @@ jQuery(document).ready(function ($) {
     });
     $('#la_message_reply_form').on('submit', function (e) {
         e.preventDefault();
+        var isNewMessage = $(this).hasClass('la_isNewMessage');
         var form = document.getElementById('la_message_reply_form');
-        la_submit_message_form(form);
+        la_submit_message_form(form, isNewMessage);
         $('[name="reply_message"]').val('');
     });
     // Reload window in mobile<>desktop if this is message page
@@ -129,7 +130,7 @@ function la_get_unread_item(project_id, author) {
 }
 
 // Submit message reply form
-function la_submit_message_form(form) {
+function la_submit_message_form(form, isNewMessage = false) {
     var formData = new FormData(form);
     formData.append('action', 'la_submit_reply_message');
     if ('' == formData.getAll('reply_message')) {
@@ -145,6 +146,9 @@ function la_submit_message_form(form) {
             processData: false,
             success: function (res) {
                 jQuery('#la_reply_msg').val('');
+                // if( isNewMessage ) {
+                //     window.location.reload();
+                // }
                 la_get_message_item(res.project_id, res.author);
                 la_scroll_message_container_to_bottom();
                 jQuery('.reply_button').attr('disabled', false);

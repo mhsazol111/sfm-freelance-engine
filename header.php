@@ -111,7 +111,10 @@ if ( is_page_template( 'template-home.php' ) || is_page_template( 'template-blog
                        class="smf-phone"><?php _e( "Tel: " . get_theme_mod( 'contact_phone' ) ); ?></a>
                 </div>
 				<?php if ( ! is_user_logged_in() ) { ?>
-                    <div class="fre-account-wrap  smf-acc">
+                    <div class="fre-account-wrap  smf-acc header-logged-out">
+                        <div class="header-language-bar">
+		                    <?php echo do_shortcode( '[language-switcher]' ); ?>
+                        </div>
                         <div class="fre-login-wrap">
                             <ul class="fre-login">
                                 <li>
@@ -131,22 +134,26 @@ if ( is_page_template( 'template-home.php' ) || is_page_template( 'template-blog
 				<?php } else { ?>
 
                     <div class="fre-account-wrap  smf-acc dropdown">
+                        <div class="header-language-bar">
+		                    <?php echo do_shortcode( '[language-switcher]' ); ?>
+                        </div>
 						<?php if ( is_user_logged_in() && current_user_can( 'administrator' ) ) : ?>
-							
+
 						<?php else: ?>
-							<a class="fre-notification smf-notification sfm-header-notifi dropdown-toggle"
-							data-toggle="dropdown" href="">
-								<i class="fa fa-bell-o" aria-hidden="true"></i> <div
-										class="notification-title"><?php _e('Notifications', ET_DOMAIN); ?></div>
+                            <a class="fre-notification smf-notification sfm-header-notifi dropdown-toggle"
+                               data-toggle="dropdown" href="">
+                                <i class="fa fa-bell-o" aria-hidden="true"></i>
+                                <div
+                                        class="notification-title"><?php _e( 'Notifications', ET_DOMAIN ); ?></div>
 								<?php
-								if (function_exists('fre_user_have_notify')) {
+								if ( function_exists( 'fre_user_have_notify' ) ) {
 									$notify_number = fre_user_have_notify();
-									if ($notify_number) {
+									if ( $notify_number ) {
 										echo '<span class="dot-noti"></span>';
 									}
 								}
 								?>
-							</a>
+                            </a>
 						<?php endif ?>
 
 						<?php fre_user_notification( $user_ID, 1, 5 ); ?>
@@ -174,7 +181,7 @@ if ( is_page_template( 'template-home.php' ) || is_page_template( 'template-blog
                                     <a href="<?php echo et_get_page_link( "profile" ) ?>"><?php _e( 'Dashboard', ET_DOMAIN ); ?></a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo esc_url(get_site_url() . '/help-and-support') ?>"><?php _e( 'Help and Support', ET_DOMAIN ); ?></a>
+                                    <a href="<?php echo esc_url( get_site_url() . '/help-and-support' ) ?>"><?php _e( 'Help and Support', ET_DOMAIN ); ?></a>
                                 </li>
 								<?php do_action( 'fre_header_before_notify' ); ?>
                                 <li><a href="<?php echo wp_logout_url(); ?>"><?php _e( 'Logout', ET_DOMAIN ); ?></a>

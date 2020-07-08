@@ -43,7 +43,7 @@ if ( have_posts() ) : the_post(); ?>
 					?>
 				</div>
 				
-				<?php if ( USER_ROLE == 'freelancer' ) : 
+				<?php if ( USER_ROLE == 'freelancer' || current_user_can( 'administrator' ) ) : 
 
 					// Check freelancer already bid on the project
 					$children = get_children( array(
@@ -66,7 +66,7 @@ if ( have_posts() ) : the_post(); ?>
 
 				endif; ?>
                 
-				<?php if ( $user_ID == get_queried_object()->post_author ) : ?>
+				<?php if ( $user_ID == get_queried_object()->post_author || current_user_can( 'administrator' ) ) : ?>
                     <div class="dashboard_inn single-projects-bid-wrap">
 						<?php get_template_part( 'template-parts/single-project', 'bidding' ); ?>
                     </div>

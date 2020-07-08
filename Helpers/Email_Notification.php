@@ -7,6 +7,7 @@ class Email_Notification {
 	private $headers;
 
 	public function __construct() {
+		$from_email   = get_field( 'from_email', 'option' );
 		$emails       = get_field( 'admin_emails', 'option' );
 		$emails_array = [];
 		if ( $emails ) {
@@ -19,7 +20,7 @@ class Email_Notification {
 		$headers       = [];
 		$headers[]     = "Content-Type: text/html";
 		$headers[]     = "charset=UTF-8";
-		$headers[]     = "From: SFM <email@sfm.com>";
+		$headers[]     = "From: SFM <{$from_email}>";
 		$this->headers = $headers;
 
 		add_action( 'user_register_email', array( $this, 'user_register_email_cb' ), 10, 3 );

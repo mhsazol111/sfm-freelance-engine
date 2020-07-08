@@ -84,6 +84,24 @@ $country 	= get_the_terms($employer->user_profile_id, 'country');
 				?>
             </div>
 		<?php endif; ?>
+        <?php if( 'employer' == USER_ROLE ) {
+            $invitations = sfmInvitations::getInvitations( $project->id );
+            if ( ! empty( $invitations ) ) { ?>
+                <h4><?php _e( 'Invitation Sent', ET_DOMAIN ); ?></h4>
+                <p><?php _e('Total invitations sent', ET_DOMAIN ); ?>: <strong><?php echo count( $invitations ); ?></strong>
+                    <a href="javascript:void(0)" onclick="jQuery('#sfm_invitations_items').slideToggle();"><i><?php _e( 'Expand details', ET_DOMAIN ); ?></i></a></p>
+                <div id="sfm_invitations_items" style="display: none;">
+                    <?php foreach ( $invitations as $invitation ) {
+                        if( empty( $invitation) ) continue;
+	                    $freelancer = Freelancer::get_freelancer( $invitation ); ?>
+                        <p>
+                            <a href="<?php echo $freelancer->slug; ?>"><?php echo $freelancer->display_name; ?> <?php echo '(<i>' .get_the_author_meta('email') . '</i> )'; ?></a>
+                        </p>
+                    <?php } ?>
+                </div>
+            <?php
+            } // If any invitation found    
+        } //if employer ?>
     </div>
 
     <div class="<?php echo ( $sfm_user_access == "employer" ) ? "employer" : "default"; ?> info_right">
@@ -104,9 +122,9 @@ $country 	= get_the_terms($employer->user_profile_id, 'country');
 
             <div class="person_info">
                 <h4>
-					<a href="<?php echo $employer->slug; ?>"><?php echo $employer->display_name; ?></a>
+					<a href="<?php echo $employer->slug; ?>"><?php echo $employer->company_name; ?></a>
 				</h4>
-                <p><?php echo $employer->company_name; ?></p>
+                <!-- <p><?php //echo $employer->company_name; ?></p> -->
 				<p><?php foreach($country as $a ) { echo $a->name; } ?>, <?php echo $employer->city_name; ?></p>
             </div>
             <hr>

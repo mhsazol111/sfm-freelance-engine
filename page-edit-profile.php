@@ -4,7 +4,13 @@
  */
 
 get_header();
-?>
+if( sfm_translating_as('employer') ){
+	get_template_part('translations/edit-profile', 'employer');
+}
+else if( sfm_translating_as('freelancer') ){
+	get_template_part('translations/edit-profile', 'freelancer');
+}
+else { ?>
 
     <div class="fre-page-wrapper list-profile-wrapper">
         <div class="profile_dashboard" id="<?php echo USER_ROLE; ?>-dashboard">
@@ -53,4 +59,6 @@ get_header();
         }
     </script>
 
-<?php get_footer(); ?>
+    <?php
+}
+get_footer();

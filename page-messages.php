@@ -150,42 +150,59 @@ get_header();
 
                                 </div>
                             </div><!-- .message_title -->
+						<?php
+							$showLoader = true;
+							get_template_part('template-parts/components/message', 'send-form');
 
-                            <div class="la_author_messages m_c_row">
-                                    <div id="la_message_ajax_container" class="la_is_loading"></div>
-                                <div class="la_message_reply_container">
-                                    <form id="la_message_reply_form">
-										<?php wp_nonce_field( '_la_message_reply', 'reply_nonce' ); ?>
-                                        <input type="hidden" name="project_id" value="<?php echo $p_id; ?>">
-                                        <input type="hidden" name="author_id" value="<?php echo $a_id; ?>">
-                                        <div class="la_message_writer">
-                                            <!-- <textarea name="reply_message" id="la_reply_msg" class="form-control" rows="3" placeholder="<?php //esc_html_e( 'Write a reply...', 'link-able' );
-											?>"></textarea> -->
+                        else :
+                            if( ( !empty( $a_id ) && !empty( $p_id ) ) || sfm_is_translating() ) {
+	                            if( ! sfm_is_translating() ) {
+		                            $proj = get_post( $p_id );
+		                            $userdata = EMPLOYER == ae_user_role() ? get_userdata( $a_id ) : '';
+		                            if ( EMPLOYER == ae_user_role() ) {
+			                            $avater_user = $proj->post_author;
+		                            } else {
+			                            $avater_user = $a_id;
+		                            }
+                                    $emp_dis_name = get_the_author_meta( 'display_name', $avater_user );
+		                            $pro_ID = $proj->ID;
+		                            $pro_title = wp_strip_all_tags( $proj->post_title );
+                                } else {
+		                            $pro_ID = 00;
+		                            $pro_title = '########';
+                                }
 
-                                            <textarea name="reply_message"
-                                                      placeholder="<?php esc_html_e( 'Write a reply...', ET_DOMAIN ); ?>"
-                                                      id="reply"
-                                                      name="reply" rows="4"></textarea>
+	                            ?>
+                                <div class="message_title">
+                                    <div class="la_message_inn">
+                                        <div class="m_t_row active">
+                                            <a href="javascript:void(0)" class="laSidebarMessage"
+                                               data-project="<?= $pro_ID; ?>" data-author="<?= $a_id; ?>">
+                                                <h3><?php if ( EMPLOYER == ae_user_role() || sfm_is_translating() ) { ?><?= $emp_dis_name; ?><?php } ?></h3>
+                                                <p><?= $pro_title; ?></p>
+                                            </a>
                                         </div>
-                                        <div class="la_message_reply_button workspace-button">
-                                            <!-- <button class="btn reply_button" disabled>Send <i class="fas fa-sign-out-alt"></i></button> -->
-
-                                            <button class="ie_btn reply_button"><i class="fa fa-paper-plane-o"></i> Send
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-
-						<?php else : ?>
+                                    </div>
+                                </div><?php
+                                $showLoader = false;
+                                get_template_part('template-parts/components/message', 'send-form');
+                            } else {
+                            ?>
                             <div class="well no-message-found" style="width: 100%;margin-bottom: 0;">
                                 <p class="alert alert-info text-center"
                                    style="margin-bottom: 0"><?php esc_html_e( 'No messages found!', ET_DOMAIN ); ?></p>
                             </div>
-						<?php endif; // if has message_titles ?>
+						<?php }
+                            if( sfm_is_translating() ) { ?>
+                                <div class="well no-message-found" style="width: 100%;margin-bottom: 0;">
+                                    <p class="alert alert-info text-center"
+                                       style="margin-bottom: 0"><?php esc_html_e( 'No messages found!', ET_DOMAIN ); ?></p>
+                                </div>
+                                <?php
+                            }
+                        endif; // if has message_titles ?>
 
-
-                    </div>
+                    </div> <!-- ./message-container -->
                 </div>
 
             </section>

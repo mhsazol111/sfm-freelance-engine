@@ -35,7 +35,7 @@ if ( USER_ROLE == 'freelancer' ) {
                     endif; ?>
                 <?php endif; ?>
             </p>
-			<?php if ( USER_ROLE == 'freelancer' ) : ?>
+			<?php if ( USER_ROLE == 'freelancer' || sfm_translating_as('freelancer') ) : ?>
                 <a class="ie_btn" href="<?php echo home_url( 'projects' ) ?>"><?php _e( 'Browse Projects', ET_DOMAIN ) ?></a>
 			<?php else : ?>
                 <a class="ie_btn" href="<?php echo home_url( 'post-project' ) ?>"><?php _e( 'Post a Project', ET_DOMAIN ) ?></a>

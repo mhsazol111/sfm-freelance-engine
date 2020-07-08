@@ -14,15 +14,28 @@ if ( ! get_user_meta( get_current_user_id(), 'user_profile_id', true ) ) {
 }
 
 get_header();
-?>
+
+// translation check
+if( sfm_translating_as('employer') ) {
+
+    get_template_part('translations/my-project', 'employer');
+
+}
+else if ( sfm_translating_as('freelancer') ){
+
+    get_template_part('translations/my-project', 'freelancer');
+
+} else { ?>
 
     <div class="fre-page-wrapper">
 
-        <div class="my_projects profile_dashboard" id="<?php echo USER_ROLE; ?>-projects">
+        <div class="my_projects profile_dashboard"
+             id="<?php echo USER_ROLE; ?>-projects">
 
 			<?php get_template_part( 'template-parts/sidebar', 'profile' ); // Dashboard Sidebar ?>
 
-            <section id="dashboard_content">
+            <section
+                    id="dashboard_content">
                 <div class="dashboard_inn">
 
                     <div class="dashboard_title">
@@ -35,7 +48,8 @@ get_header();
 
 							<?php get_template_part( 'template-parts/components/my-project', 'filter' ); ?>
 
-                            <div id="projects-wrapper" class="my-projects-wrapper">
+                            <div id="projects-wrapper"
+                                 class="my-projects-wrapper">
                                 <div class="projects-wrapper-content">
 									<?php if ( 'employer' == USER_ROLE ) : ?>
 
@@ -77,4 +91,6 @@ get_header();
         </div>
     </div>
 
-<?php get_footer( 'dashboard' ); ?>
+	<?php
+}
+get_footer( 'dashboard' );

@@ -3,6 +3,24 @@
     "title": "Email Options",
     "fields": [
         {
+            "key": "field_5efa786977080",
+            "label": "From Email",
+            "name": "from_email",
+            "type": "email",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_5eece1a0765cc",
             "label": "Admin Emails",
             "name": "admin_emails",
@@ -59,5 +77,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1592582823
+    "modified": 1593473144
 }

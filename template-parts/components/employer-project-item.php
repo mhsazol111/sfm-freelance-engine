@@ -27,6 +27,16 @@ $employer   = Employer::get_employer( $project->employer_id );
                     }
                     ?></span> &nbsp;|&nbsp;
                     <?php _e( 'Deadline:', ET_DOMAIN ) ?> <span><?php echo date( 'F j, Y', strtotime( $project->project_deadline ) ); ?></span>
+                    <?php
+                    $invitations = sfmInvitations::getInvitations( $project->id );
+                    if( ! empty( $invitations ) ) {
+                        printf(
+                                "&nbsp;|&nbsp;%s <span>%d</span>",
+                            __('Invited:', ET_DOMAIN ),
+                            count( $invitations)
+                        );
+                    }
+                    ?>
                 </div>
             </div>
             <div class="head_right">

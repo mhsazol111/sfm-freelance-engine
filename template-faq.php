@@ -28,7 +28,7 @@
                 <div class="banner-bottom-coner">
                     <div class="bottom-btn-wrapper">
                         <p><?php echo _e( 'SPS', ET_DOMAIN ); ?> </p>
-                        <img src="/wp-content/uploads/2020/04/arrow.svg" alt="arrow">
+                        <img src="<?= get_site_url(); ?>/wp-content/uploads/2020/04/arrow.svg" alt="arrow">
                     </div>
                 </div>
             </a>

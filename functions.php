@@ -37,7 +37,18 @@ function sfm_load_scripts() {
 		wp_enqueue_style( 'noui-css', '//cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.css', null, '14.0.3', 'all' );
 	}
 
-	wp_enqueue_style( 'sfm-dashboard', get_stylesheet_directory_uri() . '/assets/css/dashboard.css', null, time(), 'all' );
+//	if ( ! is_page_template( array(
+//		'template-registration.php',
+//		'page-register.php',
+//		'page-login.php',
+//		'template-blog.php',
+//		'template-home.php',
+//		'template-contact.php',
+//		'template-faq.php',
+//		'page-my-portfolios.php'
+//	) ) ) {
+		wp_enqueue_style( 'sfm-dashboard', get_stylesheet_directory_uri() . '/assets/css/dashboard.css', null, time(), 'all' );
+//	}
 	wp_enqueue_style( 'magnific-css', '//cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css', null, '1.1.0', 'all' );
 	wp_enqueue_style( 'owl-css', '//cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css', null, '2.3.4', 'all' );
 
@@ -63,6 +74,7 @@ function sfm_load_scripts() {
 		'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
 		'currentUserId' => get_current_user_id(),
 		'upload'        => admin_url( 'admin-ajax.php?action=sfm_file_upload' ),
+        'site_root'     => get_site_url(),
 //		'delete'        => admin_url( 'admin-ajax.php?action=sfm_file_delete' ),
 	) );
 }
@@ -79,6 +91,7 @@ function sfm_enqueue_admin_script() {
 
 add_action( 'admin_enqueue_scripts', 'sfm_enqueue_admin_script' );
 
+require_once __DIR__ . '/inc/helper_functions.php';
 require_once get_theme_file_path( 'inc/shortcodes.php' );
 
 /**
@@ -293,7 +306,9 @@ add_action( 'init', 'register_fre_missing_taxonomy' );
 
 /**
  * Convert a multi-dimensional array into a single-dimensional array.
+ *
  * @param array $array The multi-dimensional array.
+ *
  * @return array
  */
 function array_flatten( $array ) {
@@ -314,6 +329,7 @@ function array_flatten( $array ) {
 
 /**
  * Print_r Code with better look and feel
+ *
  * @param $code
  */
 function pri_dump( $code ) {
@@ -413,7 +429,7 @@ function pending_users_admin_view() {
 			'name'     => '<a href="' . get_edit_user_link( $user->ID ) . '">' . $user->display_name . '</a>',
 			'email'    => $user->user_email,
 			'username' => $user->user_login,
-			'company'  => get_user_meta($user->ID, 'company_name', true),
+			'company'  => get_user_meta( $user->ID, 'company_name', true ),
 			'status'   => 'Pending',
 			'action'   => '<a href="' . get_edit_user_link( $user->ID ) . '">View Profile</a> | <a href="#" id="user-approve" class="pending-user-action" data-action="approve" data-user_id="' . $user->ID . '">Approve</a> | <a href="' . wp_nonce_url( "users.php?action=delete&amp;user={$user->ID}", 'bulk-users' ) . '" id="user-delete" class="pending-user-action" data-action="delete" data-user_id="' . $user->ID . '">Delete</a>',
 		);
@@ -439,6 +455,38 @@ function sfm_admin_scripts( $hook ) {
 
 add_action( 'admin_enqueue_scripts', 'sfm_admin_scripts' );
 
+function sfm_fix_pending_review_text(){
+	// From the project list page
+	if( isset($_GET['post_type']) && 'project' == $_GET['post_type'] ) { ?>
+		<script>
+			jQuery(document).ready(function ($) {
+                var __sfm_status = jQuery('.inline-edit-status').find('option[value="pending"]');
+                if( __sfm_status.length ) {
+                    __sfm_status.text('Pending');
+                }
+            });
+		</script>
+		<?php
+	}
+	// From project single page
+	if( isset($_GET['post']) && ! empty( $_GET['post'] ) && 'edit' == @$_GET['action'] ) {
+		if( 'project' == get_post_type($_GET['post']) ) {
+			?>
+			<script>
+                jQuery(document).ready(function ($) {
+                    var __sfm_status = jQuery('#post-status-select').find('option[value="pending"]');
+                    if (__sfm_status.length) {
+                        __sfm_status.text('Pending');
+                    }
+                });
+			</script>
+			<?php
+		}
+	}
+}
+add_action( 'admin_print_footer_scripts-edit.php', 'sfm_fix_pending_review_text' );
+add_action( 'admin_print_footer_scripts-post.php', 'sfm_fix_pending_review_text' );
+
 
 // CF7 Dynamic Value From User Filter
 function custom_shortcode_atts_wpcf7_filter( $out, $pairs, $atts ) {
@@ -462,6 +510,22 @@ if ( ! function_exists( 'et_get_customization' ) ) {
 	}
 }
 
+//
+/**
+ * Change flags folder path for certain languages.
+ */
+
+add_filter( 'trp_flags_path', 'sfm_trpc_flags_path', 10, 2 );
+function sfm_trpc_flags_path( $original_flags_path,  $language_code ){
+    
+	$languages_with_custom_flags = array( 'en_US' );
+
+	if ( in_array( $language_code, $languages_with_custom_flags ) ) {
+		return get_stylesheet_directory_uri() . '/assets/flags/';
+	}else{
+		return $original_flags_path;
+	}
+}
 
 // Helper Classes
 require 'Helpers/Authentication.php';
@@ -473,3 +537,4 @@ require 'Helpers/Custom.php';
 require 'Helpers/Project.php';
 require 'Helpers/Bid.php';
 require 'Helpers/Email_Notification.php';
+require 'Helpers/sfmInvitations.php';

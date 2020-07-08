@@ -142,7 +142,35 @@ a.smf-phone {
 }
 .fre-menu-top.smf-top {
     float: right;
+    margin-right: 15px;
 }
+.fre-account-wrap {
+    display: flex;
+    align-items: center;
+}
+.smf-acc .fre-login>li {
+    height: auto;
+}
+.header-language-bar {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.header-language-bar .trp-language-switcher > div {
+    background-color: transparent;
+    border: none;
+    background-image: none;
+    width: 39px !important;
+    padding: 3px 3px 3px 2px !important;
+}
+.header-language-bar .trp-ls-shortcode-language > a:last-child {
+    padding-top: 8px;
+    background-color: transparent;
+}
+.header-language-bar .trp-language-switcher > div > a > img {
+    width: 25px;
+    height: 17px;
+}
+
 .smf-acc .fre-login-wrap {
     padding: 0;
 }
@@ -306,7 +334,10 @@ header#freelance-header-wrap .fre-notification.dropdown-toggle:hover i {
     color: #fff;
 }
 ul#menu-employer, ul#menu-freelance {
-    margin-right: 23px;
+    margin-right: -15px;
+}
+#main_header ul#menu-employer li a, #main_header ul#menu-freelance li a {
+    padding-top: 34px;
 }
 .page-template-page-register .fre-login > li.reg-signup a {
     color: #fff;
@@ -333,7 +364,7 @@ ul#menu-employer, ul#menu-freelance {
     flex: 1;
 }
 .footer-wrapper {
-    background-image: url(/wp-content/uploads/2020/04/footer-min.jpg);
+    background-image: url(../../uploads/2020/04/footer-min.jpg);
     background-repeat: no-repeat;
     width: 100%;
     height: 100%;
@@ -521,7 +552,7 @@ p.banner-content {
     }
 }
 .banner-bottom-coner {
-    background-image: url(/wp-content/uploads/2020/04/left-arrow_bg.png);
+    background-image: url(../../uploads/2020/04/left-arrow_bg.png);
     background-repeat: no-repeat;
     background-size: 100%;
     text-align: center;
@@ -755,6 +786,14 @@ footer .widget ul li a {
                     media: max-width: 1199px
 ==========================================*/
 @media only screen and (max-width: 1199px) {
+    .header-logged-out .header-language-bar {
+        margin-top: -10px;
+        margin-left: 0;
+        margin-right: 15px;
+    }
+    .smf-header-wrapper.active .header-language-bar {
+        display: none;
+    }
     .smf-header-wrapper .sfm-header-notifi {
         display: block;
         margin: 26px 15px;
@@ -1153,13 +1192,13 @@ footer .widget ul li a {
         display: block;
     }
     .smf-header-wrapper .fre-account-wrap.smf-acc {
-        display: block;
         position: absolute;
         top: 0;
         right: 50px;
         height: auto;
         display: flex;
-        flex-flow: row-reverse;
+        align-items: center;
+        /*flex-flow: row-reverse;*/
     }
     .fre-account.dropdown {
         padding: 0;
@@ -1180,7 +1219,7 @@ footer .widget ul li a {
     .fre-login img {
         top: inherit;
         left: 50%;
-        bottom: 10px;
+        bottom: 19px;
         -webkit-transform: translate(-50%, 0%);
         transform: translate(-50%, 0%);
         position: absolute;
@@ -1208,12 +1247,30 @@ footer .widget ul li a {
     .smf-social-links.top-social-link {
         left: 7px;
     }
+    .smf-header-wrapper .fre-account-wrap.smf-acc.header-logged-out {
+        right: 32px;
+    }
+    .header-logged-out .fre-login > li + li {
+        margin-left: 30px;
+    }
+    .header-logged-out .header-language-bar {
+        margin-right: 10px;
+    }
 }
 
 /*=========================================
                     media: max-width: 370px
 =========================================*/
 @media only screen and (max-width: 370px) {
+    .smf-header-wrapper .fre-account-wrap.smf-acc .fre-login-wrap {
+        padding-right: 45px;
+    }
+    .header-logged-out .fre-login > li + li {
+        margin-left: 5px;
+    }
+    .header-logged-out .header-language-bar {
+        margin-right: 0;
+    }
     .fre-login > li + li {
         margin-left: 0;
     }

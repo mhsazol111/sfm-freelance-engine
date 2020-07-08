@@ -30,7 +30,7 @@
 
     get_header();
 ?>
-<section class="top-banner-section" style="background-image:url(/wp-content/uploads/2020/04/blog-page-banner-min.jpg);">
+<section class="top-banner-section" style="background-image:url(<?= get_site_url(); ?>/wp-content/uploads/2020/04/blog-page-banner-min.jpg);">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -47,7 +47,7 @@
         <a href="#">
             <div class="bottom-btn-wrapper">
                 <p><?php echo _e( 'SPS', ET_DOMAIN ); ?></p>
-                <img src="/wp-content/uploads/2020/04/arrow.svg" alt="<?php echo _e( 'arrow', ET_DOMAIN ); ?>">
+                <img src="<?= get_site_url(); ?>/wp-content/uploads/2020/04/arrow.svg" alt="<?php echo _e( 'arrow', ET_DOMAIN ); ?>">
             </div>
         </a>
     </div>
@@ -70,9 +70,9 @@
                         <?php else: ?>
                         <a href="<?php the_permalink();?>">
                             <div class="sfm-blog-thumbnail">
-                                <img width="360" height="251" src="/wp-content/uploads/2020/04/dummy.jpg"
+                                <img width="360" height="251" src="<?= get_site_url(); ?>/wp-content/uploads/2020/04/dummy.jpg"
                                     class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt=""
-                                    srcset="/wp-content/uploads/2020/04/dummy.jpg 360w, /wp-content/uploads/2020/04/dummy.jpg 300w"
+                                    srcset="<?= get_site_url(); ?>/wp-content/uploads/2020/04/dummy.jpg 360w, <?= get_site_url(); ?>/wp-content/uploads/2020/04/dummy.jpg 300w"
                                     sizes="(max-width: 360px) 100vw, 360px">
                             </div>
                         </a>

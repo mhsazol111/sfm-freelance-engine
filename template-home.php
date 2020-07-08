@@ -43,7 +43,7 @@ if ( have_rows( 'home_layout' ) ):
                     </div>
                     <div class="banner-moreinfo">
                         <a href="#home-section-two">
-                            <img src="/wp-content/uploads/2020/04/arrow.svg" alt="">
+                            <img src="<?= get_site_url(); ?>/wp-content/uploads/2020/04/arrow.svg" alt="">
                             <p><?php echo _e( 'more info' ); ?> </p>
                         </a>
                     </div>
@@ -51,7 +51,7 @@ if ( have_rows( 'home_layout' ) ):
                         <div class="banner-bottom-coner">
                             <div class="bottom-btn-wrapper">
                                 <p>SPS</p>
-                                <img src="/wp-content/uploads/2020/04/arrow.svg" alt="">
+                                <img src="<?= get_site_url(); ?>/wp-content/uploads/2020/04/arrow.svg" alt="">
                             </div>
                         </div>
                     </a>

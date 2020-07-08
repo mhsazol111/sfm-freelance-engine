@@ -41,7 +41,7 @@ $originalDate = $project->project_deadline;
                         </div>
                     </div>
                     <div class="person_info">
-                        <h4><?php echo $employer->name; ?></h4>
+                        <h4><?php echo $employer->company_name; ?></h4>
                         <?php
                         $rating = $employer->rating_score;
                         //if( !empty( $rating ) ): ?>
