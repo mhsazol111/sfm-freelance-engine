@@ -51,7 +51,7 @@ else if ( sfm_translating_as('freelancer') ){
                             <div id="projects-wrapper"
                                  class="my-projects-wrapper">
                                 <div class="projects-wrapper-content">
-									<?php if ( 'employer' == USER_ROLE ) : ?>
+									<?php if ( 'employer' == USER_ROLE || current_user_can('administrator') ) : ?>
 
 										<?php
 										$e_projects = Employer::get_projects( get_current_user_id(), 'any', 10 );

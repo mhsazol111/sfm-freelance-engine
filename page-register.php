@@ -152,6 +152,12 @@ $freelancer_singup_img   = get_field( 'freelancer_signup_image' );
                         <form method="POST" id="sfm_sign_up_form" class="validation-enabled">
                             <input type="hidden" name="ae_redirect_url" value="<?php echo $re_url ?>"/>
                             <input type="hidden" name="role" id="role" value="<?php echo $role; ?>"/>
+                            <?php if ( $role == 'employer' ) { ?>
+                                <div class="fre-input-field">
+                                    <input type="text" name="company_name" id="company_name"
+                                        placeholder="<?php _e('Company Name', ET_DOMAIN); ?>" required>
+                                </div>
+                            <?php } ?>
                             <div class="fre-input-field">
                                 <input type="text" name="first_name" id="first_name"
                                        placeholder="<?php _e( 'First Name', ET_DOMAIN ); ?>" required>
@@ -176,19 +182,13 @@ $freelancer_singup_img   = get_field( 'freelancer_signup_image' );
                                 <input type="password" name="repeat_pass" id="repeat_pass"
                                        placeholder="<?php _e( 'Confirm Your Password', ET_DOMAIN ); ?>" required>
                             </div>
-                            <?php if ( $role == 'employer' ) { ?>
-                                <div class="fre-input-field">
-                                    <input type="text" name="company_name" id="company_name"
-                                        placeholder="<?php _e('Company Name', ET_DOMAIN); ?>" required>
-                                </div>
-                            <?php } ?>
                             <div class="fre-input-field">
                                 <div class="select-box">
                                     <div class="select_icon"
                                         style="background-image: url('http://sfm.idevs.site/wp-content/themes/freelanceengine-child/inc/images/select-icon.svg');">
                                     </div>
                                     <select name="user_country" id="user_country" class="sfm-select2" required>
-                                        <option value=""><?php _e( 'Select Country', ET_DOMAIN ); ?></option>
+                                        <option value=""><?php _e( 'Nationality', ET_DOMAIN ); ?></option>
                                         <?php
                                          $countries           = get_terms( array(
                                              'taxonomy'   => 'country',

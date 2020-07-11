@@ -1258,15 +1258,16 @@ hr.bottom_hr {
     border-radius: 5px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
-.proposal_rows .d_footer .footer_left {
-    width: 175px;
-}
+/*.proposal_rows .d_footer .footer_left {*/
+/*    width: 175px;*/
+/*}*/
 .proposal_rows .d_footer .footer_left form button i {
     padding-right: 5px;
 }
 .proposal_rows .d_footer .footer_right {
-    width: calc(100% - 175px);
+    /*width: calc(100% - 175px);*/
     text-align: right;
 }
 .proposal_rows .d_footer a i {

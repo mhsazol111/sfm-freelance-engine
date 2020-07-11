@@ -301,7 +301,8 @@ class Project {
 			'message'  => __( 'Project Successfully Updated!', ET_DOMAIN ),
 			'redirect' => home_url() . '/my-project'
 		) );
-		die();
+
+		wp_die();
 	}
 
 

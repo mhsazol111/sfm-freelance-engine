@@ -2,13 +2,13 @@
 
 global $wp_query, $ae_post_factory, $post, $user_ID, $show_bid_info;
 $post_object = $ae_post_factory->get( PROJECT );
-$convert = $project = $post_object->current_post;
-$project = $post_object->convert( $post );
-$author_id = $project->post_author;
-$rating = Fre_Review::employer_rating_score( $author_id );
-$user_data = get_userdata( $author_id );
-$profile_id = get_user_meta( $author_id, 'user_profile_id', true );
-$profile = array();
+$convert     = $project = $post_object->current_post;
+$project     = $post_object->convert( $post );
+$author_id   = $project->post_author;
+$rating      = Fre_Review::employer_rating_score( $author_id );
+$user_data   = get_userdata( $author_id );
+$profile_id  = get_user_meta( $author_id, 'user_profile_id', true );
+$profile     = array();
 if ( $profile_id ) {
 	$profile_post = get_post( $profile_id );
 	if ( $profile_post && ! is_wp_error( $profile_post ) ) {
@@ -16,19 +16,19 @@ if ( $profile_id ) {
 	}
 }
 $hire_freelancer = fre_count_hire_freelancer( $author_id );
-$attachment = get_children( array(
+$attachment      = get_children( array(
 	'numberposts' => - 1,
-	'order' => 'ASC',
+	'order'       => 'ASC',
 	'post_parent' => $post->ID,
-	'post_type' => 'attachment',
+	'post_type'   => 'attachment',
 ), OBJECT );
-$bid_object = $ae_post_factory->get( BID );
-$bid_convert = $bid_object->convert( $post );
+$bid_object      = $ae_post_factory->get( BID );
+$bid_convert     = $bid_object->convert( $post );
 $sfm_user_access = ae_user_role( $user_ID );
 
-$project    = Employer::get_project( get_the_ID() );
-$employer   = Employer::get_employer( $project->employer_id );
-$country 	= get_the_terms($employer->user_profile_id, 'country');
+$project  = Employer::get_project( get_the_ID() );
+$employer = Employer::get_employer( $project->employer_id );
+$country  = get_the_terms( $employer->user_profile_id, 'country' );
 //pri_dump($country);
 ?>
 
@@ -84,24 +84,29 @@ $country 	= get_the_terms($employer->user_profile_id, 'country');
 				?>
             </div>
 		<?php endif; ?>
-        <?php if( 'employer' == USER_ROLE ) {
-            $invitations = sfmInvitations::getInvitations( $project->id );
-            if ( ! empty( $invitations ) ) { ?>
+		<?php if ( 'employer' == USER_ROLE ) {
+			$invitations = sfmInvitations::getInvitations( $project->id );
+			if ( ! empty( $invitations ) ) { ?>
                 <h4><?php _e( 'Invitation Sent', ET_DOMAIN ); ?></h4>
-                <p><?php _e('Total invitations sent', ET_DOMAIN ); ?>: <strong><?php echo count( $invitations ); ?></strong>
-                    <a href="javascript:void(0)" onclick="jQuery('#sfm_invitations_items').slideToggle();"><i><?php _e( 'Expand details', ET_DOMAIN ); ?></i></a></p>
+                <p><?php _e( 'Total invitations sent', ET_DOMAIN ); ?>:
+                    <strong><?php echo count( $invitations ); ?></strong>
+                    <a href="javascript:void(0)"
+                       onclick="jQuery('#sfm_invitations_items').slideToggle();"><i><?php _e( 'Expand details', ET_DOMAIN ); ?></i></a>
+                </p>
                 <div id="sfm_invitations_items" style="display: none;">
-                    <?php foreach ( $invitations as $invitation ) {
-                        if( empty( $invitation) ) continue;
-	                    $freelancer = Freelancer::get_freelancer( $invitation ); ?>
+					<?php foreach ( $invitations as $invitation ) {
+						if ( empty( $invitation ) ) {
+							continue;
+						}
+						$freelancer = Freelancer::get_freelancer( $invitation ); ?>
                         <p>
-                            <a href="<?php echo $freelancer->slug; ?>"><?php echo $freelancer->display_name; ?> <?php echo '(<i>' .get_the_author_meta('email') . '</i> )'; ?></a>
+                            <a href="<?php echo $freelancer->slug; ?>"><?php echo $freelancer->display_name; ?><?php echo ' (<i>' . $freelancer->email . '</i> )'; ?></a>
                         </p>
-                    <?php } ?>
+					<?php } ?>
                 </div>
-            <?php
-            } // If any invitation found    
-        } //if employer ?>
+				<?php
+			} // If any invitation found
+		} //if employer ?>
     </div>
 
     <div class="<?php echo ( $sfm_user_access == "employer" ) ? "employer" : "default"; ?> info_right">
@@ -111,7 +116,7 @@ $country 	= get_the_terms($employer->user_profile_id, 'country');
                 <div class="thumb background_position">
                     <a class="" href="<?php echo $employer->slug; ?>">
                         <div class="thumb background_position">
-							<img src="<?php echo $employer->et_avatar_url; ?>" alt="<?php echo $employer->display_name; ?>">
+                            <?php echo get_avatar($project->employer_id, '150') ; ?>
                         </div>
                     </a>
                     <div class="fpp-rating freelancer">
@@ -122,10 +127,11 @@ $country 	= get_the_terms($employer->user_profile_id, 'country');
 
             <div class="person_info">
                 <h4>
-					<a href="<?php echo $employer->slug; ?>"><?php echo $employer->company_name; ?></a>
-				</h4>
-                <!-- <p><?php //echo $employer->company_name; ?></p> -->
-				<p><?php foreach($country as $a ) { echo $a->name; } ?>, <?php echo $employer->city_name; ?></p>
+                    <a href="<?php echo $employer->slug; ?>"><?php echo $employer->company_name; ?></a>
+                </h4>
+                <p><?php foreach ( $country as $a ) {
+						echo $a->name;
+					} ?>, <?php echo $employer->city_name; ?></p>
             </div>
             <hr>
 
@@ -149,61 +155,28 @@ $country 	= get_the_terms($employer->user_profile_id, 'country');
 
 
 <div class="project-detail-box-01 no-padding-01">
-
     <div class="project-detail-extend-01">
-
 		<?php
-		//milestone
-
 		$args = array(
-
 			'post_type' => 'ae_milestone',
-
 			'posts_per_page' => - 1,
-
 			'post_status' => 'any',
-
 			'post_parent' => $project->id,
-
 			'orderby' => 'meta_value',
-
 			'order' => 'ASC',
-
 			'meta_key' => 'position_order',
-
 		);
 
 		$query = new WP_Query( $args );
-
 		if ( function_exists( 'ae_query_milestone' ) && $query->have_posts() ) { ?>
-
-
             <div class="project-detail-milestone">
-
                 <h4><?php echo __( "Milestones", ET_DOMAIN ); ?></h4>
-
 				<?php do_action( 'after_sidebar_single_project', $project ); ?>
-
             </div>
-
-
-		<?php } ?>
-
-
-
-		<?php
-
-		//Customfields
-
+		<?php }
 		if ( function_exists( 'et_render_custom_field' ) ) {
-
 			et_render_custom_field( $project );
-
 		}
-
 		?>
-
-
     </div>
-
 </div>

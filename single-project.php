@@ -31,48 +31,64 @@ if ( have_posts() ) : the_post(); ?>
 			<?php get_template_part( 'template-parts/sidebar', 'profile' ); // Dashboard Sidebar ?>
 
             <section id="dashboard_content">
-                <div class="dashboard_inn">
-					<?php
+				<?php if ( sfm_is_translating() ) : ?>
 
-					if ( isset( $_REQUEST['dispute'] ) && $_REQUEST['dispute'] ) {
-						get_template_part( 'template/project', 'report' );
-					} else {
-						get_template_part( 'template-parts/single-project', 'info' );
-						get_template_part( 'template-parts/single-project', 'content' );
-					}
-					?>
-				</div>
-				
-				<?php if ( USER_ROLE == 'freelancer' || current_user_can( 'administrator' ) ) : 
-
-					// Check freelancer already bid on the project
-					$children = get_children( array(
-						'post_parent' => get_queried_object_id(),
-						'post_type'   => 'bid'
-					) );
-
-					if ( ! empty( $children ) ) {
-						$author_ids = [];
-						foreach ( $children as $child ) {
-							$author_ids[] = $child->post_author;
+                    <div class="dashboard_inn">
+						<?php
+						if ( isset( $_REQUEST['dispute'] ) && $_REQUEST['dispute'] ) {
+							get_template_part( 'template/project', 'report' );
+						} else {
+							get_template_part( 'translations/single-project', 'info' );
+							get_template_part( 'translations/single-project', 'content' );
 						}
-						//pri_dump($child);
-						if ( in_array( get_current_user_id(), $author_ids ) ) : ?>
-							<div class="dashboard_inn single-projects-bid-wrap">
-								<?php get_template_part( 'template-parts/single-project', 'bidding' ); ?>
-							</div>
-						<?php endif;
-					}
-
-				endif; ?>
-                
-				<?php if ( $user_ID == get_queried_object()->post_author || current_user_can( 'administrator' ) ) : ?>
-                    <div class="dashboard_inn single-projects-bid-wrap">
-						<?php get_template_part( 'template-parts/single-project', 'bidding' ); ?>
+						?>
                     </div>
-				<?php endif; ?>
+                    <div class="dashboard_inn single-projects-bid-wrap">
+						<?php get_template_part( 'translations/single-project', 'bidding' ); ?>
+                    </div>
+				<?php else : ?>
 
-				<?php echo '<script type="data/json" id="project_data">' . json_encode( $convert ) . '</script>'; ?>
+                    <div class="dashboard_inn">
+						<?php
+						if ( isset( $_REQUEST['dispute'] ) && $_REQUEST['dispute'] ) {
+							get_template_part( 'template/project', 'report' );
+						} else {
+							get_template_part( 'template-parts/single-project', 'info' );
+							get_template_part( 'template-parts/single-project', 'content' );
+						}
+						?>
+                    </div>
+
+					<?php if ( USER_ROLE == 'freelancer' || current_user_can( 'administrator' ) ) :
+						// Check freelancer already bid on the project
+						$children = get_children( array(
+							'post_parent' => get_queried_object_id(),
+							'post_type'   => 'bid'
+						) );
+
+						if ( ! empty( $children ) ) {
+							$author_ids = [];
+							foreach ( $children as $child ) {
+								$author_ids[] = $child->post_author;
+							}
+							if ( in_array( get_current_user_id(), $author_ids ) ) : ?>
+                                <div class="dashboard_inn single-projects-bid-wrap">
+									<?php get_template_part( 'template-parts/single-project', 'bidding' ); ?>
+                                </div>
+							<?php endif;
+						}
+					endif; ?>
+
+					<?php if ( $user_ID == get_queried_object()->post_author || current_user_can( 'administrator' ) ) : ?>
+                        <div class="dashboard_inn single-projects-bid-wrap">
+							<?php get_template_part( 'template-parts/single-project', 'bidding' ); ?>
+                        </div>
+					<?php endif; ?>
+
+				<?php
+				endif;
+				echo '<script type="data/json" id="project_data">' . json_encode( $convert ) . '</script>';
+				?>
 
             </section>
         </div>

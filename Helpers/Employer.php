@@ -147,6 +147,7 @@ class Employer {
 		}
 
 		$details = array(
+			'id'           => $employer_id,
 			'name'         => get_user_meta( $employer_id, 'first_name', true ) . ' ' . get_user_meta( $employer_id, 'last_name', true ),
 			'display_name' => get_userdata( $employer_id )->display_name,
 			'slug'         => $employer_profile->guid,

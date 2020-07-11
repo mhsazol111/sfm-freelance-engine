@@ -104,6 +104,7 @@ class Freelancer {
 			'name'         => get_user_meta( $freelancer_id, 'first_name', true ) . ' ' . get_user_meta( $freelancer_id, 'last_name', true ),
 			'display_name' => get_userdata( $freelancer_id )->display_name,
 			'slug'         => $freelancer_profile->guid,
+			'email'        => get_userdata( $freelancer_id )->user_email,
 			'user_metas'   => $u_metas,
 			'profile_post' => $metas,
 		);

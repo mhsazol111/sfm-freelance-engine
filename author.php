@@ -142,12 +142,12 @@ if( isset($convert->hour_rate) )
                                             </a>
                                           <?php }  ?>
                                           <?php
-                                            $show_btn =  apply_filters('show_btn_contact', false); // @since 1.8.5
-                                            if( $show_btn ){ ?>
-                                            <a href="#" data-toggle="modal" class="contact-me"   data-user="<?php echo $convert->post_author ?>">
-                                                <?php _e( "Contact", ET_DOMAIN ) ?>
-                                            </a>
-                                          <?php } ?>
+//                                            $show_btn =  apply_filters('show_btn_contact', false); // @since 1.8.5
+//                                            if( $show_btn ){ ?>
+<!--                                            <a href="#" data-toggle="modal" class="contact-me"   data-user="--><?php //echo $convert->post_author ?><!--">-->
+<!--                                                --><?php //_e( "Contact", ET_DOMAIN ) ?>
+<!--                                            </a>-->
+<!--                                          --><?php //} ?>
                                         </div>
                                       <?php } ?>
                                       <?php if ( fre_share_role() || ae_user_role( $author_id ) == FREELANCER ) { ?>
@@ -161,10 +161,6 @@ if( isset($convert->hour_rate) )
                                               <span><?php _e( 'Wage Rate:', ET_DOMAIN ) ?></span>
                                               <span>
                                                   <b>CHF <?php echo $author_freelancer->daily_wage_rate; ?> </b><?php _e( '/day', ET_DOMAIN ) ?>
-                                                  <?php 
-                                                      // if($hour_rate > 0)
-                                                      // echo '<span>'.sprintf( __( '<b>%s</b> /day ',ET_DOMAIN), fre_price_format( $hour_rate ) ).'</span>'; 
-                                                  ?>
                                               </span>
                                           </div>
                                           <div class="fpp-social-link">

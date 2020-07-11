@@ -26,16 +26,6 @@ if ( is_user_logged_in() && ( ( fre_share_role() || $user_role == FREELANCER ) )
 			$bidding_id = $value->ID;
 		}
 	}
-	if ( isset( $_POST['submit_auth'] ) ) {
-		$wpdb->insert( $wpdb->prefix . 'la_private_messages', array(
-			'project_id' => $convert->id,
-			'author_id'  => $user_ID,
-			'sender_id'  => $user_ID,
-			'message'    => 'Hello ' . get_user_meta( $project->post_author, 'display_name', true ),
-			'send_date'  => current_time( 'mysql' ),
-		) );
-		wp_redirect( get_site_url() . '/messages/' );
-	}
 }
 
 $role                = ae_user_role();
@@ -81,7 +71,8 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
     <div class="project-detail-box">
         <div class="project-employer-review">
             <span class="employer-avatar-review"><?php echo $freelancer_data->avatar; ?></span>
-            <h2><a href="<?php echo $freelancer_data->author_url; ?>"
+            <h2>
+                <a href="<?php echo $freelancer_data->author_url; ?>"
                    target="_blank"><?php echo $freelancer_data->display_name; ?></a>
             </h2>
             <p><?php echo '"' . $comment_for_employer[0]->comment_content . '"'; ?></p>
@@ -93,17 +84,12 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
 
 <div class="dashboard_title single-project-top-meta-desc">
     <div class="d_t_info">
-		<h2 class="project-detail-title"><?php the_title(); ?></h2>
+        <h2 class="project-detail-title"><?php the_title(); ?></h2>
         <div class="e_nav">
-            <!-- <i class="fas fa-user-friends"></i> Number of Bids: <span>3</span> | -->
 			<?php if ( $project->total_bids > 0 ) {
-				if ( $project->total_bids == 1 ) {
-					printf( __( '<i class="fas fa-user-friends"></i> Number of Bids: <span class="secondary-color"> %s</span> |', ET_DOMAIN ), $project->total_bids );
-				} else {
-					printf( __( '<i class="fas fa-user-friends"></i> Number of Bids: <span class="secondary-color"> %s</span> |', ET_DOMAIN ), $project->total_bids );
-				}
+				echo '<i class="fas fa-user-friends"></i>' . __( ' Number of Bids:', ET_DOMAIN ) . '<span class="secondary-color"> ' . $project->total_bids . '</span> |';
 			} else {
-				printf( __( '<i class="fas fa-user-friends"></i> Number of Bids: <span class="secondary-color"> %s</span> |', ET_DOMAIN ), $project->total_bids );
+				echo '<i class="fas fa-user-friends"></i>' . __( ' Number of Bids:', ET_DOMAIN ) . '<span class="secondary-color"> 0</span> |';
 			} ?>
             <i class="far fa-check-circle"></i><?php _e( 'Project Status: ', ET_DOMAIN ); ?><span>
                 <?php
@@ -125,37 +111,26 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
 			<?php if ( $post->post_status == 'close' || $post->post_status == 'disputing' ) { ?>
                 <i class="fas fa-trophy"></i>
 				<?php _e( 'Winning Bid: ', ET_DOMAIN ); ?>
-				<span><?php echo $project->bid_budget_text; ?></span> |
+                <span><?php echo $project->bid_budget_text; ?></span> |
 			<?php } ?>
-				<i class="fas fa-trophy"></i>
-				<?php _e( 'Budget: ', ET_DOMAIN ); ?>
-				<span><?php 
-				$budgets = $project->et_budget; 
-				if(is_numeric($budgets)){ ?>
-					CHF <?php echo $budgets;
-				}else{ 
-					echo $budgets;
-				}
-				?></span> |
-                <i class="fas fa-hourglass-half"></i>
-				<?php _e( 'Deadline: ', ET_DOMAIN ); ?>
-                <span><?php echo date_i18n( "F j, Y", strtotime( $project->project_deadline ) );; ?></span>
+            <i class="fas fa-trophy"></i>
+			<?php _e( 'Budget: ', ET_DOMAIN ); ?>
+            <span>
+                <?php
+                if ( is_numeric( $project->et_budget ) ) { ?>
+                    CHF <?php echo $project->et_budget;
+                } else {
+	                echo $project->et_budget;
+                } ?>
+            </span> |
+            <i class="fas fa-hourglass-half"></i>
+			<?php _e( 'Deadline: ', ET_DOMAIN ); ?>
+            <span><?php echo date_i18n( "F j, Y", strtotime( $project->project_deadline ) );; ?></span>
         </div>
 
     </div>
     <div class="b_t_right">
         <div class="project-detail-action">
-			<?php if ( $user_role == FREELANCER ): ?>
-                <!-- <div class="project-detail-action"> -->
-<!--                <a class="send_message" style="margin-right: 10px;" href="--><?php //echo esc_url(get_site_url() . '/messages?a_id=' . get_current_user_id() . '&p_id=' . $project->ID ) ?><!--"><i class="far fa-envelope"></i> --><?php //_e('Send Message', ET_DOMAIN); ?><!--</a>-->
-<!--                <form action="" method="POST" class="edit-form" enctype="multipart/form-data">-->
-<!--                    <button type="submit" name="submit_auth" class="send_message">-->
-<!--                        <i class="far fa-envelope" aria-hidden="true"></i> Send Message-->
-<!--                    </button>-->
-<!--                </form>-->
-                <!-- </div> -->
-			<?php endif; ?>
-
 			<?php
 			if ( is_user_logged_in() ) {
 				if ( $project_status == 'publish' ) {
@@ -165,7 +140,6 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
 							echo '<a class="fre-normal-btn primary-bg-color bid-action" data-action="cancel" data-bid-id="' . $bidding_id . '"><i class="fa fa-check-circle-o" aria-hidden="true"></i> ' . __( 'Cancel', ET_DOMAIN ) . '</a>';
 						} else {
 							echo '<a class="fre-action-btn" href="' . et_get_page_link( 'submit-proposal', array( 'id' => $project->ID ) ) . '"><i class="fa fa-check-circle-o" aria-hidden="true"></i> ' . __( 'Send Proposal', ET_DOMAIN ) . '</a>';
-							//fre_button_bid( $project->ID );
 						}
 					} else if ( ( ( fre_share_role() || $user_role == EMPLOYER ) || current_user_can( 'manage_options' ) ) && $user_ID == $project->post_author ) {
 						echo '<a class="fre-action-btn  project-action" data-action="archive" data-project-id="' . $project->ID . '"> ' . __( 'Archive This Project', ET_DOMAIN ) . '</a>';
@@ -177,15 +151,9 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
 					if ( (int) $project->post_author == $user_ID || $bid_accepted_author == $user_ID || current_user_can( 'manage_options' ) ) {
 						echo '<a class="fre-normal-btn" href="' . add_query_arg( array( 'dispute' => 1 ), $project_link ) . '"><i class="fa fa-check-circle-o" aria-hidden="true"></i> ' . __( 'Dispute Page', ET_DOMAIN ) . '</a>';
 					}
-					// } else if ( $project_status == 'close' ) {
-					//     $bid_accepted_author = get_post_field( 'post_author', $bid_accepted );
-					//     if ( (int) $project->post_author == $user_ID || $bid_accepted_author == $user_ID ) {
-					//         echo '<a class="fre-normal-btn" href="' . add_query_arg( array( 'workspace' => 1 ), $project_link ) . '"><i class="fa fa-check-circle-o" aria-hidden="true"></i> ' . __( 'Workspace', ET_DOMAIN ) . '</a>';
-					//     }
 				} else if ( $project_status == 'complete' ) {
 					$bid_accepted_author = get_post_field( 'post_author', $bid_accepted );
 					if ( (int) $project->post_author == $user_ID || $bid_accepted_author == $user_ID ) {
-						// echo '<a class="fre-normal-btn" href="' . add_query_arg( array( 'workspace' => 1 ), $project_link ) . '"><i class="fa fa-check-circle-o" aria-hidden="true"></i> ' . __( 'Workspace', ET_DOMAIN ) . '</a>';
 					} else if ( current_user_can( 'manage_options' ) && ae_get_option( 'use_escrow' ) ) {
 						$bid_id_accepted = get_post_meta( $post->ID, 'accepted', true );
 						$order           = get_post_meta( $bid_id_accepted, 'fre_bid_order', true );
