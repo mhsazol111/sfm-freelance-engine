@@ -10,7 +10,7 @@ if ( ! get_user_meta( get_current_user_id(), 'user_profile_id', true ) ) {
 }
 
 $user_profile_id = get_user_meta( get_current_user_id(), 'user_profile_id', true );
-if ( get_post_meta( $user_profile_id, 'user_role', true ) != 'employer' ) {
+if ( USER_ROLE == 'freelancer' ) {
 	wp_redirect( home_url() . '/dashboard' );
 }
 
@@ -60,17 +60,10 @@ $loop = new WP_Query( $query_args );
 			<?php get_template_part( 'template-parts/sidebar', 'profile' ); // Dashboard Sidebar ?>
 
             <section id="dashboard_content">
-
                 <div class="dashboard_inn" id="archive-freelancer-inner">
-
                     <div class="archive-freelancer-filter">
 						<?php get_template_part( 'template-parts/components/browse-freelancer', 'filter' ); ?>
                     </div>
-
-<!--                    <div class="archive-freelancer-top-info">-->
-<!--						--><?php //$number_of_users = Custom::query_to_post_count( $loop_count ); ?>
-<!--                        <h5>--><?php //printf( __( '%s Profiles currently available for hire.', ET_DOMAIN ), intval( $number_of_users ) ); ?><!--</h5>-->
-<!--                    </div>-->
 
                     <div id="projects-wrapper" class="browse-freelancer-wrapper">
                         <div class="freelancers-wrapper-content">
@@ -86,24 +79,8 @@ $loop = new WP_Query( $query_args );
 							?>
                         </div>
                     </div>
-
                 </div>
-
             </section>
-            <!--            <script>-->
-            <!--                (function ($) {-->
-            <!--                    $(document).ready(function () {-->
-            <!--                        $('body .rate-it').raty({-->
-            <!--                            readOnly: true,-->
-            <!--                            half: true,-->
-            <!--                            score: function () {-->
-            <!--                                return $(this).attr('data-score');-->
-            <!--                            },-->
-            <!--                            hints: raty.hint-->
-            <!--                        });-->
-            <!--                    })-->
-            <!--                })(jQuery);-->
-            <!--            </script>-->
 
         </div>
     </div>

@@ -25,11 +25,46 @@ class Email_Notification {
 		$headers[]     = "From: SFM <{$this->from_email}>";
 		$this->headers = $headers;
 
+		add_filter('ae_get_mail_header', array($this, 'change_sfm_default_email_header'));
+		add_filter('ae_get_mail_footer', array($this, 'change_sfm_default_email_footer'));
+
 		add_action( 'user_register_email', array( $this, 'user_register_email_cb' ), 10, 3 );
 		add_action( 'pending_user_approval_email', array( $this, 'pending_user_approval_email_cb' ), 10, 1 );
 		add_action( 'new_bid_notification', array( $this, 'new_bid_notification_cb' ), 10, 2 );
 		add_action( 'accept_proposal_notification', array( $this, 'accept_proposal_notification_cb' ), 10, 4 );
 		add_action( 'post_project_notification', array( $this, 'post_project_notification_cb' ), 10, 2 );
+	}
+
+
+	public function change_sfm_default_email_header() {
+		return '<table width="100%" border="0" cellpadding="5" cellspacing="0" style="border: 2px solid #2094c6; max-width: 600px; margin: auto;">
+            <thead>
+                <tr>
+                    <th colspan="6" style="padding: 15px 20px;text-align: center">
+                        <img style="max-width: 120px; width: 120px;" src="' . esc_url(get_stylesheet_directory_uri() . '/inc/images/SFM-Logo.png') . '" alt="SFM">
+                    </th>
+                </tr>
+            </thead>
+            <tbody style="border-top: 5px solid #2094c6;">
+                <tr>
+                    <td colspan="6" style="padding: 20px 20px; border-top: 5px solid #2094c6; font-family:sans-serif; font-size: 16px;line-height: 1.5">';
+	}
+
+	public function change_sfm_default_email_footer() {
+		return '</td>
+                </tr>
+            </tbody>
+            <tfoot style="background-color: #2094c6;">
+                <tr>
+                    <td colspan="4" style="color: #fff; font-family:sans-serif; padding: 15px 20px; font-size: 14px; line-height: 1.4">
+                        &copy;2020. Switzerland Freelance Marketplace.<br> All Right Reserved.
+                    </td>
+                    <td colspan="2" style="text-align: right; color: #fff; padding: 15px 20px; font-family:sans-serif; font-size: 14px; line-height: 1.4">SFM<br>
+                        <a style="color: #fff; font-family:sans-serif;" href="mailto:<?php echo $this->from_email ?>">' . get_field( 'from_email', 'option' ) . '</a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>';
 	}
 
 	public function email_body_html( $body_text ) {
@@ -41,7 +76,6 @@ class Email_Notification {
                     <th colspan="6" style="padding: 15px 20px;text-align: center">
                         <img style="max-width: 120px; width: 120px;" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/inc/images/SFM-Logo.png') ?>" alt="SFM">
                     </th>
-<!--                    <th colspan="4" style="font-family:sans-serif; padding: 10px 20px; font-size: 18px;">Hire Expert Freelancer</th>-->
                 </tr>
             </thead>
             <tbody style="border-top: 5px solid #2094c6;">

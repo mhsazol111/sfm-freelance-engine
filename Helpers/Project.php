@@ -30,8 +30,13 @@ class Project {
 		$form_data = $_POST;
 
 		$user_profile_id = get_user_meta( get_current_user_id(), 'user_profile_id', true );
-		$cat_ids         = [];
-		$categories      = get_the_terms( $user_profile_id, 'project_category' );
+		if ( current_user_can( 'administrator' ) ) {
+			$categories = Custom::all_terms( 'project_category' );
+		} else {
+			$categories = get_the_terms( $user_profile_id, 'project_category' );
+		}
+
+		$cat_ids = [];
 		foreach ( $categories as $cat ) {
 			$cat_ids[] = $cat->term_id;
 		}
@@ -50,6 +55,7 @@ class Project {
 				),
 			),
 		);
+
 
 		if ( $form_data['project-search'] != '' ) {
 			$args['s'] = $form_data['project-search'];
@@ -71,25 +77,25 @@ class Project {
 			);
 		}
 
-		if ( $form_data['project-bid'] != '' ) {
-			$args['meta_query'] = array(
-				'relation' => 'AND',
-				array(
-					'key'     => 'total_bids',
-					'value'   => $form_data['project-bid'],
-					'compare' => '='
-				)
-			);
-		}
-
-		if ( $form_data['project-min-budget'] != '' && $form_data['project-max-budget'] != '' ) {
-			$args['meta_query'][] = array(
-				'key'     => 'et_budget',
-				'value'   => array( $form_data['project-min-budget'], $form_data['project-max-budget'] ),
-				'type'    => 'numeric',
-				'compare' => 'BETWEEN',
-			);
-		}
+//		if ( $form_data['project-bid'] != '' ) {
+//			$args['meta_query'] = array(
+//				'relation' => 'AND',
+//				array(
+//					'key'     => 'total_bids',
+//					'value'   => $form_data['project-bid'],
+//					'compare' => '='
+//				)
+//			);
+//		}
+//
+//		if ( $form_data['project-min-budget'] != '' && $form_data['project-max-budget'] != '' ) {
+//			$args['meta_query'][] = array(
+//				'key'     => 'et_budget',
+//				'value'   => array( $form_data['project-min-budget'], $form_data['project-max-budget'] ),
+//				'type'    => 'numeric',
+//				'compare' => 'BETWEEN',
+//			);
+//		}
 
 		$query = new WP_Query( $args );
 		ob_start();
@@ -292,9 +298,9 @@ class Project {
 
 
 		// Send Admin notification about new project
-		if ( !isset($form_data['project_id']) && $form_data['project_id'] == '' ) {
-            do_action('post_project_notification', get_current_user_id(), $project_id);
-        }
+		if ( ! isset( $form_data['project_id'] ) && $form_data['project_id'] == '' ) {
+			do_action( 'post_project_notification', get_current_user_id(), $project_id );
+		}
 
 		echo wp_json_encode( array(
 			'status'   => true,

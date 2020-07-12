@@ -15,11 +15,11 @@ $countries = $terms = get_terms( 'country', array(
         <div class="form-group">
             <div class="select_icon"
                  style="background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/inc/images/select-icon.svg');"></div>
-            <select class="custom-select form-control" id="freelancer-skill" name="freelancer-skill">
+            <select class="custom-select form-control sfm-select2" id="freelancer-skill" name="freelancer-skill">
                 <option><?php _e( 'Select freelancers by Skill', ET_DOMAIN ) ?></option>
 				<?php
 				foreach ( $skills as $skill ) {
-					echo sprintf( '<option value="%s">%s</option>', $skill->term_id, $skill->name );
+					echo sprintf( '<option value="%s">%s</option>', $skill->term_id, __( $skill->name, ET_DOMAIN ) );
 				}
 				?>
             </select>
@@ -28,11 +28,11 @@ $countries = $terms = get_terms( 'country', array(
         <div class="form-group">
             <div class="select_icon"
                  style="background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/inc/images/select-icon.svg');"></div>
-            <select class="custom-select form-control" id="freelancer-country" name="freelancer-country">
+            <select class="custom-select form-control sfm-select2" id="freelancer-country" name="freelancer-country">
                 <option><?php _e( 'Select freelancers by Country', ET_DOMAIN ) ?></option>
 				<?php
 				foreach ( $countries as $country ) {
-					echo sprintf( '<option value="%s">%s</option>', $country->term_id, $country->name );
+					echo sprintf( '<option value="%s">%s</option>', $country->term_id, __( $country->name, ET_DOMAIN ) );
 				}
 				?>
             </select>

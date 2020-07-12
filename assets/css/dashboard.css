@@ -1260,6 +1260,15 @@ hr.bottom_hr {
     flex-wrap: wrap;
     justify-content: space-between;
 }
+#browse-freelancer-form span.select2,
+#browse-freelancer-form span.select2 span.select2-selection,
+#browse-freelancer-form span.select2 span.select2-selection > span,
+#browse-project-form span.select2,
+#browse-project-form span.select2 span.select2-selection,
+#browse-project-form span.select2 span.select2-selection > span {
+    height: 45px;
+    line-height: 45px;
+}
 /*.proposal_rows .d_footer .footer_left {*/
 /*    width: 175px;*/
 /*}*/

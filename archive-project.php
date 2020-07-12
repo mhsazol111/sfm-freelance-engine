@@ -22,7 +22,7 @@ if ( ! get_user_meta( get_current_user_id(), 'user_profile_id', true ) ) {
 
 $user_profile_id = get_user_meta( get_current_user_id(), 'user_profile_id', true );
 
-if ( USER_ROLE != FREELANCER && !current_user_can( 'administrator' ) ) {
+if ( USER_ROLE != FREELANCER && ! current_user_can( 'administrator' ) ) {
 	wp_redirect( home_url() . '/dashboard' );
 }
 
@@ -49,15 +49,18 @@ $query_args = array(
 	'post_status'    => 'publish',
 	'posts_per_page' => 10,
 	'paged'          => 1,
-	'tax_query'      => array(
+);
+
+if ( ! current_user_can( 'administrator' ) ) {
+	$query_args['tax_query'] = array(
 		'relation' => 'AND',
 		array(
 			'taxonomy' => 'project_category',
 			'field'    => isset( $_GET['category_project'] ) && $_GET['category_project'] ? 'slug' : 'term_id',
 			'terms'    => isset( $_GET['category_project'] ) && $_GET['category_project'] ? $_GET['category_project'] : $cat_ids,
 		),
-	),
-);
+	);
+}
 
 if ( isset( $_GET['skill_project'] ) && $_GET['skill_project'] != '' ) {
 	$current_skill = $_GET['skill_project'];
@@ -68,16 +71,6 @@ if ( isset( $_GET['skill_project'] ) && $_GET['skill_project'] != '' ) {
 		'terms'    => $_GET['skill_project'],
 	);
 }
-
-//if ( isset( $_GET['category_project'] ) && $_GET['category_project'] != '' ) {
-//	$current_category = $_GET['category_project'];
-//
-//	$query_args['tax_query'][] = array(
-//		'taxonomy' => 'project_category',
-//		'field'    => 'slug',
-//		'terms'    => $_GET['category_project'],
-//	);
-//}
 
 $loop = new WP_Query( $query_args );
 
@@ -124,133 +117,6 @@ get_header();
 
         </div>
     </div>
-
-
-    <!-- <div class="fre-page-title">
-
-        <div class="container">
-
-            <h2><?php //_e( 'Available Projects', ET_DOMAIN ); ?></h2>
-
-        </div>
-
-    </div> -->
-
-    <!-- <div class="fre-page-section section-archive-project">
-
-        <div class="container">
-
-            <div class="page-project-list-wrap">
-
-                <div class="fre-project-list-wrap">
-
-					<?php //get_template_part( 'template/filter', 'projects' ); ?>
-
-                    <div class="fre-project-list-box">
-
-                        <div class="fre-project-list-wrap">
-
-                            <div class="fre-project-result-sort">
-
-                                <div class="row">
-
-									<?php
-
-	//$query_post = $loop->found_posts;
-
-	//$found_posts = '<span class="found_post">' . $query_post . '</span>';
-
-	//$plural = sprintf( __( '%s projects found', ET_DOMAIN ), $found_posts );
-
-	//$singular = sprintf( __( '%s project found', ET_DOMAIN ), $found_posts );
-
-	//$not_found = sprintf( __( 'There are no projects posted on this site!', ET_DOMAIN ), $found_posts );
-
-	?>
-
-                                    <div class="col-sm-4 col-sm-push-8">
-
-										<?php //if ( $query_post >= 1 ) { ?>
-
-                                            <div class="fre-project-sort">
-
-                                                <select class="fre-chosen-single sort-order" id="project_orderby"
-
-                                                        name="orderby">
-
-                                                    <option value="date"><?php //_e( 'Latest Projects', ET_DOMAIN ); ?></option>
-
-                                                    <option value="et_budget"><?php //_e( 'Highest Budget', ET_DOMAIN ); ?></option>
-
-                                                </select>
-
-                                            </div>
-
-										<?php //} ?>
-
-                                    </div>
-
-                                    <div class="col-sm-8 col-sm-pull-4">
-
-                                        <div class="fre-project-result">
-
-                                            <p>
-
-                                                    <span class="plural <?php //if ( $query_post == 1 ) {
-
-	// echo 'hide';
-
-	// } ?>"><?php //if ( $query_post < 1 ) {
-
-	////echo $not_found;
-
-	// } else {
-
-	//echo $plural;
-
-	//} ?></span>
-
-                                                <span class="singular <?php //if ( $query_post > 1 || $query_post < 1 ) {
-
-	//echo 'hide';
-
-	//} ?>"><?php //echo $singular; ?></span>
-
-                                            </p>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-							<?php //get_template_part( 'list', 'projects' ); ?>
-
-                        </div>
-
-                    </div>
-
-					<?php
-
-	//$loop->query = array_merge( $loop->query, array( 'is_archive_project' => is_post_type_archive( PROJECT ) ) );
-
-	//echo '<div class="fre-paginations paginations-wrapper">';
-
-	//ae_pagination( $loop, get_query_var( 'paged' ) );
-
-	//echo '</div>';
-
-	?>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div> -->
 
 <?php
 

@@ -4,6 +4,7 @@
         if ($('.sfm-select2').length) {
             $('.sfm-select2').select2({
                 width: '100%',
+                // allowClear: true
             });
 
             $('.sfm-select2').on("select2:select", function (e) {
@@ -91,10 +92,13 @@
             .on("click", "#clear-browse-form", function (e) {
                 e.preventDefault();
                 $("#browse-project-form")[0].reset();
+                $('#project-skill').val($('#project-skill option:eq(0)').val()).trigger('change');
+                $('#project-category').val($('#project-category option:eq(0)').val()).trigger('change');
+                $('#project-country').val($('#project-country option:eq(0)').val()).trigger('change');
+
                 $("#browse-project-form").submit();
             })
-            .on(
-                "click", ".browse-project-wrapper .sfm-pagination ul li .page-numbers", function (e) {
+            .on( "click", ".browse-project-wrapper .sfm-pagination ul li .page-numbers", function (e) {
                     e.preventDefault();
 
                     let formData = new FormData($("#browse-project-form")[0]);
@@ -122,6 +126,9 @@
             .on("click", "#clear-freelancer-form", function (e) {
                 e.preventDefault();
                 $("#browse-freelancer-form")[0].reset();
+                $('#freelancer-skill').val($('#freelancer-skill option:eq(0)').val()).trigger('change');
+                $('#freelancer-country').val($('#freelancer-country option:eq(0)').val()).trigger('change');
+
                 $("#browse-freelancer-form").submit();
             }).on("click", ".browse-freelancer-wrapper .sfm-pagination ul li .page-numbers", function (e) {
                 e.preventDefault();
@@ -285,7 +292,7 @@
 
             sfmAjaxFormSubmit(formData);
         });
-        
+
 
         /** ======================
          * Project Post and Update
