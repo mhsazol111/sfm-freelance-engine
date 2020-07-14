@@ -87,11 +87,11 @@ if( isset($convert->hour_rate) )
 	$hour_rate = (int) $convert->hour_rate;
 ?>
 
-<?php 
+<?php
   $author_employer = Employer::get_employer($author_id);
   $author_freelancer = Freelancer::get_freelancer($author_id);
   // echo "<pre>";
-  // print_r($author_freelancer); 
+  // print_r($author_freelancer);
   // echo "<pre>";
 ?>
     <div class="fre-page-wrapper list-profile-wrapper">
@@ -99,7 +99,7 @@ if( isset($convert->hour_rate) )
         <?php get_template_part( 'template-parts/sidebar', 'profile' ); // Dashboard Sidebar ?>
 
         <section id="dashboard_content">
-        
+
         <div class="spublic-profile-page">
           <section class="top-fpp-about-section">
               <div class="scontainer">
@@ -111,7 +111,7 @@ if( isset($convert->hour_rate) )
                                       <div class="profile-image">
                                           <?php echo get_avatar( $author_id, 70 ); ?>
                                       </div>
-                                      <div class="profile-info">                                   
+                                      <div class="profile-info">
                                           <h4 class="title fpp-title"><?php echo $author_name ?></h4>
                                           <h5 class="designation">
                                               <?php if ( fre_share_role() || ae_user_role( $author_id ) == FREELANCER ) {
@@ -122,10 +122,18 @@ if( isset($convert->hour_rate) )
                                                 <span><?php echo $author_employer->company_name; ?></span>
                                               <?php } ?>
                                           </h5>
-                                          <p><i class="fas fa-map-marker-alt"></i> 
-                                              <?php if ( ! empty( $convert->tax_input['country'] ) ) {
-                                                  echo '<span>' . $convert->tax_input['country']['0']->name . '</span>';
-                                              } ?>
+                                          <p><i class="fas fa-map-marker-alt"></i>
+                                              <?php
+                                                  $term_id = get_user_meta( $author_id, 'user_country_id', true );
+                                                  if ($term_id) {
+                                                      $nationality = get_term_by( 'id', $term_id, 'country' );
+                                                      echo '<span>' . $nationality->name . '</span>';
+                                                  } else {
+                                                      if ( ! empty( $convert->tax_input['country'] ) ) {
+                                                          echo '<span>' . $convert->tax_input['country']['0']->name . '</span>';
+                                                      }
+                                                  }
+                                              ?>
                                           </p>
                                       </div>
                                   </div>
@@ -225,7 +233,7 @@ if( isset($convert->hour_rate) )
                                                     <?php echo '<span class="fre-label">' . $tax->name . '</span>'; ?>
                                                     </li>
                                                 <?php }
-                                            }?>                                    
+                                            }?>
                                         </ul>
                                     </div>
                                 </div>
@@ -309,9 +317,9 @@ if( isset($convert->hour_rate) )
             remove_filter('posts_orderby', 'fre_reset_order_by_project_status');
             ?>
 
-            
+
             <section class="fpp-completed-portfolio-section">
-              <?php 
+              <?php
                 global $wp_query, $ae_post_factory, $post;
                 $wp_query->query = array_merge(  $wp_query->query ,array('posts_per_page' => 6)) ;
                 $post_object_portfolio = $ae_post_factory->get( 'portfolio' );
@@ -339,20 +347,20 @@ if( isset($convert->hour_rate) )
                       <div class="scol-lg-12">
                           <div class="fpp-recent-projects-wrap fpp-box-shadows dashboard_inn">
                               <h4 class="fpp-title"><?php _e('Portfolios',ET_DOMAIN) ?></h4>
-                              <div class="fpp-portfolio-wrap">      
-                                
+                              <div class="fpp-portfolio-wrap">
+
                                 <?php
                                   $postdata = array();
                                   if ( have_posts() ):
                                     while ( have_posts() ) {
                                       the_post();
                                       $convert    = $post_object_portfolio->convert( $post, 'thumbnail' );
-                                      $postdata[] = $convert; 
-                                      
+                                      $postdata[] = $convert;
+
                                       $portfolio_data = $post_object_portfolio->current_post;
                                       // get_template_part( 'template-parts/author-freelancer-history', 'item' );
                                       ?>
-                                      
+
                                         <div class="fpp-portfolio-item">
                                           <div class="fpp-inner-cont">
                                             <img src="<?php echo $portfolio_data->the_post_thumbnail_full; ?>" alt="<?php echo $portfolio_data->post_title; ?>">
@@ -425,8 +433,8 @@ if( isset($convert->hour_rate) )
                 <?php }
               ?>
           <?php } ?>
-          
-          
+
+
           </div>
         </div>
         </section>

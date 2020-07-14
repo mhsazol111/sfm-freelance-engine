@@ -37,18 +37,8 @@ function sfm_load_scripts() {
 		wp_enqueue_style( 'noui-css', '//cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.css', null, '14.0.3', 'all' );
 	}
 
-//	if ( ! is_page_template( array(
-//		'template-registration.php',
-//		'page-register.php',
-//		'page-login.php',
-//		'template-blog.php',
-//		'template-home.php',
-//		'template-contact.php',
-//		'template-faq.php',
-//		'page-my-portfolios.php'
-//	) ) ) {
-		wp_enqueue_style( 'sfm-dashboard', get_stylesheet_directory_uri() . '/assets/css/dashboard.css', null, time(), 'all' );
-//	}
+	wp_enqueue_style( 'sfm-dashboard', get_stylesheet_directory_uri() . '/assets/css/dashboard.css', null, time(), 'all' );
+
 	wp_enqueue_style( 'magnific-css', '//cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css', null, '1.1.0', 'all' );
 	wp_enqueue_style( 'owl-css', '//cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css', null, '2.3.4', 'all' );
 

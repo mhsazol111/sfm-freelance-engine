@@ -100,7 +100,7 @@ $country  = get_the_terms( $employer->user_profile_id, 'country' );
 						}
 						$freelancer = Freelancer::get_freelancer( $invitation ); ?>
                         <p>
-                            <a href="<?php echo $freelancer->slug; ?>"><?php echo $freelancer->display_name; ?><?php echo ' (<i>' . $freelancer->email . '</i> )'; ?></a>
+                            <a href="<?php echo $freelancer->slug; ?>"><?php echo $freelancer->display_name; ?></a>
                         </p>
 					<?php } ?>
                 </div>

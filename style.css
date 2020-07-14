@@ -773,6 +773,12 @@ footer .widget ul li a {
     top: 10px;
     height: 20px;
 }
+#sfm_sign_up_form .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 48px;
+}
+#sfm_sign_up_form .select2-container .select2-selection--single .select2-selection__rendered {
+    padding-left: 15px;
+}
 
 /*==========================================
                     media: min-width: 992px

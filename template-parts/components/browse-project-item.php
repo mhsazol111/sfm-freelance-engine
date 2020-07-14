@@ -37,7 +37,8 @@ $originalDate = $project->project_deadline;
                 <div class="freelancer-top">
                     <div class="thumb_content">
                         <div class="thumb">
-                            <img src="<?php echo $employer->et_avatar_url ?>" alt="<?php echo $employer->name; ?>">
+                            <?php echo get_avatar($project->employer_id, '150'); ?>
+<!--                            <img src="--><?php //echo $employer->et_avatar_url ?><!--" alt="--><?php //echo $employer->name; ?><!--">-->
                         </div>
                     </div>
                     <div class="person_info">

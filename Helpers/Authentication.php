@@ -78,9 +78,24 @@ class Authentication {
                            value="<?= esc_attr( get_user_meta( $user->ID, 'skype', true ) ) ?>"></td>
             </tr>
             <tr>
+                <th><label for="nationality">Nationality</label></th>
+                <?php
+                $term_id = get_user_meta( $user->ID, 'user_country_id', true );
+                if ($term_id) {
+	                $nationality = get_term_by( 'id', $term_id, 'country' );
+                } else {
+	                $user_profile_post = get_user_meta( $user->ID, 'user_profile_id', true );
+	                $country           = get_the_terms( $user_profile_post, 'country' );
+	                $nationality = $country[0];
+                }
+                ?>
+                <td>
+                    <input readonly type="text" id="nationality" class="regular-text code" name="nationality" value="<?= esc_attr( $nationality->name ); ?>">
+                </td>
+            </tr>
+            <tr>
                 <th><label for="city_name">City Name</label></th>
-                <td><input type="text" id="city_name" class="regular-text code" name="city_name"
-                           value="<?= esc_attr( get_user_meta( $user->ID, 'city_name', true ) ) ?>"></td>
+                <td><input type="text" id="city_name" class="regular-text code" name="city_name" value="<?= esc_attr( get_user_meta( $user->ID, 'city_name', true ) ) ?>"></td>
             </tr>
             <tr>
                 <th><label for="account_status">Account Status</label></th>

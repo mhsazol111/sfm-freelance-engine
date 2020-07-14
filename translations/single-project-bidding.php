@@ -2,8 +2,11 @@
     <div class="dashboard_inn">
         <div class="freelancer-bidding">
             <div class="dashboard_title" style="display: block">
-                <h2><?php _e( 'Proposals from Freelancers', ET_DOMAIN ); ?>(0)</h2>
-                <h2><?php _e( 'My Proposals', ET_DOMAIN ); ?></h2>
+                <?php if (sfm_translating_as('freelancer')) : ?>
+                    <h2><?php _e( 'My Proposals', ET_DOMAIN ); ?></h2>
+	            <?php else : ?>
+                    <h2><?php _e( 'Proposals from Freelancers', ET_DOMAIN ); ?>(0)</h2>
+                <?php endif; ?>
                 <hr>
             </div>
 
@@ -44,13 +47,22 @@
                     </div>
                     <div class="d_footer">
                         <div class="footer_left">
-                            <a class="ie_btn send_message" href="#"><i class="far fa-envelope"></i> <?php _e( 'Send Message', ET_DOMAIN ); ?></a>
+                            <?php if ( !sfm_translating_as( 'freelancer' ) ) : ?>
+                                <a class="ie_btn send_message" href="#"><i class="far fa-envelope"></i> <?php _e( 'Send Message', ET_DOMAIN ); ?></a>
+                            <?php endif; ?>
                         </div>
                         <div class="footer_right">
 							<?php
-                                echo '<a id="" rel="" class="ie_btn hire_now fre-normal-btn btn-accept-bid"><i class="far fa-check-circle"></i>' . __( 'Hire Now', ET_DOMAIN ) . '</a>';
-                                echo '<a class="ie_btn hire_now fre-normal-btn btn-accept-bid btn-accept-bid-no-escrow" id=""><i class="far fa-check-circle"></i>' . __( 'Hire Now', ET_DOMAIN ) . '</a>';
+//                                echo '<a id="" rel="" class="ie_btn hire_now fre-normal-btn btn-accept-bid"><i class="far fa-check-circle"></i>' . __( 'Hire Now', ET_DOMAIN ) . '</a>';
+							if ( sfm_translating_as( 'employer' ) ) {
+								echo '<a class="ie_btn hire_now fre-normal-btn btn-accept-bid btn-accept-bid-no-escrow" id=""><i class="far fa-check-circle"></i>' . __( 'Hire Now', ET_DOMAIN ) . '</a>';
                                 echo '<a class="bid-action ie_btn decline" data-action="cancel" data-bid-id=""><i class="far fa-times-circle"></i> ' . __( 'Decline', ET_DOMAIN ) . '</a>';
+							} elseif ( sfm_translating_as('freelancer') ) {
+                                echo '<a class="bid-action ie_btn decline" data-action="cancel" data-bid-id=""><i class="far fa-times-circle"></i> ' . __( 'Decline', ET_DOMAIN ) . '</a>';
+							} else {
+								echo '<a class="ie_btn hire_now fre-normal-btn btn-accept-bid btn-accept-bid-no-escrow" id=""><i class="far fa-check-circle"></i>' . __( 'Hire Now', ET_DOMAIN ) . '</a>';
+								echo '<a class="bid-action ie_btn decline" data-action="cancel" data-bid-id=""><i class="far fa-times-circle"></i> ' . __( 'Decline', ET_DOMAIN ) . '</a>';
+                            }
 							?>
                         </div>
                     </div>

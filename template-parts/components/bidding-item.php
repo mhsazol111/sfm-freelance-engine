@@ -58,7 +58,7 @@ $bid_freelancer = Freelancer::get_freelancer( $bid->freelancer_id );
             <div class="col-content-bid-123">
 				<?php
 				if ( $bid->content ) {
-					$link = '<a href="/bid/' . $bid->slug . '">' . __('View Details', ET_DOMAIN) . '</a>';
+					$link = '<a href="'. get_site_url() .'/bid/' . $bid->slug . '">' . __('View Details', ET_DOMAIN) . '</a>';
 					echo '<div style="display: inline-block">' . wp_trim_words( $bid->content, 80, '... ' ) . '</div>';
 					echo $link;
 				}

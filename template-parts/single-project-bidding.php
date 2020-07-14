@@ -26,7 +26,7 @@ $bid_data = array();
 <div class="proposals_freelancers">
     <div class="dashboard_inn">
         <div class="freelancer-bidding <?php if ( USER_ROLE == 'freelancer' ) : ?>freelancer-bidding-free<?php endif; ?>">
-			<?php if ( USER_ROLE == 'employer' ) : ?>
+			<?php if ( USER_ROLE == 'employer' || current_user_can( 'administrator' ) ) : ?>
                 <div class="dashboard_title">
                     <h2><?php printf( __( 'Proposals from Freelancers (%s)', ET_DOMAIN ), $bid_query->found_posts );?></h2>
                     <hr>
@@ -43,7 +43,7 @@ $bid_data = array();
 				} else {
 					get_template_part( 'template/bid', 'not-item' );
 				}
-			else:?>
+			else : ?>
                 <div class="dashboard_title">
                 <h2><?php printf( __( 'My Proposals', ET_DOMAIN ) );?></h2>
                 <hr>

@@ -13,7 +13,7 @@ if ( fre_share_role() || ae_user_role( $user_ID ) == FREELANCER ) {
             <li data-status="close" class="project-filter tab"><?php _e( 'Ongoing', ET_DOMAIN ) ?></li>
             <li data-status="publish" class="project-filter tab"><?php _e( 'Pending', ET_DOMAIN ) ?></li>
             <li data-status="complete" class="project-filter tab"><?php _e( 'Completed', ET_DOMAIN ) ?></li>
-            <li data-status="disputing" class="project-filter tab"><?php _e( 'Disputed', ET_DOMAIN ) ?></li>
+<!--            <li data-status="disputing" class="project-filter tab">--><?php //_e( 'Disputed', ET_DOMAIN ) ?><!--</li>-->
             <li data-status="archive" class="project-filter tab"><?php _e( 'Archived', ET_DOMAIN ) ?></li>
             <li data-status="draft" class="project-filter tab"><?php _e( 'Drafted', ET_DOMAIN ) ?></li>
         </ul>

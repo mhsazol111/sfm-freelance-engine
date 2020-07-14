@@ -184,11 +184,12 @@ $freelancer_singup_img   = get_field( 'freelancer_signup_image' );
                             </div>
                             <div class="fre-input-field">
                                 <div class="select-box">
-                                    <div class="select_icon"
-                                        style="background-image: url('http://sfm.idevs.site/wp-content/themes/freelanceengine-child/inc/images/select-icon.svg');">
-                                    </div>
                                     <select name="user_country" id="user_country" class="sfm-select2" required>
-                                        <option value=""><?php _e( 'Nationality', ET_DOMAIN ); ?></option>
+                                        <?php if ($role == 'freelancer') : ?>
+                                            <option value=""><?php _e( 'Nationality', ET_DOMAIN ); ?></option>
+                                        <?php else : ?>
+                                            <option value=""><?php _e( 'Country', ET_DOMAIN ); ?></option>
+                                        <?php endif; ?>
                                         <?php
                                          $countries           = get_terms( array(
                                              'taxonomy'   => 'country',
