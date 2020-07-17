@@ -52,6 +52,19 @@ $freelancer_info = get_userdata( $bid_accepted_author );
 $ae_users        = AE_Users::get_instance();
 $freelancer_data = $ae_users->convert( $freelancer_info->data );
 
+$is_bid_cancelled = false;
+if ( USER_ROLE == 'freelancer' ) {
+	$cancelled_bids = new WP_Query( array(
+		'post_type'       => BID,
+		'author'          => get_current_user_id(),
+		'post_parent__in' => array( get_the_ID() ),
+		'post_status'     => 'unaccept',
+	) );
+	if ( $cancelled_bids->posts ) {
+		$is_bid_cancelled = true;
+	}
+}
+
 if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete' && ! empty( $comment_for_freelancer ) ) { ?>
     <div class="project-detail-box">
         <div class="project-employer-review">
@@ -91,10 +104,11 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
 			} else {
 				echo '<i class="fas fa-user-friends"></i>' . __( ' Number of Bids:', ET_DOMAIN ) . '<span class="secondary-color"> 0</span> |';
 			} ?>
-            <i class="far fa-check-circle"></i><?php _e( 'Project Status: ', ET_DOMAIN ); ?><span>
+            <i class="far fa-check-circle"></i><?php _e( 'Project Status: ', ET_DOMAIN ); ?>
+            <span>
                 <?php
                 $status_arr = array(
-	                'close'     => __( "Processing", ET_DOMAIN ),
+	                'close'     => __( "Ongoing", ET_DOMAIN ),
 	                'complete'  => __( "Completed", ET_DOMAIN ),
 	                'disputing' => __( "Disputed", ET_DOMAIN ),
 	                'disputed'  => __( "Resolved", ET_DOMAIN ),
@@ -104,10 +118,14 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
 	                'reject'    => __( "Rejected", ET_DOMAIN ),
 	                'archive'   => __( "Archived", ET_DOMAIN ),
                 );
-                echo $status_arr[ $post->post_status ];
+                if ( $is_bid_cancelled ) {
+	                _e( 'Proposal Declined', ET_DOMAIN );
+                } else {
+	                echo $status_arr[ $post->post_status ];
+                }
                 ?></span> |
-            <i class="far fa-clock"></i><?php _e( 'Posted on: ', ET_DOMAIN ); ?><span
-                    class="secondary-color"><?php echo $project->post_date; ?></span> |
+            <i class="far fa-clock"></i><?php _e( 'Posted on: ', ET_DOMAIN ); ?>
+            <span class="secondary-color"><?php echo $project->post_date; ?></span> |
 			<?php if ( $post->post_status == 'close' || $post->post_status == 'disputing' ) { ?>
                 <i class="fas fa-trophy"></i>
 				<?php _e( 'Winning Bid: ', ET_DOMAIN ); ?>
@@ -137,12 +155,14 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
 					if ( ( fre_share_role() || $user_role == FREELANCER ) && $user_ID != $project->post_author ) {
 						$has_bid = fre_has_bid( get_the_ID() );
 						if ( $has_bid ) {
-							echo '<a class="fre-normal-btn primary-bg-color bid-action" data-action="cancel" data-bid-id="' . $bidding_id . '"><i class="fa fa-check-circle-o" aria-hidden="true"></i> ' . __( 'Cancel', ET_DOMAIN ) . '</a>';
+						    if (!$is_bid_cancelled) {
+							    echo '<a class="fre-normal-btn primary-bg-color bid-action" data-action="cancel" data-bid-id="' . $bidding_id . '"><i class="fa fa-check-circle-o" aria-hidden="true"></i> ' . __( 'Cancel', ET_DOMAIN ) . '</a>';
+						    }
 						} else {
 							echo '<a class="fre-action-btn" href="' . et_get_page_link( 'submit-proposal', array( 'id' => $project->ID ) ) . '"><i class="fa fa-check-circle-o" aria-hidden="true"></i> ' . __( 'Send Proposal', ET_DOMAIN ) . '</a>';
 						}
 					} else if ( ( ( fre_share_role() || $user_role == EMPLOYER ) || current_user_can( 'manage_options' ) ) && $user_ID == $project->post_author ) {
-						echo '<a class="fre-action-btn  project-action" data-action="archive" data-project-id="' . $project->ID . '"> ' . __( 'Archive This Project', ET_DOMAIN ) . '</a>';
+						echo '<a class="custom-project-action" data-action="archive" data-project-id="' . $project->ID . '"> ' . __( 'Archive This Project', ET_DOMAIN ) . '</a>';
 					} else {
 						echo '<a href="' . et_get_page_link( 'submit-project' ) . '" class="fre-normal-btn primary-bg-color"><i class="fa fa-check-circle-o" aria-hidden="true"></i> ' . __( 'Post Project Like This', ET_DOMAIN ) . '</a>';
 					}
@@ -165,7 +185,7 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
 							} else {
 								if ( ae_get_option( 'manual_transfer', false ) ) {
 									echo '<span class="fre-money-transfered">';
-									_e( "Already transfered", ET_DOMAIN );
+									_e( "Already Transferred", ET_DOMAIN );
 									echo '</span>';
 								}
 							}
@@ -185,16 +205,16 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
 				} else if ( $project_status == 'draft' ) {
 					if ( ( fre_share_role() || $user_role == EMPLOYER ) && $user_ID == $project->post_author ) {
 						echo '<a class="fre-action-btn 2" href="' . et_get_page_link( 'edit-project', array( 'id' => $project->ID ) ) . '">' . __( 'Edit', ET_DOMAIN ) . '</a>';
-						echo '<a class="fre-action-btn project-action" data-action="delete" data-project-id="' . $project->ID . '">' . __( 'Delete', ET_DOMAIN ) . '</a>';
+						echo '<a class="custom-project-action" data-action="delete" data-project-id="' . $project->ID . '">' . __( 'Delete', ET_DOMAIN ) . '</a>';
 					} else if ( current_user_can( 'manage_options' ) ) {
-						echo '<a class="fre-action-btn project-action" data-action="delete" data-project-id="' . $project->ID . '">' . __( 'Delete', ET_DOMAIN ) . '</a>';
+						echo '<a class="custom-project-action" data-action="delete" data-project-id="' . $project->ID . '">' . __( 'Delete', ET_DOMAIN ) . '</a>';
 					}
 				} else if ( $project_status == 'archive' ) {
 					if ( ( fre_share_role() || $user_role == EMPLOYER ) && $user_ID == $project->post_author ) {
 //                            echo '<a class="fre-action-btn" href="' . et_get_page_link( 'submit-project', array( 'id' => $project->ID ) ) . '">' . __( 'Renew', ET_DOMAIN ) . '</a>';
-						echo '<a class="fre-action-btn project-action" data-action="delete" data-project-id="' . $project->ID . '">' . __( 'Delete', ET_DOMAIN ) . '</a>';
+						echo '<a class="custom-project-action" data-action="delete" data-project-id="' . $project->ID . '">' . __( 'Delete', ET_DOMAIN ) . '</a>';
 					} else if ( current_user_can( 'manage_options' ) ) {
-						echo '<a class="fre-action-btn project-action" data-action="delete" data-project-id="' . $project->ID . '">' . __( 'Delete', ET_DOMAIN ) . '</a>';
+						echo '<a class="custom-project-action" data-action="delete" data-project-id="' . $project->ID . '">' . __( 'Delete', ET_DOMAIN ) . '</a>';
 					}
 				}
 			} else {

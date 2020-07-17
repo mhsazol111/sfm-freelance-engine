@@ -119,9 +119,9 @@ $country  = get_the_terms( $employer->user_profile_id, 'country' );
                             <?php echo get_avatar($project->employer_id, '150') ; ?>
                         </div>
                     </a>
-                    <div class="fpp-rating freelancer">
-                        <div class="rate-it" data-score="<?php echo $employer->rating_score; ?>"></div>
-                    </div>
+<!--                    <div class="fpp-rating freelancer">-->
+<!--                        <div class="rate-it" data-score="--><?php //echo $employer->rating_score; ?><!--"></div>-->
+<!--                    </div>-->
                 </div>
             </div>
 
@@ -131,16 +131,15 @@ $country  = get_the_terms( $employer->user_profile_id, 'country' );
                 </h4>
                 <p><?php foreach ( $country as $a ) {
 						echo $a->name;
-					} ?>, <?php echo $employer->city_name; ?></p>
+					} ?>, <?php echo $employer->city_name; ?>
+                </p>
             </div>
             <hr>
 
             <div class="proposals_info">
-
-                <p><?php printf( __( '<span>%s</span> Total posted projects so far', ET_DOMAIN ), fre_count_user_posts_by_type( $author_id, 'project', '"publish","complete","close","disputing","disputed", "archive" ', true ) ); ?></p>
-                <p><?php printf( __( '<span>%s</span> Completed Projects so far.', ET_DOMAIN ), fre_count_user_posts_by_type( $author_id, 'project', '"complete"', true ) ); ?></p>
-                <p><?php printf( __( '<span>%s</span> Declined Project so far.', ET_DOMAIN ), $hire_freelancer ); ?>
-                </p>
+                <p><span><?php echo fre_count_user_posts_by_type( $author_id, 'project', '"publish","complete","close","disputing","disputed", "archive" ', true ); ?> </span><?php _e( 'Total posted projects so far', ET_DOMAIN ); ?></p>
+                <p><span><?php echo fre_count_user_posts_by_type( $author_id, 'project', '"complete"', true ); ?></span> <?php _e( 'Completed Projects so far.', ET_DOMAIN ); ?></p>
+                <p><span><?php echo $hire_freelancer; ?></span> <?php _e( 'Declined Project so far.', ET_DOMAIN ); ?></p>
             </div>
             <hr class="bottom_hr">
 

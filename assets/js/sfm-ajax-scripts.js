@@ -406,6 +406,17 @@
             sfmAjaxFormSubmit(formData);
         });
 
+        /** =========================
+         * ==== Decline Proposal =====
+         ==========================*/
+        $('body').on('submit', '.sfm-cancel-bid-form', function (e) {
+            e.preventDefault();
+
+            let formData = new FormData(this);
+            formData.append("action", "sfm_decline_proposal");
+            sfmAjaxFormSubmit(formData);
+        });
+
 
         // Form submission with validation ajax callback
         function sfmAjaxFormSubmit(formData) {

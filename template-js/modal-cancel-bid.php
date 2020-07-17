@@ -16,7 +16,7 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <form role="form" id="form-cancel-bid" class="form-cancel-bid fre-modal-form">
+                <form role="form" id="sfm-cancel-bid-form" class="sfm-cancel-bid-form fre-modal-form">
                     <div class="fre-content-confirm">
 						<?php
 						if ( USER_ROLE == FREELANCER || sfm_translating_as('freelancer') ) :
@@ -26,7 +26,7 @@
 						endif;
 						?>
                     </div>
-                    <input type="hidden" id="bid-id" value="">
+                    <input type="hidden" id="bid-id" name="bid_id" value="">
                     <div class="fre-form-btn">
                         <button type="submit"
                                 class="fre-normal-btn btn-submit btn-cancel-bid"><?php _e( 'Confirm', ET_DOMAIN ) ?></button>

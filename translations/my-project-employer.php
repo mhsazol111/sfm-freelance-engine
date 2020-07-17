@@ -24,14 +24,14 @@ if( ! defined('ABSPATH') ) die('No direct access, please!'); ?>
 							<ul class="tabs" id="filter-items-row" data-project-holder="employer">
 								<li data-status="" class="project-filter active tab"><?php _e( 'All Projects', ET_DOMAIN ) ?></li>
 								<li data-status="close" class="project-filter tab"><?php _e( 'Ongoing', ET_DOMAIN ) ?></li>
-								<li data-status="publish" class="project-filter tab"><?php _e( 'Pending', ET_DOMAIN ) ?></li>
+								<li data-status="publish" class="project-filter tab"><?php _e( 'Published', ET_DOMAIN ) ?></li>
 								<li data-status="complete" class="project-filter tab"><?php _e( 'Completed', ET_DOMAIN ) ?></li>
-								<li data-status="disputing" class="project-filter tab"><?php _e( 'Disputed', ET_DOMAIN ) ?></li>
+								<li data-status="draft" class="project-filter tab"><?php _e( 'Pending', ET_DOMAIN ) ?></li>
 								<li data-status="archive" class="project-filter tab"><?php _e( 'Archived', ET_DOMAIN ) ?></li>
-								<li data-status="draft" class="project-filter tab"><?php _e( 'Drafted', ET_DOMAIN ) ?></li>
+								<li data-status="disputing" class="project-filter tab"><?php _e( 'Cancelled', ET_DOMAIN ) ?></li>
 							</ul>
 
-							<div class="form-group">
+							<div class="form-group" style="display: none;">
 								<form id="my-project-search-form">
 									<input type="search" class="ie-search-form" id="project-search" name="project-search" placeholder="<?php _e( 'Search Projects', ET_DOMAIN ) ?>">
 								</form>
@@ -65,12 +65,12 @@ if( ! defined('ABSPATH') ) die('No direct access, please!'); ?>
 											</div>
 											<div class="head_right">
 												<?php
-												echo '<span class="ie_btn_small ie_btn_green">Active</span>';
+												echo '<span class="ie_btn_small ie_btn_green">Ongoing</span>';
+												echo '<span class="ie_btn_small ie_btn_yellow">Published</span>';
 												echo '<span class="ie_btn_small ie_btn_purple">Completed</span>';
-												echo '<span class="ie_btn_small ie_btn_yellow">Pending</span>';
 												echo '<span class="ie_btn_small ie_btn_orange">Archived</span>';
-												echo '<span class="ie_btn_small ie_btn_red">Disputed</span>';
-												echo '<span class="ie_btn_small ie_btn_red">Drafted</span>';
+												echo '<span class="ie_btn_small ie_btn_red">Pending</span>';
+												echo '<span class="ie_btn_small ie_btn_red">Cancelled</span>';
 												?>
 												<h3><?php _e('CHF', ET_DOMAIN );?></h3>
 												<span>00-00-00</span>

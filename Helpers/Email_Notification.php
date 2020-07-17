@@ -32,6 +32,7 @@ class Email_Notification {
 		add_action( 'pending_user_approval_email', array( $this, 'pending_user_approval_email_cb' ), 10, 1 );
 		add_action( 'new_bid_notification', array( $this, 'new_bid_notification_cb' ), 10, 2 );
 		add_action( 'accept_proposal_notification', array( $this, 'accept_proposal_notification_cb' ), 10, 4 );
+		add_action( 'declined_proposal_notification', array( $this, 'declined_proposal_notification_cb' ), 10, 2 );
 		add_action( 'post_project_notification', array( $this, 'post_project_notification_cb' ), 10, 2 );
 	}
 
@@ -104,7 +105,7 @@ class Email_Notification {
 	// Send email notification about new account
 	public function user_register_email_cb( $role, $user_id, $user_email ) {
 		$subject = __( 'New user sign up notification.', ET_DOMAIN );
-		$message = $this->email_body_html('A new user just signed up as ' . $role . '. Please review the profile and take appropriate action. <a href="' . get_site_url() . '/wp-admin/user-edit.php?user_id=' . $user_id . '&wp_http_referer=%2Fwp-admin%2Fusers.php">View User</a>');
+		$message = $this->email_body_html('A new user just signed up as ' . $role . '. <br/>Please review the profile and take appropriate action. <a href="' . get_site_url() . '/wp-admin/user-edit.php?user_id=' . $user_id . '&wp_http_referer=%2Fwp-admin%2Fusers.php">View User</a>');
 		wp_mail( $this->admin_emails, $subject, $message, $this->headers );
 
 		wp_mail( $user_email, __( 'Welcome to SFM', ET_DOMAIN ), $this->email_body_html('Welcome to SFM, We are currently reviewing your account. We will let you know once your account is approved. Thank you.'), $this->headers );
@@ -113,7 +114,7 @@ class Email_Notification {
 	// Send email to user after their account approval
 	public function pending_user_approval_email_cb( $user_email ) {
 		$subject = __( 'Account Approved.', ET_DOMAIN );
-		$message = $this->email_body_html('Thanks for your patience, Your account has been approved by SFM. Please update your profile information after login and proceed');
+		$message = $this->email_body_html('Thanks for your patience, <br/>Your account has been approved by SFM. Please update your profile information after login and proceed');
 		wp_mail( $user_email, $subject, $message, $this->headers );
 	}
 
@@ -122,23 +123,30 @@ class Email_Notification {
 		$employer_name = get_userdata( $employer_id )->display_name;
 		$project       = get_post( $project_id );
 		$subject       = __( 'New Project Notification' );
-		$message       = $this->email_body_html("A new project (<a href='" . get_permalink( $project_id ) . "'>{$project->post_title})</a> is posted by {$employer_name}. Please take a look and take necessary action. Thank you.");
+		$message       = $this->email_body_html("A new project (<a href='" . get_permalink( $project_id ) . "'>{$project->post_title})</a> is posted by {$employer_name}. <br/>Please take a look and take necessary action. <br/>Thank you.");
 		wp_mail( $this->admin_emails, $subject, $message, $this->headers );
 	}
 
 	// Send email to employer if their project have a bid
 	public function new_bid_notification_cb( $employer_email, $project ) {
 		$subject = 'You have a new proposal on your project';
-		$message = $this->email_body_html("Hi there, You have a new proposal on your following project: <a href='" . get_permalink( $project->ID ) . "'>" . $project->post_title . "</a>. Thank you.");
+		$message = $this->email_body_html("Hi there, <br/>You have a new proposal on your following project: <a href='" . get_permalink( $project->ID ) . "'>" . $project->post_title . "</a>. <br/>Thank you.");
 		wp_mail( $employer_email, $subject, $message, $this->headers );
 	}
 
 	// Send Email to admin and freelancer if a bid is accepted
 	public function accept_proposal_notification_cb( $project, $employer, $company_name, $freelancer ) {
 		$subject = __( 'New Project Started!', ET_DOMAIN );
-		$message = $this->email_body_html("Hi there, The following project: <a href='" . get_permalink( $project->ID ) . "'>" . $project->post_title . "</a> is started. The project was created by {$employer->display_name} from {$company_name} and it has been assigned to {$freelancer->display_name}. Please contact with them. Thank you.");
+		$message = $this->email_body_html("Hi there, <br/>The following project: <a href='" . get_permalink( $project->ID ) . "'>" . $project->post_title . "</a> is started. <br/>The project was created by {$employer->display_name} from {$company_name} and it has been assigned to {$freelancer->display_name}. Please contact with them. <br/>Thank you.");
 		wp_mail( $this->admin_emails, $subject, $message, $this->headers );
 		wp_mail( $freelancer->user_email, __( 'Proposal Accepted!', ET_DOMAIN ), $this->email_body_html("Congratulation! Your proposal on <a href='" . get_permalink( $project->ID ) . "'>" . $project->post_title . "</a> has been accepted. Keep up the good work. Thank you." ), $this->headers );
+	}
+
+	// Send Email to admin and freelancer if a bid is accepted
+	public function declined_proposal_notification_cb( $project, $freelancer ) {
+		$subject = __( 'Sorry, Your proposal is declined.', ET_DOMAIN );
+		$message = $this->email_body_html("Sorry to notify you that your proposal on the The following project: <a href='" . get_permalink( $project->ID ) . "'>" . $project->post_title . "</a> is declined by the project owner. <br/>Thank you.");
+		wp_mail( $freelancer->user_email, $subject, $message, $this->headers );
 	}
 
 }

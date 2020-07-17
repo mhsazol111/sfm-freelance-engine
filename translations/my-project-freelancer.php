@@ -26,10 +26,10 @@ if( ! defined('ABSPATH') ) die('No direct access, please!'); ?>
 								<li data-status="accept" class="project-filter tab"><?php _e( 'Ongoing', ET_DOMAIN ) ?></li>
 								<li data-status="publish" class="project-filter tab"><?php _e( 'Pending', ET_DOMAIN ) ?></li>
 								<li data-status="complete" class="project-filter tab"><?php _e( 'Completed', ET_DOMAIN ) ?></li>
-								<li data-status="unaccept" class="project-filter tab"><?php _e( 'Unaccepted', ET_DOMAIN ) ?></li>
-								<li data-status="disputing" class="project-filter tab"><?php _e( 'Declined', ET_DOMAIN ) ?></li>
+								<li data-status="unaccept" class="project-filter tab"><?php _e( 'Declined', ET_DOMAIN ) ?></li>
+								<li data-status="disputing" class="project-filter tab"><?php _e( 'Cancelled', ET_DOMAIN ) ?></li>
 							</ul>
-							<div class="form-group">
+							<div class="form-group" style="display: none;">
 								<form id="my-project-search-form">
 									<input type="hidden" id="project-status" name="project-status">
 									<input type="search" class="ie-search-form" id="project-search" name="project-search" placeholder="<?php _e( 'Search Projects', ET_DOMAIN ) ?>">
@@ -61,10 +61,10 @@ if( ! defined('ABSPATH') ) die('No direct access, please!'); ?>
 											</div>
 											<div class="head_right">
 												<?php
-												echo '<span class="ie_btn_small ie_btn_green">Active</span>';
-												echo '<span class="ie_btn_small ie_btn_purple">Completed</span>';
+												echo '<span class="ie_btn_small ie_btn_green">Ongoing</span>';
 												echo '<span class="ie_btn_small ie_btn_yellow">Pending</span>';
-												echo '<span class="ie_btn_small ie_btn_orange">Unaccepted</span>';
+												echo '<span class="ie_btn_small ie_btn_purple">Completed</span>';
+												echo '<span class="ie_btn_small ie_btn_orange">Declined</span>';
 												echo '<span class="ie_btn_small ie_btn_red">Cancelled</span>';
 												?>
 											</div>

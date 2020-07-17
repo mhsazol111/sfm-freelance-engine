@@ -118,9 +118,7 @@ if ( is_page_template( 'template-home.php' ) || is_page_template( 'template-blog
                         <div class="fre-login-wrap">
                             <ul class="fre-login">
                                 <li>
-                                    <a class="log_user_btn" href="<?php echo et_get_page_link( "login" ) ?>"><img
-                                                alt="user"
-                                                src="<?php echo get_stylesheet_directory_uri() . '/inc/images/user.svg' ?>"><span><?php _e( 'Login', ET_DOMAIN ); ?></span></a>
+                                    <a class="log_user_btn" href="<?php echo et_get_page_link( "login" ) ?>"><img alt="user" src="<?php echo get_stylesheet_directory_uri() . '/inc/images/user.svg' ?>"><span><?php _e( 'Login', ET_DOMAIN ); ?></span></a>
                                 </li>
 								<?php if ( fre_check_register() ) { ?>
                                     <li class="<?php print( is_page_template( 'page-register.php' ) && $role != 'freelancer' ) ? "reg-signup" : " "; ?>">
@@ -137,14 +135,11 @@ if ( is_page_template( 'template-home.php' ) || is_page_template( 'template-blog
                         <div class="header-language-bar">
 		                    <?php echo do_shortcode( '[language-switcher]' ); ?>
                         </div>
-						<?php if ( is_user_logged_in() && current_user_can( 'administrator' ) ) : ?>
-
-						<?php else: ?>
+						<?php if ( USER_ROLE == 'freelancer' || USER_ROLE == 'employer' || sfm_is_translating() ) : ?>
                             <a class="fre-notification smf-notification sfm-header-notifi dropdown-toggle"
                                data-toggle="dropdown" href="">
                                 <i class="fa fa-bell-o" aria-hidden="true"></i>
-                                <div
-                                        class="notification-title"><?php _e( 'Notifications', ET_DOMAIN ); ?></div>
+                                <div class="notification-title"><?php _e( 'Notifications', ET_DOMAIN ); ?></div>
 								<?php
 								if ( function_exists( 'fre_user_have_notify' ) ) {
 									$notify_number = fre_user_have_notify();
@@ -161,16 +156,11 @@ if ( is_page_template( 'template-home.php' ) || is_page_template( 'template-blog
                         <div class="fre-account sfm-header-profile dropdown">
 
                             <div class="fre-account-info dropdown-toggle smf-account-info" data-toggle="dropdown">
-								<?php
-								if ( get_avatar( $user_ID ) ):
+								<?php if ( get_avatar( $user_ID ) ):
 									echo get_avatar( $user_ID );
-								else:
-									?>
-                                    <img class="def_user_pic" alt="user"
-                                         src="<?php echo get_stylesheet_directory_uri() . '/inc/images/user.svg' ?>">
-								<?php
-								endif;
-								?>
+								else: ?>
+                                    <img class="def_user_pic" alt="user" src="<?php echo get_stylesheet_directory_uri() . '/inc/images/user.svg' ?>">
+								<?php endif; ?>
 
                                 <span><?php echo $current_user->display_name; ?></span>
                                 <i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -184,7 +174,8 @@ if ( is_page_template( 'template-home.php' ) || is_page_template( 'template-blog
                                     <a href="<?php echo esc_url( get_site_url() . '/help-and-support' ) ?>"><?php _e( 'Help and Support', ET_DOMAIN ); ?></a>
                                 </li>
 								<?php do_action( 'fre_header_before_notify' ); ?>
-                                <li><a href="<?php echo wp_logout_url(); ?>"><?php _e( 'Logout', ET_DOMAIN ); ?></a>
+                                <li>
+                                    <a href="<?php echo wp_logout_url(); ?>"><?php _e( 'Logout', ET_DOMAIN ); ?></a>
                                 </li>
                             </ul>
 
@@ -215,7 +206,7 @@ if ( is_page_template( 'template-home.php' ) || is_page_template( 'template-blog
 							wp_nav_menu( $args );
 						} ?>
 					<?php endif; ?>
-					<?php if ( is_user_logged_in() && $role_template == 'freelance' ): ?>
+					<?php if ( $role_template == 'freelance' || sfm_translating_as('freelancer') ): ?>
 						<?php if ( has_nav_menu( 'freelance_menu' ) ) {
 							$args = array(
 								'theme_location'  => 'freelance_menu',
@@ -234,7 +225,7 @@ if ( is_page_template( 'template-home.php' ) || is_page_template( 'template-blog
 							wp_nav_menu( $args );
 						} ?>
 					<?php endif; ?>
-					<?php if ( is_user_logged_in() && ( $role_template == 'employer' || current_user_can( 'administrator' ) ) ): ?>
+					<?php if ( is_user_logged_in() && (( $role_template == 'employer' || current_user_can( 'administrator' ) ) && ! sfm_translating_as('freelancer')) ) : ?>
 						<?php if ( has_nav_menu( 'employer_menu' ) ) {
 							$args = array(
 								'theme_location'  => 'employer_menu',

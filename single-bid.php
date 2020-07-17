@@ -111,7 +111,7 @@ if ( have_posts() ) {
                         </div>
                         <div class=" head_right">
                             <div class="freelancer_row">
-                                <div class="freelancer-top">
+                                <div class="freelancer-top" style="align-items: center">
                                     <div class="thumb_content">
                                         <div class="thumb" style="background-image: url()">
 											<?php echo $bid_convert->et_avatar; ?>
@@ -119,11 +119,11 @@ if ( have_posts() ) {
                                     </div>
                                     <div class="person_info">
                                         <h4><?php echo $bid_convert->profile_display; ?></h4>
-                                        <p><?php echo $bid_convert->et_professional_title; ?></p>
-                                        <div class="fpp-rating">
-                                            <div class="rate-it"
-                                                 data-score="<?php echo $convert->rating_score; ?>"></div>
-                                        </div>
+                                        <p style="margin-bottom: 0;margin-top: 3px;"><?php echo $bid_convert->et_professional_title; ?></p>
+<!--                                        <div class="fpp-rating">-->
+<!--                                            <div class="rate-it"-->
+<!--                                                 data-score="--><?php //echo $convert->rating_score; ?><!--"></div>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
                                 <div class="freelancer_info">

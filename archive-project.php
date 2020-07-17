@@ -22,7 +22,7 @@ if ( ! get_user_meta( get_current_user_id(), 'user_profile_id', true ) ) {
 
 $user_profile_id = get_user_meta( get_current_user_id(), 'user_profile_id', true );
 
-if ( USER_ROLE != FREELANCER && ! current_user_can( 'administrator' ) ) {
+if ( ( USER_ROLE == 'employer' ) ) {
 	wp_redirect( home_url() . '/dashboard' );
 }
 

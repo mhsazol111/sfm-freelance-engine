@@ -31,7 +31,7 @@
 
     <div class="pro_row">
 		<?php if ( 'freelance' == $role_template ) : ?>
-            <div class="count"><?php echo Custom::query_to_post_count( Freelancer::get_projects( get_current_user_id(), 'disputing' ) ); ?></div>
+            <div class="count"><?php echo Custom::query_to_post_count( Freelancer::get_projects( get_current_user_id(), 'unaccept' ) ); ?></div>
             <div class="info"><?php _e( 'Declined Projects', ET_DOMAIN ); ?></div>
 		<?php else : ?>
             <div class="count"><?php echo Custom::query_to_post_count( Employer::get_projects( get_current_user_id(), 'publish' ) ); ?></div>

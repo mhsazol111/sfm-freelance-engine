@@ -2,6 +2,7 @@
 $project  = Employer::get_project( get_the_ID() );
 $employer = Employer::get_employer( $project->employer_id );
 $originalDate = $project->project_deadline;
+$country  = get_the_terms( $employer->user_profile_id, 'country' );
 //pri_dump($employer);
 ?>
 
@@ -43,10 +44,14 @@ $originalDate = $project->project_deadline;
                     </div>
                     <div class="person_info">
                         <h4><?php echo $employer->company_name; ?></h4>
+                        <p><?php foreach ( $country as $a ) {
+			                    echo $a->name;
+		                    } ?>, <?php echo $employer->city_name; ?>
+                        </p>
                         <?php
-                        $rating = $employer->rating_score;
+//                        $rating = $employer->rating_score;
                         //if( !empty( $rating ) ): ?>
-                            <div class="rate-it fpp-rating" data-score="<?php echo $rating ?>"></div>
+<!--                            <div class="rate-it fpp-rating" data-score="--><?php //echo $rating ?><!--"></div>-->
                         <?php //endif; ?>
                     </div>
                 </div>

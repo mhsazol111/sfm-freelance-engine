@@ -42,17 +42,17 @@ $employer   = Employer::get_employer( $project->employer_id );
             <div class="head_right">
                 <?php
                     if ( 'close' == $project->status ) {
-                        echo '<span class="ie_btn_small ie_btn_green">Active</span>';
+                        echo '<span class="ie_btn_small ie_btn_green">Ongoing</span>';
                     } elseif ( 'complete' == $project->status ) {
                         echo '<span class="ie_btn_small ie_btn_purple">Completed</span>';
                     } elseif ( 'publish' == $project->status ) {
-                        echo '<span class="ie_btn_small ie_btn_yellow">Pending</span>';
+                        echo '<span class="ie_btn_small ie_btn_yellow">Published</span>';
                     } elseif ( 'archive' == $project->status ) {
                         echo '<span class="ie_btn_small ie_btn_orange">Archived</span>';
                     } elseif ( 'disputing' == $project->status ) {
-                        echo '<span class="ie_btn_small ie_btn_red">Disputed</span>';
+                        echo '<span class="ie_btn_small ie_btn_red">Cancelled</span>';
                     } elseif ( 'draft' == $project->status ) {
-                        echo '<span class="ie_btn_small ie_btn_red">Drafted</span>';
+                        echo '<span class="ie_btn_small ie_btn_red">Pending</span>';
                     }
 				?>
                 <h3><?php

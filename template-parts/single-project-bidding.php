@@ -11,7 +11,7 @@ $bid_query = new WP_Query( array(
 			'publish',
 			'complete',
 			'accept',
-			'unaccept',
+//			'unaccept',
 			'disputing',
 			'disputed',
 			'archive',

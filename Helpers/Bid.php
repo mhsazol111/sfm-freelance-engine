@@ -15,7 +15,27 @@ class Bid {
 
 		add_action( 'wp_ajax_sfm_accept_proposal', array( $this, 'accept_proposal' ) );
 		add_action( 'wp_ajax_nopriv_sfm_accept_proposal', array( $this, 'accept_proposal' ) );
+
+		add_action( 'wp_ajax_sfm_decline_proposal', array( $this, 'decline_proposal' ) );
+		add_action( 'wp_ajax_nopriv_sfm_decline_proposal', array( $this, 'decline_proposal' ) );
+
+//		add_filter('fre_notify_item', array($this, 'testcontent'), 10, 3);
 	}
+
+//	public function testcontent( $content, $notify, $type ) {
+//		$type = 'decline_bid';
+//		$project_owner = get_post_field( 'post_author', $project );
+//		$message = sprintf( __( '%s declined your proposal from his project %s', ET_DOMAIN ),
+//			'<strong>' . get_the_author_meta( 'display_name', $project_owner ) . '</strong>',
+//			'<strong>' . get_the_title( $project ) . '</strong>'
+//		);
+//		$content .= '<a class="fre-notify-wrap" href="' . get_permalink( $project ) . '">
+//                                <span class="notify-avatar">' . get_avatar( $project_owner, 48 ) . '</span>
+//                                <span class="notify-info">' . $message . '</span>
+//                                <span class="notify-time">' . sprintf( __( "%s on %s", ET_DOMAIN ), get_the_time( '', $notify->ID ), get_the_date( '', $notify->ID ) ) . '</span>
+//                            </a>';
+//		return $content;
+//	}
 
 
 	// SFM Custom Uploader With pUpload
@@ -46,7 +66,7 @@ class Bid {
 	public function sfm_handle_file_delete() {
 		header( 'Content-Type: application/json' );
 
-		if ( isset( $_POST['id'] ) && $_POST['id'] != '') {
+		if ( isset( $_POST['id'] ) && $_POST['id'] != '' ) {
 			wp_delete_attachment( $_POST['id'], true );
 			echo wp_json_encode( [ 'success' => true ] );
 		}
@@ -210,7 +230,8 @@ class Bid {
 		}
 
 		// Create a new notification for freelancer
-		$notify_content = 'type=bid_accept&project=' . $project->ID;
+//		$notify_content = 'type=bid_accept&project=' . $project->ID;
+		$notify_content = 'type=delete_bid&amp;freelancer=' . $bid->post_author . '&amp;project=' . $project->ID . '&amp;bid=' . $bid->ID;
 		$notification   = wp_insert_post( array(
 			'post_type'    => 'notify',
 			'post_content' => $notify_content,
@@ -221,6 +242,7 @@ class Bid {
 			'post_parent'  => $project->ID,
 		) );
 		update_user_meta( $freelancer_id, 'fre_new_notify', $notification );
+		update_post_meta( $bid, 'notify_id', $notification );
 
 		// Send email to freelancer and admin
 		$employer     = get_userdata( $employer_id );
@@ -230,7 +252,68 @@ class Bid {
 
 		echo wp_json_encode( [
 			'status'   => true,
-			'message'  => __( 'Your proposal accepted successfully', ET_DOMAIN ),
+			'message'  => __( 'You have successfully accepted the proposal', ET_DOMAIN ),
+			'redirect' => get_permalink( $project->ID ),
+		] );
+
+		wp_die();
+	}
+
+
+	public function decline_proposal() {
+		header( 'Content-Type: application/json' );
+
+		$form_data = $_POST;
+		$errors    = [];
+		$has_error = false;
+
+		// Check required fields
+		if ( $form_data['bid_id'] == '' ) {
+			$errors[]  = array( 'name' => 'bid_id', 'message' => 'Bid ID is not valid' );
+			$has_error = true;
+		}
+
+		$bid = get_post( $form_data['bid_id'] );
+
+		if ( $bid->post_type != BID ) {
+			$errors[]  = array( 'name' => 'bid_id', 'message' => 'Bid ID is not valid' );
+			$has_error = true;
+		}
+
+		// Show Errors on frontend
+		if ( $has_error && $errors ) {
+			echo wp_json_encode( array( 'status' => false, 'errors' => $errors ) );
+			die();
+		}
+
+		$project    = get_post( $bid->post_parent );
+		$freelancer = get_userdata( $bid->post_author );
+
+		wp_update_post( [
+			'ID'          => $form_data['bid_id'],
+			'post_status' => 'unaccept',
+		] );
+
+		// Create a new notification for freelancer
+//		$notify_content = 'type=delete_bid&project=' . $project->ID;
+//		$notify_content = 'type=delete_bid&amp;freelancer=' . $bid->post_author . '&amp;project='. $project->ID . '&amp;bid=' . $bid->ID;
+		$notify_content = 'type=decline_bid&amp;freelancer=' . $bid->post_author . '&amp;project='. $project->ID . '&amp;bid=' . $bid->ID;
+		$notification   = wp_insert_post( array(
+			'post_type'    => 'notify',
+			'post_content' => $notify_content,
+			'post_excerpt' => $notify_content,
+			'post_author'  => $bid->post_author,
+			'post_title'   => sprintf( __( "Bid on %s was declined", ET_DOMAIN ), $project->post_title ),
+			'post_status'  => 'publish',
+			'post_parent'  => $project->ID,
+		) );
+		update_user_meta( $bid->post_author, 'fre_new_notify', $notification );
+
+		do_action( 'declined_proposal_notification', $project, $freelancer );
+
+		echo wp_json_encode( [
+			'status'  => true,
+			'message' => __( 'You have successfully declined the proposal', ET_DOMAIN ),
 			'redirect' => get_permalink( $project->ID ),
 		] );
 

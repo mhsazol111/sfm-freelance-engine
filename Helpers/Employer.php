@@ -24,9 +24,10 @@ class Employer {
 		/**
 		 * 'close' => Ongoing Projects
 		 * 'complete' => Completed Projects
-		 * 'publish' => Pending Projects
+		 * 'publish' => Published Projects
 		 * 'archive' => Achieve Projects
 		 * 'disputing' => Cancelled Projects
+		 * 'draft' => Pending Projects
 		 */
 
 		if ( get_query_var( 'paged' ) ) {

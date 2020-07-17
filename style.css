@@ -779,6 +779,16 @@ footer .widget ul li a {
 #sfm_sign_up_form .select2-container .select2-selection--single .select2-selection__rendered {
     padding-left: 15px;
 }
+.fre-notification span {
+    right: auto !important;
+    left: 0;
+}
+.fre-account-wrap.open:before, .fre-account-wrap.open:after {
+    left: 60px;
+}
+.fre-account-wrap>.dropdown-menu>li a.fre-notify-wrap .notify-avatar img {
+    height: 36px;
+}
 
 /*==========================================
                     media: min-width: 992px
@@ -855,7 +865,6 @@ footer .widget ul li a {
     .smf-header-wrapper.active .fre-account-wrap.smf-acc .fre-login-wrap {
         display: none;
     }
-
     .ie-banner .ie-banner-content {
         padding: 60px 0px;
     }
@@ -891,6 +900,9 @@ footer .widget ul li a {
     }
     header.header-light.active #main_header .fre-menu-main li a {
         color: #fff;
+    }
+    .fre-account-wrap>.dropdown-menu>li a.fre-notify-wrap .notify-avatar {
+        display: none;
     }
 }
 
