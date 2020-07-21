@@ -64,7 +64,7 @@ function sfm_load_scripts() {
 		'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
 		'currentUserId' => get_current_user_id(),
 		'upload'        => admin_url( 'admin-ajax.php?action=sfm_file_upload' ),
-        'site_root'     => get_site_url(),
+		'site_root'     => get_site_url(),
 //		'delete'        => admin_url( 'admin-ajax.php?action=sfm_file_delete' ),
 	) );
 }
@@ -291,7 +291,7 @@ function register_fre_missing_taxonomy() {
 	register_taxonomy( 'skill', array( PROFILE, PORTFOLIO, PROJECT ), $args );
 }
 
-add_action( 'init', 'register_fre_missing_taxonomy' );
+//add_action( 'init', 'register_fre_missing_taxonomy' );
 
 
 /**
@@ -445,35 +445,36 @@ function sfm_admin_scripts( $hook ) {
 
 add_action( 'admin_enqueue_scripts', 'sfm_admin_scripts' );
 
-function sfm_fix_pending_review_text(){
+function sfm_fix_pending_review_text() {
 	// From the project list page
-	if( isset($_GET['post_type']) && 'project' == $_GET['post_type'] ) { ?>
-		<script>
-			jQuery(document).ready(function ($) {
+	if ( isset( $_GET['post_type'] ) && 'project' == $_GET['post_type'] ) { ?>
+        <script>
+            jQuery(document).ready(function ($) {
                 var __sfm_status = jQuery('.inline-edit-status').find('option[value="pending"]');
-                if( __sfm_status.length ) {
+                if (__sfm_status.length) {
                     __sfm_status.text('Pending');
                 }
             });
-		</script>
+        </script>
 		<?php
 	}
 	// From project single page
-	if( isset($_GET['post']) && ! empty( $_GET['post'] ) && 'edit' == @$_GET['action'] ) {
-		if( 'project' == get_post_type($_GET['post']) ) {
+	if ( isset( $_GET['post'] ) && ! empty( $_GET['post'] ) && 'edit' == @$_GET['action'] ) {
+		if ( 'project' == get_post_type( $_GET['post'] ) ) {
 			?>
-			<script>
+            <script>
                 jQuery(document).ready(function ($) {
                     var __sfm_status = jQuery('#post-status-select').find('option[value="pending"]');
                     if (__sfm_status.length) {
                         __sfm_status.text('Pending');
                     }
                 });
-			</script>
+            </script>
 			<?php
 		}
 	}
 }
+
 add_action( 'admin_print_footer_scripts-edit.php', 'sfm_fix_pending_review_text' );
 add_action( 'admin_print_footer_scripts-post.php', 'sfm_fix_pending_review_text' );
 
@@ -506,13 +507,13 @@ if ( ! function_exists( 'et_get_customization' ) ) {
  */
 
 add_filter( 'trp_flags_path', 'sfm_trpc_flags_path', 10, 2 );
-function sfm_trpc_flags_path( $original_flags_path,  $language_code ){
-    
+function sfm_trpc_flags_path( $original_flags_path, $language_code ) {
+
 	$languages_with_custom_flags = array( 'en_US' );
 
 	if ( in_array( $language_code, $languages_with_custom_flags ) ) {
 		return get_stylesheet_directory_uri() . '/assets/flags/';
-	}else{
+	} else {
 		return $original_flags_path;
 	}
 }

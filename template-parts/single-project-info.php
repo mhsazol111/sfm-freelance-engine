@@ -114,7 +114,7 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
 	                'disputed'  => __( "Resolved", ET_DOMAIN ),
 	                'publish'   => __( "Active", ET_DOMAIN ),
 	                'pending'   => __( "Pending", ET_DOMAIN ),
-	                'draft'     => __( "Draft", ET_DOMAIN ),
+	                'draft'     => __( "Pending", ET_DOMAIN ),
 	                'reject'    => __( "Rejected", ET_DOMAIN ),
 	                'archive'   => __( "Archived", ET_DOMAIN ),
                 );
