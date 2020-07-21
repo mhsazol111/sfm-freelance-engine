@@ -163,12 +163,12 @@ if( isset($convert->hour_rate) )
                                               <span class="rate-it" data-score="<?php echo $rating['rating_score']; ?>"></span>
                                           </div>
                                           <div class="fpp-project-count">
-                                              <span><?php printf( __('Completed Projects: %s' ,ET_DOMAIN), intval($projects_worked) ); ?> </span>
+                                              <span><?php _e('Completed Projects:' ,ET_DOMAIN); ?> <?php echo intval($projects_worked); ?> </span>
                                           </div>
                                           <div class="fpp-wage-rate">
                                               <span><?php _e( 'Wage Rate:', ET_DOMAIN ) ?></span>
                                               <span>
-                                                  <b>CHF <?php echo $author_freelancer->daily_wage_rate; ?> </b><?php _e( '/day', ET_DOMAIN ) ?>
+                                                  <b>CHF <?php echo $author_freelancer->daily_wage_rate; ?> </b>/<?php _e( 'day', ET_DOMAIN ) ?>
                                               </span>
                                           </div>
                                           <div class="fpp-social-link">
@@ -302,7 +302,7 @@ if( isset($convert->hour_rate) )
                                       get_template_part( 'template-parts/author-freelancer-history', 'item' );
                                     }
                                   else:
-                                    _e( '<li class="bid-item"><span class="profile-no-results" style="padding: 0">There are no activities yet.</span></li>', ET_DOMAIN );
+                                    echo '<li class="bid-item"><span class="profile-no-results" style="padding: 0">' . __( "There are no activities yet.", ET_DOMAIN ) . '</span></li>';
                                   endif;
                                 ?>
 

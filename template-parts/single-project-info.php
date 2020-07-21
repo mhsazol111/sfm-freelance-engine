@@ -193,18 +193,18 @@ if ( ( fre_share_role() || $role == FREELANCER ) && $project_status == 'complete
 					}
 				} else if ( $project_status == 'pending' ) {
 					if ( ( fre_share_role() || $user_role == EMPLOYER ) && $user_ID == $project->post_author ) {
-						echo '<a class="fre-action-btn" href="' . et_get_page_link( 'edit-project', array( 'id' => $project->ID ) ) . '">' . __( 'Edit', ET_DOMAIN ) . '</a>';
+						echo '<a class="fre-action-btn" style="margin-right: 10px;" href="' . et_get_page_link( 'edit-project', array( 'id' => $project->ID ) ) . '">' . __( 'Edit', ET_DOMAIN ) . '</a>';
 					} else if ( current_user_can( 'manage_options' ) ) {
 						echo '<a class="fre-normal-btn primary-bg-color project-action" data-action="approve" data-project-id="' . $project->ID . '"><i class="fa fa-check-circle-o" aria-hidden="true"></i> ' . __( 'Approve', ET_DOMAIN ) . '</a>';
 						echo '<a class="fre-normal-btn primary-bg-color project-action" data-action="reject" data-project-id="' . $project->ID . '"><i class="fa fa-check-circle-o" aria-hidden="true"></i> ' . __( 'Reject', ET_DOMAIN ) . '</a>';
 					}
 				} else if ( $project_status == 'reject' ) {
 					if ( ( fre_share_role() || $user_role == EMPLOYER ) && $user_ID == $project->post_author ) {
-						echo '<a class="fre-action-btn 1" href="' . et_get_page_link( 'edit-project', array( 'id' => $project->ID ) ) . '">' . __( 'Edit', ET_DOMAIN ) . '</a>';
+						echo '<a class="fre-action-btn 1" style="margin-right: 10px;" href="' . et_get_page_link( 'edit-project', array( 'id' => $project->ID ) ) . '">' . __( 'Edit', ET_DOMAIN ) . '</a>';
 					}
 				} else if ( $project_status == 'draft' ) {
 					if ( ( fre_share_role() || $user_role == EMPLOYER ) && $user_ID == $project->post_author ) {
-						echo '<a class="fre-action-btn 2" href="' . et_get_page_link( 'edit-project', array( 'id' => $project->ID ) ) . '">' . __( 'Edit', ET_DOMAIN ) . '</a>';
+						echo '<a class="fre-action-btn 2" style="margin-right: 10px;" href="' . et_get_page_link( 'edit-project', array( 'id' => $project->ID ) ) . '">' . __( 'Edit', ET_DOMAIN ) . '</a>';
 						echo '<a class="custom-project-action" data-action="delete" data-project-id="' . $project->ID . '">' . __( 'Delete', ET_DOMAIN ) . '</a>';
 					} else if ( current_user_can( 'manage_options' ) ) {
 						echo '<a class="custom-project-action" data-action="delete" data-project-id="' . $project->ID . '">' . __( 'Delete', ET_DOMAIN ) . '</a>';

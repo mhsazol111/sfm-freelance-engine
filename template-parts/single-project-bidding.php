@@ -28,7 +28,7 @@ $bid_data = array();
         <div class="freelancer-bidding <?php if ( USER_ROLE == 'freelancer' ) : ?>freelancer-bidding-free<?php endif; ?>">
 			<?php if ( USER_ROLE == 'employer' || current_user_can( 'administrator' ) ) : ?>
                 <div class="dashboard_title">
-                    <h2><?php printf( __( 'Proposals from Freelancers (%s)', ET_DOMAIN ), $bid_query->found_posts );?></h2>
+                    <h2><?php _e( 'Proposals from Freelancers', ET_DOMAIN ); ?>(<?php echo $bid_query->found_posts ?>)</h2>
                     <hr>
                 </div> <?php
 				if ( $bid_query->have_posts() ) {

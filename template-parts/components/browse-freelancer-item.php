@@ -27,8 +27,8 @@ $s_a_rating = isset($freelancer->rating_score) ? $freelancer->rating_score : '';
             <li class="s-a-rating">
                 <span class="rate-it" data-score="<?php echo $s_a_rating; ?>"></span>
             </li>
-            <li><span><?php printf( __('%s projects worked' ,ET_DOMAIN), intval($s_a_t_projects) ); ?></span></li>
-            <li><span><strong><?php printf( __('CHF %s /day' ,ET_DOMAIN), intval($s_a_rate) ); ?></strong></span></li>
+            <li><span><?php echo intval($s_a_t_projects) . ' ' . __('projects worked' ,ET_DOMAIN); ?></span></li>
+            <li><span><strong>CHF <?php echo intval($s_a_rate) . ' /' . __('day' ,ET_DOMAIN ); ?></strong></span></li>
         </ul>
         <div class="deccription">
             <p>
