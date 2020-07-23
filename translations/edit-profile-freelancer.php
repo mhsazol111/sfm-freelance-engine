@@ -1,5 +1,7 @@
 <?php
-if( ! defined('ABSPATH') ) die('No direct access, please!');
+if ( ! defined( 'ABSPATH' ) ) {
+	die( 'No direct access, please!' );
+}
 ?>
 
 
@@ -11,7 +13,7 @@ if( ! defined('ABSPATH') ) die('No direct access, please!');
         <section id="dashboard_content">
             <div class="dashboard_inn">
 
-				<h4 class="complete-profile-notice">You have to update the profile first to access anything!</h4>
+                <h4 class="complete-profile-notice">You have to update the profile first to access anything!</h4>
 
                 <div class="dashboard_title">
                     <h2><?php _e( 'Edit Profile', ET_DOMAIN ); ?></h2>
@@ -25,27 +27,42 @@ if( ! defined('ABSPATH') ) die('No direct access, please!');
                         <div class="work-skil" id="fre-post-project">
                             <div class="input-field">
                                 <label for="daily_wage"><?php _e( 'Daily wage rate', ET_DOMAIN ) ?></label>
-                                <input id="daily_wage" type="number" placeholder="Amount of daily wage" name="daily_wage_rate"
-                                       value="000" required>
+                                <input id="daily_wage" type="number"
+                                       placeholder="<?php _e( 'Amount of daily wage', ET_DOMAIN ); ?>"
+                                       name="daily_wage_rate" value="000" required>
+                                <label id="daily_wage-error" class="error"
+                                       for="daily_wage"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
                             </div>
 
                             <div class="input-field fre-input-field">
-                                <div class="select-box">
-                                    <label class="fre-field-title"
-                                           for="project_category"><?php _e( 'Interested Project Categories', ET_DOMAIN ) ?></label>
-                                    <select name="project_category[]" id="project_category" class="sfm-select2" multiple required>
-                                        <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
-                                    </select>
-                                </div>
+                                <label class="fre-field-title"
+                                       for="language"><?php _e( 'Select Your Language', ET_DOMAIN ); ?></label>
+                                <select name="language[]" id="language" class="sfm-select2" multiple required>
+                                    <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
+                                </select>
+                                <label id="language-error" class="error"
+                                       for="language"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
                             </div>
 
                             <div class="input-field fre-input-field full">
-                                <div class="select-box">
-                                    <label for="project_skills"><?php _e( 'Interested Project Skills', ET_DOMAIN ) ?></label>
-                                    <select name="project_skills[]" id="project_skills" class="sfm-select2" multiple required>
-                                        <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
-                                    </select>
-                                </div>
+                                <label class="fre-field-title"
+                                       for="project_category"><?php _e( 'Interested Project Categories', ET_DOMAIN ); ?></label>
+                                <select name="project_category[]" id="project_category" class="sfm-select2" multiple
+                                        required>
+                                    <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
+                                </select>
+                                <label id="project_category-error" class="error"
+                                       for="project_category"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
+                            </div>
+
+                            <div class="input-field fre-input-field full">
+                                <label for="project_skills"><?php _e( 'Interested Project Skills', ET_DOMAIN ) ?></label>
+                                <select name="project_skills[]" id="project_skills" class="sfm-select2" multiple
+                                        required>
+                                    <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
+                                </select>
+                                <label id="project_skills-error" class="error"
+                                       for="project_skills"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
                             </div>
                         </div>
                         <h3 class="profile-title"><?php _e( 'Personal Details', ET_DOMAIN ) ?></h3>
@@ -53,23 +70,35 @@ if( ! defined('ABSPATH') ) die('No direct access, please!');
                             <div class="input-field">
                                 <label for="first_name"><?php _e( 'First Name', ET_DOMAIN ) ?></label>
                                 <input id="first_name" type="text" name="first_name" placeholder="First Name" required>
+                                <label id="first_name-error" class="error"
+                                       for="first_name"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
                             </div>
                             <div class="input-field">
                                 <label for="last_name"><?php _e( 'Last Name', ET_DOMAIN ) ?></label>
                                 <input id="last_name" type="text" name="last_name" placeholder="Last Name" required>
+                                <label id="last_name-error" class="error"
+                                       for="last_name"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
                             </div>
                             <div class="three-column-row">
                                 <div class="input-field">
                                     <label for="display_name"><?php _e( 'Display Name', ET_DOMAIN ) ?></label>
-                                    <input id="display_name" type="text" name="display_name" placeholder="Public Name" required>
+                                    <input id="display_name" type="text" name="display_name" placeholder="Public Name"
+                                           required>
+                                    <label id="display_name-error" class="error"
+                                           for="display_name"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
                                 </div>
                                 <div class="input-field">
                                     <label for="phone_number"><?php _e( 'Phone Number', ET_DOMAIN ) ?></label>
-                                    <input id="phone_number" type="text" name="phone_number" placeholder="Your Phone Number" required>
+                                    <input id="phone_number" type="text" name="phone_number"
+                                           placeholder="Your Phone Number" required>
+                                    <label id="phone_number-error" class="error"
+                                           for="phone_number"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
                                 </div>
                                 <div class="input-field">
                                     <label for="job_title"><?php _e( 'Job Title', ET_DOMAIN ) ?></label>
                                     <input id="job_title" type="text" name="job_title" placeholder="Job Title" required>
+                                    <label id="job_title-error" class="error"
+                                           for="job_title"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
                                 </div>
                             </div>
                             <div class="input-field details">
@@ -81,15 +110,18 @@ if( ! defined('ABSPATH') ) die('No direct access, please!');
                         <div class="social-details">
                             <div class="input-field">
                                 <label for="facebook"><?php _e( 'Facebook', ET_DOMAIN ) ?></label>
-                                <input id="facebook" type="text" name="facebook" placeholder="https://facebook.com/yourusername">
+                                <input id="facebook" type="text" name="facebook"
+                                       placeholder="https://facebook.com/yourusername">
                             </div>
                             <div class="input-field">
                                 <label for="twitter"><?php _e( 'Twitter', ET_DOMAIN ) ?></label>
-                                <input id="twitter" type="text" name="twitter" placeholder="https://twitter.com/yourusername">
+                                <input id="twitter" type="text" name="twitter"
+                                       placeholder="https://twitter.com/yourusername">
                             </div>
                             <div class="input-field">
                                 <label for="linkedin"><?php _e( 'LinkedIn', ET_DOMAIN ) ?></label>
-                                <input id="linkedin" type="text" name="linkedin" placeholder="https://linkedin.com/yourusername">
+                                <input id="linkedin" type="text" name="linkedin"
+                                       placeholder="https://linkedin.com/yourusername">
                             </div>
                             <div class="input-field">
                                 <label for="skype"><?php _e( 'Skype', ET_DOMAIN ) ?></label>
@@ -100,15 +132,17 @@ if( ! defined('ABSPATH') ) die('No direct access, please!');
                         <div class="location-details">
                             <div class="input-field">
                                 <label for="country_you_live"><?php _e( 'Country You Live', ET_DOMAIN ) ?></label>
-                                <div class="select-box">
-                                    <select name="country_you_live" id="country_you_live" class="sfm-select2" required>
-                                        <option value=""><?php _e( 'Select Country', ET_DOMAIN ) ?></option>
-                                    </select>
-                                </div>
+                                <select name="country_you_live" id="country_you_live" class="sfm-select2" required>
+                                    <option value=""><?php _e( 'Select Country', ET_DOMAIN ) ?></option>
+                                </select>
+                                <label id="country_you_live-error" class="error"
+                                       for="country_you_live"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
                             </div>
                             <div class="input-field">
                                 <label for="city_name"><?php _e( 'City Name', ET_DOMAIN ) ?></label>
                                 <input id="city_name" type="text" name="city_name" placeholder="City name" required>
+                                <label id="city_name-error" class="error"
+                                       for="city_name"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
                             </div>
                         </div>
                         <h3 class="profile-title"><?php _e( 'Profile Picture', ET_DOMAIN ) ?></h3>
@@ -120,13 +154,15 @@ if( ! defined('ABSPATH') ) die('No direct access, please!');
                                 <div class="file-upload-wrapper">
                                     <input type="file" name="profile_image" id="input-file-now"
                                            class="file-upload"/>
-                                    <label class="custom-file-label" for="input-file-now"><?php _e( 'Upload Picture', ET_DOMAIN ) ?></label>
+                                    <label class="custom-file-label"
+                                           for="input-file-now"><?php _e( 'Upload Picture', ET_DOMAIN ) ?></label>
                                 </div>
                                 <p><?php _e( "Accepted image format: 'png', 'jpg', 'jpeg', 'gif'", ET_DOMAIN ) ?></p>
                             </div>
                         </div>
 
-                        <button class="btn-all ie_btn submit" id="update-freelancer-profile" type="submit" name="submit"><?php _e( 'Save all
+                        <button class="btn-all ie_btn submit" id="update-freelancer-profile" type="submit"
+                                name="submit"><?php _e( 'Save all
         information', ET_DOMAIN ) ?></button>
                     </form>
                 </div><!-- End .project_info -->

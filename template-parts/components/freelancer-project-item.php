@@ -4,6 +4,14 @@ $categories = Employer::get_project_terms( $project->id );
 $employer   = Employer::get_employer( $project->employer_id );
 // $bid        = Freelancer::get_bid( $project->project_id );
 // pri_dump( $bid );
+$languages     = get_the_terms( $project->id, 'language' );
+$language_list = [];
+if ( $languages ) {
+	foreach ( $languages as $lang ) {
+		$language_list[] = $lang->name;
+	}
+	$language_list = implode( ' | ', $language_list );
+}
 ?>
 
 
@@ -46,14 +54,14 @@ $employer   = Employer::get_employer( $project->employer_id );
 					echo '<span class="ie_btn_small ie_btn_purple">Completed</span>';
 				} elseif ( 'publish' == $project->status ) {
 					$bids = new WP_Query( array(
-						'post_type'   => BID,
-						'author'      => get_current_user_id(),
-						'post_parent__in' => array($project->id),
-						'post_status' => 'unaccept',
+						'post_type'       => BID,
+						'author'          => get_current_user_id(),
+						'post_parent__in' => array( $project->id ),
+						'post_status'     => 'unaccept',
 					) );
-					if ($bids->posts) {
+					if ( $bids->posts ) {
 						echo '<span class="ie_btn_small ie_btn_orange">Declined</span>';
-                    } else {
+					} else {
 						echo '<span class="ie_btn_small ie_btn_yellow">Pending</span>';
 					}
 				} elseif ( 'unaccept' == $project->status ) {
@@ -79,6 +87,9 @@ $employer   = Employer::get_employer( $project->employer_id );
 				$skills = Employer::get_project_terms( $project->id, 'skill', 'true' );
 				echo $skills;
 				?>
+                <p class="country-language">
+					<?php echo $language_list ? '<strong>' . __( 'Languages', ET_DOMAIN ) . ': </strong>' . __( $language_list, ET_DOMAIN ) : '' ?>
+                </p>
             </div>
             <div class="footer_right">
 				<?php if ( ( 'close' == $project->status ) || ( 'complete' == $project->status ) || ( 'disputing' == $project->status ) || ( 'disputed' == $project->status ) ) : ?>

@@ -128,6 +128,7 @@
                 $("#browse-freelancer-form")[0].reset();
                 $('#freelancer-skill').val($('#freelancer-skill option:eq(0)').val()).trigger('change');
                 $('#freelancer-country').val($('#freelancer-country option:eq(0)').val()).trigger('change');
+                $('#freelancer-language').val($('#freelancer-language option:eq(0)').val()).trigger('change');
 
                 $("#browse-freelancer-form").submit();
             }).on("click", ".browse-freelancer-wrapper .sfm-pagination ul li .page-numbers", function (e) {

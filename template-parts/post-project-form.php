@@ -6,12 +6,13 @@
                 <div class="fre-input-field">
                     <label class="fre-field-title"
                            for="project_category"><?php _e( 'What categories do your project work in?', ET_DOMAIN ); ?></label>
-                    <select name="project_category[]" id="project_category" class="input-item sfm-select2" style="width: 100%" multiple="multiple" required>
+                    <select name="project_category[]" id="project_category" class="input-item sfm-select2"
+                            style="width: 100%" multiple="multiple" required>
 						<?php
 						$user_profile_id = get_user_meta( get_current_user_id(), 'user_profile_id', true );
 						$cats            = get_the_terms( $user_profile_id, 'project_category' );
 						foreach ( $cats as $cat ) {
-							printf( '<option value="%s">%s</option>', $cat->term_id, $cat->name );
+							echo '<option value="' . $cat->term_id . '">' . __( $cat->name, ET_DOMAIN ) . '</option>';
 						}
 						?>
                     </select>
@@ -28,31 +29,26 @@
                            for="post_content"><?php _e( 'Describe more details about your project', ET_DOMAIN ); ?></label>
 					<?php wp_editor( '', 'post_content', ae_editor_settings() ); ?>
                 </div>
+
                 <div class="fre-input-field">
-                    <label class="fre-field-title"
-                           for="skill"><?php _e( 'What skills do you require for your project?', ET_DOMAIN ); ?></label>
-					<?php
-					ae_tax_dropdown( 'skill', array(
-							'attr'            => 'data-chosen-width="100%" data-chosen-disable-search="" multiple data-placeholder="' . sprintf( __( "Choose maximum %s skills", ET_DOMAIN ), ae_get_option( 'fre_max_skill', 5 ) ) . '"',
-							'class'           => ' fre-chosen-skill required',
-							//'class' => ' fre-chosen-multi required',
-							'hide_empty'      => false,
-							'hierarchical'    => true,
-							'id'              => 'skill',
-							'show_option_all' => false,
-							'selected'        => [],
-							'name'            => 'skill[]'
-						)
-					);
-					?>
+                    <label class="fre-field-title" for="skill"><?php _e( 'What skills do you require for your project?', ET_DOMAIN ); ?></label>
+                    <select name="skill[]" id="skill" class="input-item sfm-select2" style="width: 100%" multiple="multiple" data-placeholder="<?php _e('Choose maximum 10 skills', ET_DOMAIN); ?>" data-allow-clear="true" required>
+			            <?php
+			            $skills            = get_terms( array(
+			                'taxonomy'   => 'skill',
+                            'hide_empty' => false,
+                        ) );
+			            foreach ( $skills as $skill ) {
+				            echo '<option value="' . $skill->term_id . '">' . __( $skill->name, ET_DOMAIN ) . '</option>';
+			            }
+			            ?>
+                    </select>
                 </div>
-                <div class="bid-location-details three-column-row">
+
+                <div class="bid-location-details">
                     <div class="fre-input-field">
-                        <label class="fre-field-title"
-                               for="et_budget"><?php _e( 'Budget (CHF)', ET_DOMAIN ); ?></label>
+                        <label class="fre-field-title" for="et_budget"><?php _e( 'Budget (CHF)', ET_DOMAIN ); ?></label>
                         <div class="fre-project-budget">
-                            <!-- <input type="number" id="et_budget" class="input-item text-field is_number numberVal"
-                                   name="et_budget" required> -->
                             <select name="et_budget" id="et_budget" class="budget-select2" required>
                                 <option value=""><?php _e( 'Input your budget or Select from dropdown', ET_DOMAIN ); ?></option>
                                 <option value="To be determined"><?php _e( 'To be determined', ET_DOMAIN ); ?></option>
@@ -60,6 +56,7 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="fre-input-field">
                         <label class="fre-field-title"
                                for="project_deadline"><?php _e( 'Deadline', ET_DOMAIN ); ?></label>
@@ -68,22 +65,38 @@
                                    class="input-item text-field calendar" required/>
                         </div>
                     </div>
+
                     <div class="fre-input-field">
-                        <label class="fre-field-title"
-                               for="project-location"><?php _e( 'Preferred location (Optional)', ET_DOMAIN ); ?></label>
-						<?php
-						ae_tax_dropdown( 'country', array(
-								'attr'            => 'data-chosen-width="100%" data-chosen-disable-search="" data-placeholder="' . __( "Choose country", ET_DOMAIN ) . '"',
-								'class'           => 'fre-chosen-single',
-								'hide_empty'      => false,
-								'hierarchical'    => true,
-								'id'              => 'country',
-								'show_option_all' => __( "Choose country", ET_DOMAIN ),
-								'selected'        => [],
-								'country'         => 'country'
-							)
-						);
-						?>
+                        <label class="fre-field-title" for="language"><?php _e( 'Select Preferred Language', ET_DOMAIN ) ?></label>
+                        <select name="language[]" id="language" class="sfm-select2" multiple required>
+                            <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
+			                <?php
+			                $languages = get_terms( array(
+				                'taxonomy'   => 'language',
+				                'hide_empty' => false,
+			                ) );
+
+			                foreach ( $languages as $language ) {
+				                echo '<option value="' . $language->term_id . '">' . $language->name . '</option>';
+			                }
+			                ?>
+                        </select>
+                    </div>
+
+                    <div class="fre-input-field">
+                        <label class="fre-field-title" for="country"><?php _e( 'Project location', ET_DOMAIN ); ?></label>
+                        <select name="country" id="country" class="input-item sfm-select2" style="width: 100%" required>
+                            <option value=""><?php _e('Choose a country', ET_DOMAIN); ?></option>
+			                <?php
+			                $countries = get_terms( array(
+				                'taxonomy'   => 'country',
+				                'hide_empty' => false,
+			                ) );
+			                foreach ( $countries as $country ) {
+				                echo '<option value="' . $country->term_id . '">' . __( $country->name, ET_DOMAIN ) . '</option>';
+			                }
+			                ?>
+                        </select>
                     </div>
                 </div>
 

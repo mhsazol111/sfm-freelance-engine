@@ -186,6 +186,10 @@ class Freelancer {
 			$errors[]  = array( 'name' => 'daily_wage_rate', 'message' => 'Daily Wage is required!' );
 			$has_error = true;
 		}
+		if ( $form_data['language'] == '' ) {
+			$errors[]  = array( 'name' => 'language[]', 'message' => 'Please select at least a language!' );
+			$has_error = true;
+		}
 		if ( $form_data['project_category'] == '' ) {
 			$errors[]  = array( 'name' => 'project_category[]', 'message' => 'Please select a category!' );
 			$has_error = true;
@@ -277,8 +281,9 @@ class Freelancer {
 			wp_update_post( $up_args );
 		}
 
-		// Set the skill, category, country taxonomy with the profile id
+		// Set the language, skill, category, country taxonomy with the profile id
 		$user_profile_post = get_user_meta( $freelancer_id, 'user_profile_id', true );
+		wp_set_post_terms( $user_profile_post, $form_data['language'], 'language' );
 		wp_set_post_terms( $user_profile_post, $form_data['project_category'], 'project_category' );
 		wp_set_post_terms( $user_profile_post, $form_data['project_skills'], 'skill' );
 		wp_set_post_terms( $user_profile_post, $form_data['country_you_live'], 'country' );
@@ -365,6 +370,13 @@ class Freelancer {
 				'taxonomy' => 'skill',
 				'field'    => 'term_id',
 				'terms'    => $form_data['freelancer-skill'],
+			);
+		}
+		if ( isset( $form_data['freelancer-language'] ) && $form_data['freelancer-language'] != '' ) {
+			$query_args['tax_query'][] = array(
+				'taxonomy' => 'language',
+				'field'    => 'term_id',
+				'terms'    => $form_data['freelancer-language'],
 			);
 		}
 		if ( isset( $form_data['freelancer-country'] ) && $form_data['freelancer-country'] != '' ) {

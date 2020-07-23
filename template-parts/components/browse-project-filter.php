@@ -1,8 +1,6 @@
 <?php
 $user_profile_id = get_user_meta( get_current_user_id(), 'user_profile_id', true );
-//$categories      = Custom::all_terms( 'project_category' );
-//$skills     = Custom::all_terms( 'skill' );
-
+$countries = Custom::all_terms( 'country' );
 
 if ( current_user_can( 'administrator' ) ) {
 	$categories = Custom::all_terms( 'project_category' );
@@ -11,12 +9,6 @@ if ( current_user_can( 'administrator' ) ) {
 	$categories = get_the_terms( $user_profile_id, 'project_category' );
 	$skills     = get_the_terms( $user_profile_id, 'skill' );
 }
-
-$countries = Custom::all_terms( 'country' );
-
-// Getting Min and Max Bids
-//$bids_range   = Custom::get_project_meta_range( 'total_bids' );
-//$budget_range = Custom::get_project_meta_range( 'et_budget' );
 ?>
 <div class="search_fields">
     <form id="browse-project-form">
@@ -27,8 +19,6 @@ $countries = Custom::all_terms( 'country' );
         </div>
 
         <div class="form-group">
-            <div class="select_icon"
-                 style="background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/inc/images/select-icon.svg');"></div>
             <select class="custom-select form-control sfm-select2" id="project-skill" name="project-skill">
                 <option value=""><?php _e( 'Select Projects by Skill', ET_DOMAIN ) ?></option>
 				<?php
@@ -41,8 +31,6 @@ $countries = Custom::all_terms( 'country' );
         </div>
 
         <div class="select_box form-group">
-            <div class="select_icon"
-                 style="background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/inc/images/select-icon.svg');"></div>
             <select class="custom-select form-control sfm-select2" id="project-category" name="project-category">
                 <option value=""><?php _e( 'Select Project Category', ET_DOMAIN ) ?></option>
 				<?php
@@ -55,8 +43,6 @@ $countries = Custom::all_terms( 'country' );
         </div>
 
         <div class="select_box form-group">
-            <div class="select_icon"
-                 style="background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/inc/images/select-icon.svg');"></div>
             <select class="custom-select form-control sfm-select2" id="project-country" name="project-country">
                 <option value=""><?php _e( 'Select Country', ET_DOMAIN ) ?></option>
 				<?php

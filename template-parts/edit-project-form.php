@@ -7,51 +7,29 @@
                 <div class="fre-input-field">
                     <label class="fre-field-title"
                            for="project_category"><?php _e( 'What categories do your project work in?', ET_DOMAIN ); ?></label>
-                    <select name="project_category[]" id="project_category" class="input-item sfm-select2" style="width: 100%" multiple="multiple" required>
-		                <?php
-		                $user_profile_id = get_user_meta( get_current_user_id(), 'user_profile_id', true );
-		                $cats            = get_the_terms( $user_profile_id, 'project_category' );
+                    <select name="project_category[]" id="project_category" class="input-item sfm-select2"
+                            style="width: 100%" multiple="multiple" required>
+						<?php
+						$user_profile_id = get_user_meta( get_current_user_id(), 'user_profile_id', true );
+						$cats            = get_the_terms( $user_profile_id, 'project_category' );
 
-		                $selected_cats = get_the_terms( $_REQUEST['id'], 'project_category' );
-		                $cate_arr      = array();
-		                if ( ! empty( $selected_cats ) ) {
-			                foreach ( $selected_cats as $cat ) {
-				                $cate_arr[] = $cat->term_id;
-			                }
-		                }
+						$selected_cats = get_the_terms( $_REQUEST['id'], 'project_category' );
+						$cate_arr      = array();
+						if ( ! empty( $selected_cats ) ) {
+							foreach ( $selected_cats as $cat ) {
+								$cate_arr[] = $cat->term_id;
+							}
+						}
 
-		                foreach ( $cats as $cat ) {
-			                if (in_array($cat->term_id, $cate_arr)) {
-				                printf( '<option value="%s" selected>%s</option>', $cat->term_id, $cat->name );
-			                } else {
-				                printf( '<option value="%s">%s</option>', $cat->term_id, $cat->name );
-                            }
-		                }
-		                ?>
+						foreach ( $cats as $cat ) {
+							if ( in_array( $cat->term_id, $cate_arr ) ) {
+								echo '<option value="' . $cat->term_id . '" selected>' . __( $cat->name, ET_DOMAIN ) . '</option>';
+							} else {
+								echo '<option value="' . $cat->term_id . '">' . __( $cat->name, ET_DOMAIN ) . '</option>';
+							}
+						}
+						?>
                     </select>
-					<?php
-//					$selected_cats = get_the_terms( $_REQUEST['id'], 'project_category' );
-//					$cate_arr      = array();
-//					if ( ! empty( $selected_cats ) ) {
-//						foreach ( $selected_cats as $cat ) {
-//							$cate_arr[] = $cat->term_id;
-//						}
-//					}
-
-//					ae_tax_dropdown( 'project_category',
-//						array(
-//							'attr'            => 'data-chosen-width="100%" data-chosen-disable-search="" multiple data-placeholder="' . sprintf( __( "Choose maximum %s categories", ET_DOMAIN ), ae_get_option( 'max_cat', 5 ) ) . '"',
-//							'class'           => 'fre-chosen-category required',
-//							'class'           => 'fre-chosen-multi',
-//							'hide_empty'      => false,
-//							'hierarchical'    => true,
-//							'id'              => 'project_category',
-//							'show_option_all' => false,
-//							'selected'        => $cate_arr,
-//							'name'            => 'project_category[]'
-//						)
-//					);
-					?>
 
                 </div>
                 <div class="fre-input-field">
@@ -67,54 +45,62 @@
                            for="post_content"><?php _e( 'Describe more details about your project', ET_DOMAIN ); ?></label>
 					<?php wp_editor( $project->post_content, 'post_content', ae_editor_settings() ); ?>
                 </div>
-                <div class="fre-input-field">
-                    <label class="fre-field-title"
-                           for="skill"><?php _e( 'What skills do you require for your project?', ET_DOMAIN ); ?></label>
-					<?php
-					$selected_skill = get_the_terms( $_REQUEST['id'], 'skill' );
-					$c_skills       = array();
-					if ( ! empty( $selected_skill ) ) {
-						foreach ( $selected_skill as $cat ) {
-							$c_skills[] = $cat->term_id;
-						}
-					}
 
-					ae_tax_dropdown( 'skill', array(
-							'attr'            => 'data-chosen-width="100%" data-chosen-disable-search="" multiple data-placeholder="' . sprintf( __( "Choose maximum %s skills", ET_DOMAIN ), ae_get_option( 'fre_max_skill', 5 ) ) . '"',
-							'class'           => ' fre-chosen-skill required',
-							//'class' => ' fre-chosen-multi required',
-							'hide_empty'      => false,
-							'hierarchical'    => true,
-							'id'              => 'skill',
-							'show_option_all' => false,
-							'selected'        => $c_skills,
-							'name'            => 'skill[]'
-						)
-					);
-					?>
+
+                <div class="fre-input-field">
+                    <label class="fre-field-title" for="skill"><?php _e( 'What skills do you require for your project?', ET_DOMAIN ); ?></label>
+                    <select name="skill[]" id="skill" class="input-item sfm-select2" style="width: 100%" multiple="multiple" data-placeholder="<?php _e('Choose maximum 10 skills', ET_DOMAIN); ?>" data-allow-clear="true" required>
+			            <?php
+			            $skills            = get_terms( array(
+				            'taxonomy'   => 'skill',
+				            'hide_empty' => false,
+			            ) );
+
+			            $selected_skills = get_the_terms( $_REQUEST['id'], 'skill' );
+			            $c_skills      = array();
+			            if ( ! empty( $selected_skills ) ) {
+				            foreach ( $selected_skills as $skill ) {
+					            $c_skills[] = $skill->term_id;
+				            }
+			            }
+
+			            foreach ( $skills as $skill ) {
+				            if ( in_array( $skill->term_id, $c_skills ) ) {
+					            echo '<option value="' . $skill->term_id . '" selected>' . __( $skill->name, ET_DOMAIN ) . '</option>';
+				            } else {
+					            echo '<option value="' . $skill->term_id . '">' . __( $skill->name, ET_DOMAIN ) . '</option>';
+				            }
+			            }
+			            ?>
+                    </select>
                 </div>
-                <div class="bid-location-details three-column-row">
+
+                <div class="bid-location-details">
                     <div class="fre-input-field">
                         <label class="fre-field-title"
                                for="project-budget"><?php _e( 'Budget', ET_DOMAIN ); ?></label>
                         <div class="fre-project-budget">
-                            <!-- <input type="number" id="et_budget" class="input-item text-field is_number numberVal"
-                                   name="et_budget"
-                                   value="<?php //echo get_post_meta( $_REQUEST['id'], 'et_budget', true ); ?>" required> -->
                             <select name="et_budget" id="et_budget" class="budget-select2" required>
-                                <?php
-                                $e_budget = get_post_meta( $_REQUEST['id'], 'et_budget', true );
-                                if($e_budget == 'To be determined'): ?>
+								<?php
+								$e_budget = get_post_meta( $_REQUEST['id'], 'et_budget', true );
+								if ( $e_budget == 'To be determined' ): ?>
+                                    <option value=""><?php _e( 'Input your budget or Select from dropdown', ET_DOMAIN ); ?></option>
                                     <option value="To be determined" selected><?php _e( 'To be determined', ET_DOMAIN ); ?></option>
-                                <?php elseif($e_budget == 'Negotiable'): ?>
+                                    <option value="Negotiable"><?php _e( 'Negotiable', ET_DOMAIN ); ?></option>
+								<?php elseif ( $e_budget == 'Negotiable' ): ?>
+                                    <option value=""><?php _e( 'Input your budget or Select from dropdown', ET_DOMAIN ); ?></option>
+                                    <option value="To be determined"><?php _e( 'To be determined', ET_DOMAIN ); ?></option>
                                     <option value="Negotiable" selected><?php _e( 'Negotiable', ET_DOMAIN ); ?></option>
-                                <?php else : ?>
+								<?php else : ?>
                                     <option value="<?php echo $e_budget ?>" selected><?php echo $e_budget ?></option>
-                                <?php endif
-                                ?>
+                                    <option value="To be determined"><?php _e( 'To be determined', ET_DOMAIN ); ?></option>
+                                    <option value="Negotiable"><?php _e( 'Negotiable', ET_DOMAIN ); ?></option>
+								<?php endif
+								?>
                             </select>
                         </div>
                     </div>
+
                     <div class="fre-input-field">
                         <label class="fre-field-title"
                                for="project_deadline"><?php _e( 'Deadline', ET_DOMAIN ); ?></label>
@@ -125,29 +111,57 @@
                                    required/>
                         </div>
                     </div>
+
                     <div class="fre-input-field">
-                        <label class="fre-field-title"
-                               for="project-location"><?php _e( 'Preferred location (Optional)', ET_DOMAIN ); ?></label>
-						<?php
-						$selected_country = get_the_terms( $_REQUEST['id'], 'country' );
-						$c_country        = array();
-						if ( ! empty( $selected_country ) ) {
-							foreach ( $selected_country as $cat ) {
-								$c_country[] = $cat->term_id;
-							}
-						}
-						ae_tax_dropdown( 'country', array(
-								'attr'            => 'data-chosen-width="100%" data-chosen-disable-search="" data-placeholder="' . __( "Choose country", ET_DOMAIN ) . '"',
-								'class'           => 'fre-chosen-single',
-								'hide_empty'      => false,
-								'hierarchical'    => true,
-								'id'              => 'country',
-								'show_option_all' => __( "Choose country", ET_DOMAIN ),
-								'selected'        => $c_country,
-								'country'         => 'country'
-							)
-						);
-						?>
+                        <label class="fre-field-title" for="language"><?php _e( 'Select Preferred Language', ET_DOMAIN ) ?></label>
+                        <select name="language[]" id="language" class="sfm-select2" multiple required>
+                            <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
+			                <?php
+			                $languages = get_terms( array(
+				                'taxonomy'   => 'language',
+				                'hide_empty' => false,
+			                ) );
+
+			                $selected_languages = get_the_terms( $_REQUEST['id'], 'language' );
+			                $c_languages      = array();
+			                if ( ! empty( $selected_languages ) ) {
+				                foreach ( $selected_languages as $language ) {
+					                $c_languages[] = $language->term_id;
+				                }
+			                }
+
+			                foreach ( $languages as $language ) {
+				                if ( in_array( $language->term_id, $c_languages ) ) {
+					                echo '<option value="' . $language->term_id . '" selected>' . __( $language->name, ET_DOMAIN ) . '</option>';
+				                } else {
+					                echo '<option value="' . $language->term_id . '">' . __( $language->name, ET_DOMAIN ) . '</option>';
+				                }
+			                }
+			                ?>
+                        </select>
+                    </div>
+
+                    <div class="fre-input-field">
+                        <label class="fre-field-title" for="country"><?php _e( 'Project location', ET_DOMAIN ); ?></label>
+                        <select name="country" id="country" class="input-item sfm-select2" style="width: 100%" required>
+                            <option value=""><?php _e('Choose a country', ET_DOMAIN); ?></option>
+			                <?php
+			                $countries = get_terms( array(
+				                'taxonomy'   => 'country',
+				                'hide_empty' => false,
+			                ) );
+
+			                $selected_country = get_the_terms( $_REQUEST['id'], 'country' );
+			                if ( ! empty( $selected_country ) ) {
+				                $c_country        = $selected_country[0]->term_id;
+			                }
+
+			                foreach ( $countries as $country ) {
+			                    $selected = $c_country == $country->term_id ? 'selected' : '';
+				                echo '<option value="' . $country->term_id . '" '. $selected . '>' . __( $country->name, ET_DOMAIN ) . '</option>';
+			                }
+			                ?>
+                        </select>
                     </div>
                 </div>
 
@@ -197,7 +211,8 @@
                         </ul>
                     </div>
                 </div>
-                <input type="hidden" name="project_id" id="project_id" class="project_id" value="<?php echo $_REQUEST['id']; ?>">
+                <input type="hidden" name="project_id" id="project_id" class="project_id"
+                       value="<?php echo $_REQUEST['id']; ?>">
                 <div class="fre-post-project-btn">
                     <button class="fre-btn submit" type="submit"
                             name="submit"><?php _e( "Update project", ET_DOMAIN ); ?></button>

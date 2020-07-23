@@ -26,23 +26,14 @@ if ( ( USER_ROLE == 'employer' ) ) {
 	wp_redirect( home_url() . '/dashboard' );
 }
 
-$current_skill    = '';
-$current_category = '';
+$current_skill    = ( isset( $_GET['skill_project'] ) && $_GET['skill_project'] != '' ) ? $_GET['skill_project'] : '';
+$current_category = ( isset( $_GET['category_project'] ) && $_GET['category_project'] != '' ) ? $_GET['category_project'] : '';
 
 $cat_ids    = [];
 $categories = get_the_terms( $user_profile_id, 'project_category' );
 foreach ( $categories as $cat ) {
 	$cat_ids[] = $cat->term_id;
 }
-
-
-//if ( get_query_var( 'paged' ) ) {
-//	$paged = get_query_var( 'paged' );
-//} elseif ( get_query_var( 'page' ) ) {
-//	$paged = get_query_var( 'page' );
-//} else {
-//	$paged = 1;
-//}
 
 $query_args = array(
 	'post_type'      => PROJECT,
@@ -51,20 +42,18 @@ $query_args = array(
 	'paged'          => 1,
 );
 
-if ( ! current_user_can( 'administrator' ) ) {
-	$query_args['tax_query'] = array(
-		'relation' => 'AND',
-		array(
-			'taxonomy' => 'project_category',
-			'field'    => isset( $_GET['category_project'] ) && $_GET['category_project'] ? 'slug' : 'term_id',
-			'terms'    => isset( $_GET['category_project'] ) && $_GET['category_project'] ? $_GET['category_project'] : $cat_ids,
-		),
-	);
-}
+//if ( ! current_user_can( 'administrator' ) ) {
+$query_args['tax_query'] = array(
+	'relation' => 'AND',
+	array(
+		'taxonomy' => 'project_category',
+		'field'    => isset( $_GET['category_project'] ) && $_GET['category_project'] ? 'slug' : 'term_id',
+		'terms'    => isset( $_GET['category_project'] ) && $_GET['category_project'] ? $_GET['category_project'] : $cat_ids,
+	),
+);
+//}
 
 if ( isset( $_GET['skill_project'] ) && $_GET['skill_project'] != '' ) {
-	$current_skill = $_GET['skill_project'];
-
 	$query_args['tax_query'][] = array(
 		'taxonomy' => 'skill',
 		'field'    => 'slug',
@@ -82,7 +71,7 @@ get_header();
         <div class="my_projects profile_dashboard sfm-browse-projects-archive-page"
              id="<?php echo USER_ROLE; ?>-projects">
 
-			<?php include( locate_template( 'template-parts/sidebar-profile.php' ) ); // Dashboard Sidebar ?>
+			<?php get_template_part( 'template-parts/sidebar', 'profile' ); ?>
 
             <section id="dashboard_content">
                 <div class="dashboard_inn">

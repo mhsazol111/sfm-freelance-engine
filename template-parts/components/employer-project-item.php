@@ -38,6 +38,19 @@ $employer   = Employer::get_employer( $project->employer_id );
                     }
                     ?>
                 </div>
+                <p class="language-list">
+		            <?php
+		            $languages = get_the_terms($project->id, 'language');
+		            $language_list = [];
+		            if ($languages) {
+			            foreach ($languages as $lang) {
+				            $language_list[] = $lang->name;
+			            }
+		            }
+		            $language_list = implode(' | ', $language_list);
+		            echo $language_list ? '<strong>' . __( 'Preferred Language', ET_DOMAIN ) . ': </strong>' . __( $language_list, ET_DOMAIN ) : '';
+		            ?>
+                </p>
             </div>
             <div class="head_right">
                 <?php

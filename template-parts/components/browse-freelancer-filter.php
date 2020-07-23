@@ -1,8 +1,7 @@
 <?php
 $skills    = Custom::all_terms( 'skill' );
-$countries = $terms = get_terms( 'country', array(
-	'hide_empty' => false,
-) );
+$languages = Custom::all_terms( 'language' );
+$countries = Custom::all_terms( 'country' );
 ?>
 <div class="search_fields">
     <form id="browse-freelancer-form" method="POST">
@@ -13,26 +12,32 @@ $countries = $terms = get_terms( 'country', array(
         </div>
 
         <div class="form-group">
-            <div class="select_icon"
-                 style="background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/inc/images/select-icon.svg');"></div>
             <select class="custom-select form-control sfm-select2" id="freelancer-skill" name="freelancer-skill">
-                <option><?php _e( 'Select freelancers by Skill', ET_DOMAIN ) ?></option>
+                <option value=""><?php _e( 'Select freelancers by Skill', ET_DOMAIN ) ?></option>
 				<?php
 				foreach ( $skills as $skill ) {
-					echo sprintf( '<option value="%s">%s</option>', $skill->term_id, __( $skill->name, ET_DOMAIN ) );
+					echo '<option value="' . $skill->term_id . '">' . __( $skill->name, ET_DOMAIN ) . '</option>';
+				}
+				?>
+            </select>
+        </div>
+
+        <div class="form-group fre-input-field freelancer-language-input">
+            <select class="custom-select form-control sfm-select2" id="freelancer-language" name="freelancer-language[]" multiple data-placeholder="<?php _e( 'Select Preferred Language', ET_DOMAIN ) ?>">
+				<?php
+				foreach ( $languages as $language ) {
+					echo '<option value="' . $language->term_id . '">' . __( $language->name, ET_DOMAIN ) . '</option>';
 				}
 				?>
             </select>
         </div>
 
         <div class="form-group">
-            <div class="select_icon"
-                 style="background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/inc/images/select-icon.svg');"></div>
             <select class="custom-select form-control sfm-select2" id="freelancer-country" name="freelancer-country">
-                <option><?php _e( 'Select freelancers by Country', ET_DOMAIN ) ?></option>
+                <option value=""><?php _e( 'Select freelancers by Country', ET_DOMAIN ) ?></option>
 				<?php
 				foreach ( $countries as $country ) {
-					echo sprintf( '<option value="%s">%s</option>', $country->term_id, __( $country->name, ET_DOMAIN ) );
+					echo '<option value="' . $country->term_id . '">' . __( $country->name, ET_DOMAIN ) . '</option>';
 				}
 				?>
             </select>

@@ -18,24 +18,7 @@ class Bid {
 
 		add_action( 'wp_ajax_sfm_decline_proposal', array( $this, 'decline_proposal' ) );
 		add_action( 'wp_ajax_nopriv_sfm_decline_proposal', array( $this, 'decline_proposal' ) );
-
-//		add_filter('fre_notify_item', array($this, 'testcontent'), 10, 3);
 	}
-
-//	public function testcontent( $content, $notify, $type ) {
-//		$type = 'decline_bid';
-//		$project_owner = get_post_field( 'post_author', $project );
-//		$message = sprintf( __( '%s declined your proposal from his project %s', ET_DOMAIN ),
-//			'<strong>' . get_the_author_meta( 'display_name', $project_owner ) . '</strong>',
-//			'<strong>' . get_the_title( $project ) . '</strong>'
-//		);
-//		$content .= '<a class="fre-notify-wrap" href="' . get_permalink( $project ) . '">
-//                                <span class="notify-avatar">' . get_avatar( $project_owner, 48 ) . '</span>
-//                                <span class="notify-info">' . $message . '</span>
-//                                <span class="notify-time">' . sprintf( __( "%s on %s", ET_DOMAIN ), get_the_time( '', $notify->ID ), get_the_date( '', $notify->ID ) ) . '</span>
-//                            </a>';
-//		return $content;
-//	}
 
 
 	// SFM Custom Uploader With pUpload

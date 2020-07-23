@@ -31,11 +31,11 @@ function sfm_load_scripts() {
 	if ( is_singular() ) {
 		wp_enqueue_style( 'single-post-css', get_stylesheet_directory_uri() . '/assets/css/single.css', null, time(), 'all' );
 	}
-	if ( is_post_type_archive( 'project' ) ) {
-		wp_enqueue_script( 'wnumb', '//cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js', array( 'jquery' ), '14.0.3', true );
-		wp_enqueue_script( 'noui-js', '//cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.js', array( 'jquery' ), '14.0.3', true );
-		wp_enqueue_style( 'noui-css', '//cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.css', null, '14.0.3', 'all' );
-	}
+//	if ( is_post_type_archive( 'project' ) ) {
+//		wp_enqueue_script( 'wnumb', '//cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js', array( 'jquery' ), '14.0.3', true );
+//		wp_enqueue_script( 'noui-js', '//cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.js', array( 'jquery' ), '14.0.3', true );
+//		wp_enqueue_style( 'noui-css', '//cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.css', null, '14.0.3', 'all' );
+//	}
 
 	wp_enqueue_style( 'sfm-dashboard', get_stylesheet_directory_uri() . '/assets/css/dashboard.css', null, time(), 'all' );
 
@@ -69,17 +69,8 @@ function sfm_load_scripts() {
 	) );
 }
 
-add_action( 'wp_enqueue_scripts', 'sfm_load_scripts', 99 );
+add_action( 'wp_enqueue_scripts', 'sfm_load_scripts', 99999 );
 
-
-/* OLD CODE */
-function sfm_enqueue_admin_script() {
-	wp_enqueue_script( 'admin-scripts', get_stylesheet_directory_uri() . '/inc/js/admin.js', array( 'jquery' ), '1.0', true );
-	$translation_array = array( 'templateUrl' => get_stylesheet_directory_uri() );
-	wp_localize_script( 'admin-scripts', 'local_data', $translation_array );
-}
-
-add_action( 'admin_enqueue_scripts', 'sfm_enqueue_admin_script' );
 
 require_once __DIR__ . '/inc/helper_functions.php';
 require_once get_theme_file_path( 'inc/shortcodes.php' );
@@ -191,107 +182,6 @@ require_once dirname( __FILE__ ) . '/messaging/_loader.php';
 if ( is_user_logged_in() ) {
 	define( 'USER_ROLE', wp_get_current_user()->roles[0] );
 }
-/**
- * Theme Fixing
- * Registering the missing taxonomies ['country, 'skill']
- */
-function register_fre_missing_taxonomy() {
-	$labels = array(
-		'name'                  => _x( 'Countries', 'Taxonomy plural name', ET_DOMAIN ),
-		'singular_name'         => _x( 'Country', 'Taxonomy singular name', ET_DOMAIN ),
-		'search_items'          => __( 'Search countries', ET_DOMAIN ),
-		'popular_items'         => __( 'Popular countries', ET_DOMAIN ),
-		'all_items'             => __( 'All countries', ET_DOMAIN ),
-		'parent_item'           => __( 'Parent country', ET_DOMAIN ),
-		'parent_item_colon'     => __( 'Parent country', ET_DOMAIN ),
-		'edit_item'             => __( 'Edit country', ET_DOMAIN ),
-		'update_item'           => __( 'Update country ', ET_DOMAIN ),
-		'add_new_item'          => __( 'Add New country ', ET_DOMAIN ),
-		'new_item_name'         => __( 'New country Name', ET_DOMAIN ),
-		'add_or_remove_items'   => __( 'Add or remove country', ET_DOMAIN ),
-		'choose_from_most_used' => __( 'Choose from most used enginetheme', ET_DOMAIN ),
-		'menu_name'             => __( 'Countries', ET_DOMAIN ),
-	);
-	$args   = array(
-		'labels'            => $labels,
-		'public'            => true,
-		'show_in_nav_menus' => true,
-		'show_admin_column' => true,
-		'hierarchical'      => true,
-		'show_tagcloud'     => true,
-		'show_ui'           => true,
-		'rewrite'           => array(
-			'slug' => ae_get_option( 'country_slug', 'country' ),
-		),
-		'query_var'         => true,
-		'capabilities'      => array(
-			'manage_terms',
-			'edit_terms',
-			'delete_terms',
-			'assign_terms',
-		),
-	);
-	register_taxonomy( 'country', array( PROFILE, PROJECT ), $args );
-
-	global $pagenow;
-	$isHierarchical = true;
-	$action         = isset( $_REQUEST['action'] ) ? $_REQUEST['action'] : '';
-	if ( $pagenow == 'edit-tags.php' || $action == 'ae-project-sync' ) {
-		$isHierarchical = false;
-		$method         = isset( $_REQUEST['method'] ) ? $_REQUEST['method'] : '';
-		if ( in_array( $method, array( 'create', 'update' ) ) ) {
-			/**
-			 * isHierarchical = false --> skill don't save.
-			 * danng
-			 */
-			if ( ( isset( $_REQUEST['archive'] ) && $_REQUEST['archive'] ) || ( isset( $_REQUEST['publish'] ) && $_REQUEST['publish'] ) || ( isset( $_REQUEST['reject_message'] ) && ! empty( $_REQUEST['reject_message'] ) ) ) {
-				$isHierarchical = false;
-			} else {
-				$isHierarchical = true;
-			}
-		}
-	}
-
-	$labels = array(
-		'name'                  => _x( 'Skills', 'Taxonomy plural name', ET_DOMAIN ),
-		'singular_name'         => _x( 'Skill', 'Taxonomy singular name', ET_DOMAIN ),
-		'search_items'          => __( 'Search Skills', ET_DOMAIN ),
-		'popular_items'         => __( 'Popular Skills', ET_DOMAIN ),
-		'all_items'             => __( 'All Skills', ET_DOMAIN ),
-		'parent_item'           => __( 'Parent Skill', ET_DOMAIN ),
-		'parent_item_colon'     => __( 'Parent Skill', ET_DOMAIN ),
-		'edit_item'             => __( 'Edit Skill', ET_DOMAIN ),
-		'update_item'           => __( 'Update Skill ', ET_DOMAIN ),
-		'add_new_item'          => __( 'Add New Skill ', ET_DOMAIN ),
-		'new_item_name'         => __( 'New Skill Name', ET_DOMAIN ),
-		'add_or_remove_items'   => __( 'Add or remove skill', ET_DOMAIN ),
-		'choose_from_most_used' => __( 'Choose from most used enginetheme', ET_DOMAIN ),
-		'menu_name'             => __( 'Skills', ET_DOMAIN ),
-	);
-	$args   = array(
-		'labels'            => $labels,
-		'public'            => true,
-		'show_in_nav_menus' => true,
-		'show_admin_column' => true,
-		'hierarchical'      => $isHierarchical,
-		'show_tagcloud'     => true,
-		'show_ui'           => true,
-		'query_var'         => true,
-		'rewrite'           => array(
-			'slug'         => ae_get_option( 'skill_slug', 'skill' ),
-			'hierarchical' => false,
-		),
-		'capabilities'      => array(
-			'manage_terms',
-			'edit_terms',
-			'delete_terms',
-			'assign_terms',
-		),
-	);
-	register_taxonomy( 'skill', array( PROFILE, PORTFOLIO, PROJECT ), $args );
-}
-
-//add_action( 'init', 'register_fre_missing_taxonomy' );
 
 
 /**
@@ -450,10 +340,18 @@ function sfm_fix_pending_review_text() {
 	if ( isset( $_GET['post_type'] ) && 'project' == $_GET['post_type'] ) { ?>
         <script>
             jQuery(document).ready(function ($) {
-                var __sfm_status = jQuery('.inline-edit-status').find('option[value="pending"]');
-                if (__sfm_status.length) {
-                    __sfm_status.text('Pending');
+                var __sfm_status_draft = jQuery('.inline-edit-status').find('option[value="draft"]');
+                if (__sfm_status_draft.length) {
+                    __sfm_status_draft.text('Pending');
                 }
+                var __sfm_status_pending = jQuery('.inline-edit-status').find('option[value="pending"]');
+                if (__sfm_status_pending.length) {
+                    __sfm_status_pending.remove();
+                }
+                var __sfm_table_row_status_draft = jQuery('#the-list .status-draft td.title span.post-state');
+                __sfm_table_row_status_draft.each(function (index, elm) {
+                    elm.innerText = 'Pending';
+                });
             });
         </script>
 		<?php
@@ -464,9 +362,18 @@ function sfm_fix_pending_review_text() {
 			?>
             <script>
                 jQuery(document).ready(function ($) {
-                    var __sfm_status = jQuery('#post-status-select').find('option[value="pending"]');
-                    if (__sfm_status.length) {
-                        __sfm_status.text('Pending');
+                    var __sfm_status_draft = jQuery('#post-status-select').find('option[value="draft"]');
+                    if (__sfm_status_draft.length) {
+                        __sfm_status_draft.text('Pending');
+                    }
+                    var __sfm_status_pending = jQuery('#post-status-select').find('option[value="pending"]');
+                    if (__sfm_status_pending.length) {
+                        __sfm_status_pending.remove();
+                    }
+
+                    var __sfm_status_text = jQuery('span#post-status-display').text();
+                    if (__sfm_status_text.indexOf('Draft') > -1) {
+                        jQuery('#post-status-display').text('Pending');
                     }
                 });
             </script>
@@ -477,6 +384,17 @@ function sfm_fix_pending_review_text() {
 
 add_action( 'admin_print_footer_scripts-edit.php', 'sfm_fix_pending_review_text' );
 add_action( 'admin_print_footer_scripts-post.php', 'sfm_fix_pending_review_text' );
+
+
+function sfm_project_admin_view_change( $views ) {
+	if ( isset( $views['draft'] ) ) {
+		$views['draft'] = str_replace( 'Drafts ', 'Pending ', $views['draft'] );
+	}
+
+	return $views;
+}
+
+add_filter( "views_edit-project", 'sfm_project_admin_view_change' );
 
 
 // CF7 Dynamic Value From User Filter
@@ -517,6 +435,51 @@ function sfm_trpc_flags_path( $original_flags_path, $language_code ) {
 		return $original_flags_path;
 	}
 }
+
+
+/**
+ * Registering language taxonomies
+ */
+function register_language_taxonomy() {
+	$labels = array(
+		'name'                  => _x( 'Languages', 'Taxonomy plural name', ET_DOMAIN ),
+		'singular_name'         => _x( 'Language', 'Taxonomy singular name', ET_DOMAIN ),
+		'search_items'          => __( 'Search Languages', ET_DOMAIN ),
+		'popular_items'         => __( 'Popular Languages', ET_DOMAIN ),
+		'all_items'             => __( 'All Languages', ET_DOMAIN ),
+		'parent_item'           => __( 'Parent Language', ET_DOMAIN ),
+		'parent_item_colon'     => __( 'Parent Language', ET_DOMAIN ),
+		'edit_item'             => __( 'Edit Language', ET_DOMAIN ),
+		'update_item'           => __( 'Update Language ', ET_DOMAIN ),
+		'add_new_item'          => __( 'Add New Language ', ET_DOMAIN ),
+		'new_item_name'         => __( 'New Language Name', ET_DOMAIN ),
+		'add_or_remove_items'   => __( 'Add or remove Language', ET_DOMAIN ),
+		'choose_from_most_used' => __( 'Choose from most used', ET_DOMAIN ),
+		'menu_name'             => __( 'Languages', ET_DOMAIN ),
+	);
+	$args   = array(
+		'labels'            => $labels,
+		'public'            => true,
+		'show_in_nav_menus' => true,
+		'show_admin_column' => true,
+		'hierarchical'      => true,
+		'show_tagcloud'     => true,
+		'show_ui'           => true,
+		'query_var'         => true,
+//		'rewrite'           => array(
+//			'slug'         => 'sfm_language',
+//		),
+		'capabilities'      => array(
+			'manage_terms',
+			'edit_terms',
+			'delete_terms',
+			'assign_terms',
+		),
+	);
+	register_taxonomy( 'language', array( PROFILE, PROJECT, BID ), $args );
+}
+
+add_action( 'init', 'register_language_taxonomy' );
 
 // Helper Classes
 require 'Helpers/Authentication.php';

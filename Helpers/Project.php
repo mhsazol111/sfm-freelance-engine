@@ -77,26 +77,6 @@ class Project {
 			);
 		}
 
-//		if ( $form_data['project-bid'] != '' ) {
-//			$args['meta_query'] = array(
-//				'relation' => 'AND',
-//				array(
-//					'key'     => 'total_bids',
-//					'value'   => $form_data['project-bid'],
-//					'compare' => '='
-//				)
-//			);
-//		}
-//
-//		if ( $form_data['project-min-budget'] != '' && $form_data['project-max-budget'] != '' ) {
-//			$args['meta_query'][] = array(
-//				'key'     => 'et_budget',
-//				'value'   => array( $form_data['project-min-budget'], $form_data['project-max-budget'] ),
-//				'type'    => 'numeric',
-//				'compare' => 'BETWEEN',
-//			);
-//		}
-
 		$query = new WP_Query( $args );
 		ob_start();
 		?>
@@ -253,6 +233,14 @@ class Project {
 			$errors[]  = array( 'name' => 'project_deadline', 'message' => 'This field is required!' );
 			$has_error = true;
 		}
+		if ( $form_data['country'] == '' ) {
+			$errors[]  = array( 'name' => 'country', 'message' => 'This field is required!' );
+			$has_error = true;
+		}
+		if ( $form_data['language'] == '' ) {
+			$errors[]  = array( 'name' => 'language', 'message' => 'This field is required!' );
+			$has_error = true;
+		}
 
 		// Show Errors on frontend
 		if ( $has_error && $errors ) {
@@ -284,6 +272,7 @@ class Project {
 		wp_set_post_terms( $project_id, $form_data['project_category'], 'project_category' );
 		wp_set_post_terms( $project_id, $form_data['skill'], 'skill' );
 		wp_set_post_terms( $project_id, $form_data['country'], 'country' );
+		wp_set_post_terms( $project_id, $form_data['language'], 'language' );
 
 		// Update Images
 		if ( $form_data['project_images'] != '' ) {

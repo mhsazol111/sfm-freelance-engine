@@ -13,21 +13,32 @@
 				'taxonomy'   => 'skill',
 				'hide_empty' => false,
 			) );
-			foreach ($skills as $skill) {
-			    echo '<a class="fre-label secondary-color" href="">'. $skill->name .'</a>';
-            }
+			foreach ( $skills as $skill ) {
+				echo '<a class="fre-label secondary-color" href="">' . $skill->name . '</a>';
+			}
 			?>
             <hr>
             <h4><?php _e( 'Project Category', ET_DOMAIN ); ?></h4>
-	        <?php
-	        $categories = get_terms( array(
-		        'taxonomy'   => 'project_category',
-		        'hide_empty' => false,
-	        ) );
-	        foreach ($categories as $category) {
-		        echo '<a href="">'. $category->name .'</a>';
-	        }
-	        ?>
+			<?php
+			$categories = get_terms( array(
+				'taxonomy'   => 'project_category',
+				'hide_empty' => false,
+			) );
+			foreach ( $categories as $category ) {
+				echo '<a href="">' . $category->name . '</a>';
+			}
+			?>
+            <hr>
+            <h4><?php _e( 'Preferred Language', ET_DOMAIN ); ?></h4>
+			<?php
+			$languages = get_terms( array(
+				'taxonomy'   => 'language',
+				'hide_empty' => false,
+			) );
+			foreach ( $languages as $language ) {
+				echo '<a href="">' . __( $language->name, ET_DOMAIN ) . '</a>';
+			}
+			?>
             <hr>
         </div>
         <h4><?php _e( 'File Attached', ET_DOMAIN ); ?></h4>

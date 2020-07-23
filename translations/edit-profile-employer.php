@@ -26,43 +26,48 @@ if( ! defined('ABSPATH') ) die('No direct access, please!');
 								<div class="input-field">
 									<label for="first_name"><?php _e( 'First Name', ET_DOMAIN ) ?></label>
 									<input id="first_name" type="text" name="first_name" placeholder="First Name" required>
+                                    <label id="first_name-error" class="error" for="first_name"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
 								</div>
 								<div class="input-field">
 									<label for="last_name"><?php _e( 'Last Name', ET_DOMAIN ) ?></label>
 									<input id="last_name" type="text" name="last_name" placeholder="Last Name" required>
+                                    <label id="last_name-error" class="error" for="last_name"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
 								</div>
 								<div class="input-field">
 									<label for="display_name"><?php _e( 'Display Name', ET_DOMAIN ) ?></label>
 									<input id="display_name" type="text" name="display_name" placeholder="Public Name" required>
+                                    <label id="display_name-error" class="error" for="display_name"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
 								</div>
 								<div class="input-field">
 									<label for="phone_number"><?php _e( 'Phone Number', ET_DOMAIN ) ?></label>
 									<input id="phone_number" type="text" name="phone_number" placeholder="Your Phone Number" required>
+                                    <label id="phone_number-error" class="error" for="phone_number"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
 								</div>
 								<div class="input-field">
 									<label for="company_name"><?php _e( 'Company Name', ET_DOMAIN ) ?></label>
 									<input id="company_name" type="text" name="company_name" placeholder="Company Name" required>
+                                    <label id="company_name-error" class="error" for="company_name"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
 								</div>
 								<div class="input-field">
 									<label for="job_title"><?php _e( 'Job Title', ET_DOMAIN ) ?></label>
 									<input id="job_title" type="text" name="job_title" placeholder="Job Title" required>
+                                    <label id="job_title-error" class="error" for="job_title"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
 								</div>
 							</div>
 
 							<div class="input-field fre-input-field details">
 								<div class="select-box">
-									<label class="fre-field-title"
-									       for="project_category"><?php _e( 'Interested Project Categories', ET_DOMAIN ) ?></label>
+									<label class="fre-field-title" for="project_category"><?php _e( 'Interested Project Categories', ET_DOMAIN ) ?></label>
 									<select name="project_category[]" id="project_category" class="sfm-select2" multiple required>
 										<option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
 									</select>
+                                    <label id="project_category-error" class="error" for="project_category"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
 								</div>
 							</div>
 
 							<div class="input-field details">
 								<label for="describe_more"><?php _e( 'Describe more details about you', ET_DOMAIN ) ?></label>
-								<textarea id="describe_more" name="describe_more" rows="20"
-								          cols="20"></textarea>
+								<textarea id="describe_more" name="describe_more" rows="20" cols="20"></textarea>
 							</div>
 						</div>
 						<h3 class="profile-title"><?php _e( 'Social Profiles', ET_DOMAIN ) ?></h3>
@@ -92,11 +97,13 @@ if( ! defined('ABSPATH') ) die('No direct access, please!');
 									<select name="country_you_live" id="country_you_live" class="sfm-select2" required>
 										<option value=""><?php _e( 'Select Country', ET_DOMAIN ) ?></option>
 									</select>
+                                    <label id="country_you_live-error" class="error" for="country_you_live"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
 								</div>
 							</div>
 							<div class="input-field">
 								<label for="city_name"><?php _e( 'City Name', ET_DOMAIN ) ?></label>
 								<input id="city_name" type="text" name="city_name" placeholder="City name" required>
+                                <label id="city_name-error" class="error" for="city_name"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
 							</div>
 						</div>
 						<h3 class="profile-title"><?php _e( 'Profile Picture', ET_DOMAIN ) ?></h3>

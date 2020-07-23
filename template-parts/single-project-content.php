@@ -51,6 +51,16 @@ $country  = get_the_terms( $employer->user_profile_id, 'country' );
             <h4><?php _e( 'Project Category', ET_DOMAIN ); ?></h4>
 			<?php echo Employer::get_project_terms( get_the_ID(), 'project_category', true ); ?>
             <hr>
+			<?php
+			$languages = get_the_terms( $project->id, 'language' );
+			if ( $languages ) {
+				echo '<h4>' . __( 'Preferred Language', ET_DOMAIN ) . '</h4>';
+				foreach ( $languages as $lang ) {
+					echo '<a href="#">' . __( $lang->name, ET_DOMAIN ) . '</a>';
+				}
+				echo '<hr>';
+			}
+			?>
         </div>
 
 
@@ -116,12 +126,13 @@ $country  = get_the_terms( $employer->user_profile_id, 'country' );
                 <div class="thumb background_position">
                     <a class="" href="<?php echo $employer->slug; ?>">
                         <div class="thumb background_position">
-                            <?php echo get_avatar($project->employer_id, '150') ; ?>
+							<?php echo get_avatar( $project->employer_id, '150' ); ?>
                         </div>
                     </a>
-<!--                    <div class="fpp-rating freelancer">-->
-<!--                        <div class="rate-it" data-score="--><?php //echo $employer->rating_score; ?><!--"></div>-->
-<!--                    </div>-->
+                    <!--                    <div class="fpp-rating freelancer">-->
+                    <!--                        <div class="rate-it" data-score="-->
+					<?php //echo $employer->rating_score; ?><!--"></div>-->
+                    <!--                    </div>-->
                 </div>
             </div>
 
@@ -137,9 +148,14 @@ $country  = get_the_terms( $employer->user_profile_id, 'country' );
             <hr>
 
             <div class="proposals_info">
-                <p><span><?php echo fre_count_user_posts_by_type( $author_id, 'project', '"publish","complete","close","disputing","disputed", "archive" ', true ); ?> </span><?php _e( 'Total posted projects so far', ET_DOMAIN ); ?></p>
-                <p><span><?php echo fre_count_user_posts_by_type( $author_id, 'project', '"complete"', true ); ?></span> <?php _e( 'Completed Projects so far.', ET_DOMAIN ); ?></p>
-                <p><span><?php echo $hire_freelancer; ?></span> <?php _e( 'Declined Project so far.', ET_DOMAIN ); ?></p>
+                <p>
+                    <span><?php echo fre_count_user_posts_by_type( $author_id, 'project', '"publish","complete","close","disputing","disputed", "archive" ', true ); ?> </span><?php _e( 'Total posted projects so far', ET_DOMAIN ); ?>
+                </p>
+                <p>
+                    <span><?php echo fre_count_user_posts_by_type( $author_id, 'project', '"complete"', true ); ?></span> <?php _e( 'Completed Projects so far.', ET_DOMAIN ); ?>
+                </p>
+                <p><span><?php echo $hire_freelancer; ?></span> <?php _e( 'Declined Project so far.', ET_DOMAIN ); ?>
+                </p>
             </div>
             <hr class="bottom_hr">
 
@@ -157,13 +173,13 @@ $country  = get_the_terms( $employer->user_profile_id, 'country' );
     <div class="project-detail-extend-01">
 		<?php
 		$args = array(
-			'post_type' => 'ae_milestone',
+			'post_type'      => 'ae_milestone',
 			'posts_per_page' => - 1,
-			'post_status' => 'any',
-			'post_parent' => $project->id,
-			'orderby' => 'meta_value',
-			'order' => 'ASC',
-			'meta_key' => 'position_order',
+			'post_status'    => 'any',
+			'post_parent'    => $project->id,
+			'orderby'        => 'meta_value',
+			'order'          => 'ASC',
+			'meta_key'       => 'position_order',
 		);
 
 		$query = new WP_Query( $args );

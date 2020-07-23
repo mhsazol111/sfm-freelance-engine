@@ -8,75 +8,94 @@ $user_profile_post_id = get_user_meta( $author_id, 'user_profile_id', true );
     <div class="work-skil" id="fre-post-project">
         <div class="input-field">
             <label for="daily_wage"><?php _e( 'Daily wage rate', ET_DOMAIN ) ?></label>
-            <input id="daily_wage" type="number" placeholder="Amount of daily wage" name="daily_wage_rate"
-                   value="<?php echo get_the_author_meta( 'daily_wage_rate', $author_id ); ?>" required>
+            <input id="daily_wage" type="number" placeholder="Amount of daily wage" name="daily_wage_rate" value="<?php echo get_the_author_meta( 'daily_wage_rate', $author_id ); ?>" required>
         </div>
 
         <div class="input-field fre-input-field">
-            <div class="select-box">
-                <label class="fre-field-title"
-                       for="project_category"><?php _e( 'Interested Project Categories', ET_DOMAIN ) ?></label>
-                <select name="project_category[]" id="project_category" class="sfm-select2" multiple required>
-                    <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
+            <label class="fre-field-title" for="language"><?php _e( 'Select Your Language', ET_DOMAIN ) ?></label>
+            <select name="language[]" id="language" class="sfm-select2" multiple required>
+                <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
+				<?php
+				$languages = get_terms( array(
+					'taxonomy'   => 'language',
+					'hide_empty' => false,
+				) );
 
-					<?php
-					$categories = get_terms( array(
-						'taxonomy'   => 'project_category',
-						'hide_empty' => false,
-					) );
-
-					$user_categories = get_the_terms( $user_profile_post_id, 'project_category' );
-					$selected_cats   = [];
-					if ( $user_categories ) {
-						foreach ( $user_categories as $cat ) {
-							$selected_cats[] = $cat->term_id;
-						}
+				$user_languages     = get_the_terms( $user_profile_post_id, 'language' );
+				$selected_languages = [];
+				if ( $user_languages ) {
+					foreach ( $user_languages as $language ) {
+						$selected_languages[] = $language->term_id;
 					}
+				}
 
-					foreach ( $categories as $cat ) {
-						if ( in_array( $cat->term_id, $selected_cats ) ) {
-							echo '<option value="' . $cat->term_id . '" selected>' . $cat->name . '</option>';
-						} else {
-							echo '<option value="' . $cat->term_id . '">' . $cat->name . '</option>';
-						}
+				foreach ( $languages as $language ) {
+					if ( in_array( $language->term_id, $selected_languages ) ) {
+						echo '<option value="' . $language->term_id . '" selected>' . $language->name . '</option>';
+					} else {
+						echo '<option value="' . $language->term_id . '">' . $language->name . '</option>';
 					}
-					?>
-
-                </select>
-            </div>
+				}
+				?>
+            </select>
         </div>
 
         <div class="input-field fre-input-field full">
-            <div class="select-box">
-                <label for="project_skills"><?php _e( 'Interested Project Skills', ET_DOMAIN ) ?></label>
-                <select name="project_skills[]" id="project_skills" class="sfm-select2" multiple required>
-                    <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
+            <label class="fre-field-title" for="project_category"><?php _e( 'Interested Project Categories', ET_DOMAIN ) ?></label>
+            <select name="project_category[]" id="project_category" class="sfm-select2" multiple required>
+                <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
+				<?php
+				$categories = get_terms( array(
+					'taxonomy'   => 'project_category',
+					'hide_empty' => false,
+				) );
 
-					<?php
-					$skills = get_terms( array(
-						'taxonomy'   => 'skill',
-						'hide_empty' => false,
-					) );
-
-					$user_skills    = get_the_terms( $user_profile_post_id, 'skill' );
-					$selected_skill = [];
-					if ( $user_skills ) {
-						foreach ( $user_skills as $skill ) {
-							$selected_skill[] = $skill->term_id;
-						}
+				$user_categories = get_the_terms( $user_profile_post_id, 'project_category' );
+				$selected_cats   = [];
+				if ( $user_categories ) {
+					foreach ( $user_categories as $cat ) {
+						$selected_cats[] = $cat->term_id;
 					}
+				}
 
-					foreach ( $skills as $skill ) {
-						if ( in_array( $skill->term_id, $selected_skill ) ) {
-							echo '<option value="' . $skill->term_id . '" selected>' . $skill->name . '</option>';
-						} else {
-							echo '<option value="' . $skill->term_id . '">' . $skill->name . '</option>';
-						}
+				foreach ( $categories as $cat ) {
+					if ( in_array( $cat->term_id, $selected_cats ) ) {
+						echo '<option value="' . $cat->term_id . '" selected>' . $cat->name . '</option>';
+					} else {
+						echo '<option value="' . $cat->term_id . '">' . $cat->name . '</option>';
 					}
-					?>
+				}
+				?>
+            </select>
+        </div>
 
-                </select>
-            </div>
+        <div class="input-field fre-input-field full">
+            <label for="project_skills"><?php _e( 'Interested Project Skills', ET_DOMAIN ) ?></label>
+            <select name="project_skills[]" id="project_skills" class="sfm-select2" multiple required>
+                <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
+				<?php
+				$skills = get_terms( array(
+					'taxonomy'   => 'skill',
+					'hide_empty' => false,
+				) );
+
+				$user_skills    = get_the_terms( $user_profile_post_id, 'skill' );
+				$selected_skill = [];
+				if ( $user_skills ) {
+					foreach ( $user_skills as $skill ) {
+						$selected_skill[] = $skill->term_id;
+					}
+				}
+
+				foreach ( $skills as $skill ) {
+					if ( in_array( $skill->term_id, $selected_skill ) ) {
+						echo '<option value="' . $skill->term_id . '" selected>' . $skill->name . '</option>';
+					} else {
+						echo '<option value="' . $skill->term_id . '">' . $skill->name . '</option>';
+					}
+				}
+				?>
+            </select>
         </div>
     </div>
     <h3 class="profile-title"><?php _e( 'Personal Details', ET_DOMAIN ) ?></h3>
@@ -176,8 +195,7 @@ $user_profile_post_id = get_user_meta( $author_id, 'user_profile_id', true );
     <h3 class="profile-title"><?php _e( 'Profile Picture', ET_DOMAIN ) ?></h3>
     <div class="picture-change">
         <div class="profile-image">
-            <img src="<?php echo( get_user_meta( $author_id, 'et_avatar_url', true ) ? get_user_meta( $author_id, 'et_avatar_url', true ) : get_avatar_url( $author_id ) ); ?>"
-                 alt="Profile Image">
+            <?php echo get_avatar($author_id, 150, '', '', array('width' => 150, 'height' => 150)); ?>
         </div>
         <div class="upload-file">
             <label for="input-file-now"><?php _e( 'Change your profile picture', ET_DOMAIN ) ?></label>
