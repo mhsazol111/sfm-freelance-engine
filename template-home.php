@@ -34,7 +34,7 @@ if ( have_rows( 'home_layout' ) ):
 
                 </div>
                 <div class="container">
-                    <div class="smf-social-links top-social-link">
+                    <div class="smf-social-links top-social-link" style="visibility: hidden;">
                         <ul>
                             <li><a class="cus_mod_transition" href="#"><i class="fa fa-instagram"></i></a></li>
                             <li><a class="cus_mod_transition" href="#"><i class="fa fa-facebook"></i></a></li>
@@ -50,8 +50,8 @@ if ( have_rows( 'home_layout' ) ):
                     <a href="#">
                         <div class="banner-bottom-coner">
                             <div class="bottom-btn-wrapper">
-                                <p>SPS</p>
-                                <img src="<?= get_site_url(); ?>/wp-content/uploads/2020/04/arrow.svg" alt="">
+                                <p><a href="https://www.switzerland-payroll.ch" style="color:#FFF">SPS</a></p>
+                                <a href="https://www.switzerland-payroll.ch"><img src="<?= get_site_url(); ?>/wp-content/uploads/2020/04/arrow.svg" alt="SPS"></a>
                             </div>
                         </div>
                     </a>
@@ -73,8 +73,8 @@ if ( have_rows( 'home_layout' ) ):
 							$project_category = get_sub_field( 'items' );
 							if ( $project_category ):
 								foreach ( $project_category as $item ): ?>
-                                    <li class="cus_mod_transition"><a
-                                                href="/projects/?category_project=<?php echo $item->slug ?>"><span><?php echo $item->name; ?></span></a>
+                                    <!--<li class="cus_mod_transition"><a href="/projects/?category_project=<?php echo $item->slug ?>"><span><?php echo $item->name; ?></span></a>-->
+                                    <li class="cus_mod_transition"><a><span><?php echo $item->name; ?></span></a>
                                     </li>
 								<?php endforeach;
 							endif; ?>
@@ -113,8 +113,7 @@ if ( have_rows( 'home_layout' ) ):
 									<?php if ( get_sub_field( 'button' ) ):
 										$button = get_sub_field( 'button' );
 										?>
-                                        <a class="cus_mod_transition"
-                                           href="<?php echo $button['url']; ?>"><?php echo $button['title']; ?></a>
+                                        <!--<a class="cus_mod_transition" href="<?php echo $button['url']; ?>"><?php echo $button['title']; ?></a>-->
 									<?php endif; ?>
                                 </div>
                             </div>
@@ -142,8 +141,7 @@ if ( have_rows( 'home_layout' ) ):
 									<?php if ( get_sub_field( 'button' ) ):
 										$button = get_sub_field( 'button' );
 										?>
-                                        <a class="cus_mod_transition"
-                                           href="<?php echo $button['url']; ?>"><?php echo $button['title']; ?></a>
+                                        <!--<a class="cus_mod_transition" href="<?php echo $button['url']; ?>"><?php echo $button['title']; ?></a>-->
 									<?php endif; ?>
                                 </div>
                             </div>
@@ -185,15 +183,16 @@ if ( have_rows( 'home_layout' ) ):
 							<?php if ( get_sub_field( 'button' ) ):
 								$button = get_sub_field( 'button' );
 								?>
-                                <a class="cus_mod_transition"
-                                   href="<?php echo $button['url']; ?>"><?php echo $button['title']; ?></a>
+                                <!--<a class="cus_mod_transition" href="<?php echo $button['url']; ?>"><?php echo $button['title']; ?></a>-->
 							<?php endif; ?>
                         </div>
                     </div>
                 </div>
             </section>
 		<?php endif; ?>
-		<?php if ( 'news' == get_row_layout() ): ?>
+		<?php
+           // changement de la var pour ne pas afficher les news (news en news1) if ( 'news' == get_row_layout() ): 
+         if ( 'news1' == get_row_layout() ): ?>
             <section id="home-section-six">
                 <div class="container">
                     <div class="company-title">

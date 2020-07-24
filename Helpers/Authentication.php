@@ -150,8 +150,7 @@ class Authentication {
 		}
 
 		if ( 'active' == sanitize_text_field( $_POST['account_status'] ) ) {
-			$user_email = get_userdata( $user_id )->user_email;
-			do_action( 'pending_user_approval_email', $user_email );
+			do_action( 'pending_user_approval_email', $user_id );
 		}
 	}
 

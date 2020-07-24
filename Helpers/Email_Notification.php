@@ -7,11 +7,10 @@ class Email_Notification {
 	private $headers;
 	private $from_email;
 
-
 	public function __construct() {
 		$this->from_email = get_field( 'from_email', 'option' );
-		$emails       = get_field( 'admin_emails', 'option' );
-		$emails_array = [];
+		$emails           = get_field( 'admin_emails', 'option' );
+		$emails_array     = [];
 		if ( $emails ) {
 			foreach ( $emails as $email ) {
 				$emails_array[] = $email['admin_email'];
@@ -25,8 +24,8 @@ class Email_Notification {
 		$headers[]     = "From: SFM <{$this->from_email}>";
 		$this->headers = $headers;
 
-		add_filter('ae_get_mail_header', array($this, 'change_sfm_default_email_header'));
-		add_filter('ae_get_mail_footer', array($this, 'change_sfm_default_email_footer'));
+		add_filter( 'ae_get_mail_header', array( $this, 'change_sfm_default_email_header' ) );
+		add_filter( 'ae_get_mail_footer', array( $this, 'change_sfm_default_email_footer' ) );
 
 		add_action( 'user_register_email', array( $this, 'user_register_email_cb' ), 10, 3 );
 		add_action( 'pending_user_approval_email', array( $this, 'pending_user_approval_email_cb' ), 10, 1 );
@@ -42,7 +41,7 @@ class Email_Notification {
             <thead>
                 <tr>
                     <th colspan="6" style="padding: 15px 20px;text-align: center">
-                        <img style="max-width: 120px; width: 120px;" src="' . esc_url(get_stylesheet_directory_uri() . '/inc/images/SFM-Logo.png') . '" alt="SFM">
+                        <img style="max-width: 120px; width: 120px;" src="' . esc_url( get_stylesheet_directory_uri() . '/inc/images/SFM-Logo.png' ) . '" alt="SFM">
                     </th>
                 </tr>
             </thead>
@@ -52,16 +51,16 @@ class Email_Notification {
 	}
 
 	public function change_sfm_default_email_footer() {
+		$footer_text = get_field( 'email_footer_text', 'option' );
+
 		return '</td>
                 </tr>
             </tbody>
             <tfoot style="background-color: #2094c6;">
                 <tr>
-                    <td colspan="4" style="color: #fff; font-family:sans-serif; padding: 15px 20px; font-size: 14px; line-height: 1.4">
-                        &copy;2020. Switzerland Freelance Marketplace.<br> All Right Reserved.
-                    </td>
+                    <td colspan="4" style="color: #fff; font-family:sans-serif; padding: 15px 20px; font-size: 14px; line-height: 1.4">' . $footer_text . '</td>
                     <td colspan="2" style="text-align: right; color: #fff; padding: 15px 20px; font-family:sans-serif; font-size: 14px; line-height: 1.4">SFM<br>
-                        <a style="color: #fff; font-family:sans-serif;" href="mailto:<?php echo $this->from_email ?>">' . get_field( 'from_email', 'option' ) . '</a>
+                        <a style="color: #fff; font-family:sans-serif;" href="mailto:' . get_field( 'from_email', 'option' ) . '">' . get_field( 'from_email', 'option' ) . '</a>
                     </td>
                 </tr>
             </tfoot>
@@ -69,32 +68,39 @@ class Email_Notification {
 	}
 
 	public function email_body_html( $body_text ) {
+		$footer_text = get_field( 'email_footer_text', 'option' );
 		ob_start();
 		?>
-        <table width="100%" border="0" cellpadding="5" cellspacing="0" style="border: 2px solid #2094c6; max-width: 600px; margin: auto;">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0"
+               style="border: 2px solid #2094c6; max-width: 600px; margin: auto;">
             <thead>
-                <tr>
-                    <th colspan="6" style="padding: 15px 20px;text-align: center">
-                        <img style="max-width: 120px; width: 120px;" src="<?php echo esc_url(get_stylesheet_directory_uri() . '/inc/images/SFM-Logo.png') ?>" alt="SFM">
-                    </th>
-                </tr>
+            <tr>
+                <th colspan="6" style="padding: 15px 20px;text-align: center">
+                    <img style="max-width: 120px; width: 120px;"
+                         src="<?php echo esc_url( get_stylesheet_directory_uri() . '/inc/images/SFM-Logo.png' ) ?>"
+                         alt="SFM">
+                </th>
+            </tr>
             </thead>
             <tbody style="border-top: 5px solid #2094c6;">
-                <tr>
-                    <td colspan="6" style="padding: 20px 20px; border-top: 5px solid #2094c6; font-family:sans-serif; font-size: 16px;line-height: 1.5">
-                        <?php echo $body_text; ?>
-                    </td>
-                </tr>
+            <tr>
+                <td colspan="6"
+                    style="padding: 20px 20px; border-top: 5px solid #2094c6; font-family:sans-serif; font-size: 16px;line-height: 1.5">
+					<?php echo $body_text; ?>
+                </td>
+            </tr>
             </tbody>
             <tfoot style="background-color: #2094c6;">
-                <tr>
-                    <td colspan="4" style="color: #fff; font-family:sans-serif; padding: 15px 20px; font-size: 14px; line-height: 1.4">
-                        &copy;2020. Switzerland Freelance Marketplace.<br> All Right Reserved.
-                    </td>
-                    <td colspan="2" style="text-align: right; color: #fff; padding: 15px 20px; font-family:sans-serif; font-size: 14px; line-height: 1.4">SFM<br>
-                        <a style="color: #fff; font-family:sans-serif;" href="mailto:<?php echo $this->from_email ?>"><?php echo $this->from_email; ?></a>
-                    </td>
-                </tr>
+            <tr>
+                <td colspan="4"
+                    style="color: #fff; font-family:sans-serif; padding: 15px 20px; font-size: 14px; line-height: 1.4"><?php echo $footer_text ?></td>
+                <td colspan="2"
+                    style="text-align: right; color: #fff; padding: 15px 20px; font-family:sans-serif; font-size: 14px; line-height: 1.4">
+                    SFM<br>
+                    <a style="color: #fff; font-family:sans-serif;"
+                       href="mailto:<?php echo $this->from_email ?>"><?php echo $this->from_email; ?></a>
+                </td>
+            </tr>
             </tfoot>
         </table>
 		<?php
@@ -104,49 +110,200 @@ class Email_Notification {
 
 	// Send email notification about new account
 	public function user_register_email_cb( $role, $user_id, $user_email ) {
-		$subject = __( 'New user sign up notification.', ET_DOMAIN );
-		$message = $this->email_body_html('A new user just signed up as ' . $role . '. <br/>Please review the profile and take appropriate action. <a href="' . get_site_url() . '/wp-admin/user-edit.php?user_id=' . $user_id . '&wp_http_referer=%2Fwp-admin%2Fusers.php">View User</a>');
-		wp_mail( $this->admin_emails, $subject, $message, $this->headers );
+		$admin_email_fields = get_field( 'en_new_user_sign_up_notification_to_admins', 'option' );
+		$user_email_fields  = get_field( 'en_welcome_email_to_new_user', 'option' );
+		if ( get_locale() == 'fr_FR' ) {
+			$admin_email_fields = get_field( 'fr_new_user_sign_up_notification_to_admins', 'option' );
+			$user_email_fields  = get_field( 'fr_welcome_email_to_new_user', 'option' );
+		}
 
-		wp_mail( $user_email, __( 'Welcome to SFM', ET_DOMAIN ), $this->email_body_html('Welcome to SFM, We are currently reviewing your account. We will let you know once your account is approved. Thank you.'), $this->headers );
+		// Admin Email
+		$new_user_data      = get_userdata( $user_id );
+		$admin_subject      = $admin_email_fields['subject'];
+		$admin_email_body   = $admin_email_fields['email_body'];
+		$admin_replaces     = array(
+			'{{first_name}}',
+			'{{last_name}}',
+			'{{email}}',
+			'{{registered_as}}',
+			'{{pending_user_link}}',
+			'{{user_id}}',
+		);
+		$admin_replace_with = array(
+			$new_user_data->first_name,
+			$new_user_data->last_name,
+			$user_email,
+			$role,
+			esc_url( get_site_url() . '/wp-admin/user-edit.php?user_id=' . $user_id . '&wp_http_referer=%2Fwp-admin%2Fusers.php' ),
+			$user_id,
+		);
+		$admin_email_body   = str_replace( $admin_replaces, $admin_replace_with, $admin_email_body );
+		wp_mail( $this->admin_emails, $admin_subject, $this->email_body_html( $admin_email_body ), $this->headers );
+
+		// Freelancer Email
+		$user_subject      = $user_email_fields['subject'];
+		$user_email_body   = $user_email_fields['email_body'];
+		$user_replaces     = array(
+			'{{first_name}}',
+			'{{last_name}}',
+			'{{email}}',
+			'{{registered_as}}',
+
+		);
+		$user_replace_with = array(
+			$new_user_data->first_name,
+			$new_user_data->last_name,
+			$user_email,
+			$role,
+		);
+		$user_email_body   = str_replace( $user_replaces, $user_replace_with, $user_email_body );
+		wp_mail( $user_email, $user_subject, $this->email_body_html( $user_email_body ), $this->headers );
 	}
 
 	// Send email to user after their account approval
-	public function pending_user_approval_email_cb( $user_email ) {
-		$subject = __( 'Account Approved.', ET_DOMAIN );
-		$message = $this->email_body_html('Thanks for your patience, <br/>Your account has been approved by SFM. Please update your profile information after login and proceed');
-		wp_mail( $user_email, $subject, $message, $this->headers );
+	public function pending_user_approval_email_cb( $user_id ) {
+		$user_email_fields = get_field( 'en_account_approved_notification_to_user', 'option' );
+		if ( get_locale() == 'fr_FR' ) {
+			$user_email_fields = get_field( 'fr_account_approved_notification_to_user', 'option' );
+		}
+
+		$new_user_data     = get_userdata( $user_id );
+		$user_subject      = $user_email_fields['subject'];
+		$user_email_body   = $user_email_fields['email_body'];
+		$user_replaces     = array(
+			'{{first_name}}',
+			'{{last_name}}',
+			'{{email}}',
+		);
+		$user_replace_with = array(
+			$new_user_data->first_name,
+			$new_user_data->last_name,
+			$new_user_data->user_email,
+		);
+		$user_email_body   = str_replace( $user_replaces, $user_replace_with, $user_email_body );
+		wp_mail( $new_user_data->user_email, $user_subject, $this->email_body_html( $user_email_body ), $this->headers );
 	}
 
 	// Send notification to admins about new posted project.
 	public function post_project_notification_cb( $employer_id, $project_id ) {
-		$employer_name = get_userdata( $employer_id )->display_name;
-		$project       = get_post( $project_id );
-		$subject       = __( 'New Project Notification' );
-		$message       = $this->email_body_html("A new project (<a href='" . get_permalink( $project_id ) . "'>{$project->post_title})</a> is posted by {$employer_name}. <br/>Please take a look and take necessary action. <br/>Thank you.");
-		wp_mail( $this->admin_emails, $subject, $message, $this->headers );
+		$admin_email_fields = get_field( 'en_new_project_notification_to_admins', 'option' );
+		if ( get_locale() == 'fr_FR' ) {
+			$admin_email_fields = get_field( 'fr_new_project_notification_to_admins', 'option' );
+		}
+
+		$employer = Employer::get_employer( $employer_id );
+
+		$admin_subject      = $admin_email_fields['subject'];
+		$admin_email_body   = $admin_email_fields['email_body'];
+		$admin_replaces     = array(
+			'{{project_title}}',
+			'{{project_url}}',
+			'{{employer_name}}',
+			'{{company_name}}',
+			'{{employer_email}}',
+		);
+		$admin_replace_with = array(
+			get_the_title( $project_id ),
+			get_permalink( $project_id ),
+			$employer->display_name,
+			$employer->company_name,
+			get_userdata( $employer_id )->user_email,
+		);
+		$admin_email_body   = str_replace( $admin_replaces, $admin_replace_with, $admin_email_body );
+		wp_mail( $this->admin_emails, $admin_subject, $this->email_body_html( $admin_email_body ), $this->headers );
 	}
 
 	// Send email to employer if their project have a bid
-	public function new_bid_notification_cb( $employer_email, $project ) {
-		$subject = 'You have a new proposal on your project';
-		$message = $this->email_body_html("Hi there, <br/>You have a new proposal on your following project: <a href='" . get_permalink( $project->ID ) . "'>" . $project->post_title . "</a>. <br/>Thank you.");
-		wp_mail( $employer_email, $subject, $message, $this->headers );
+	public function new_bid_notification_cb( $employer_id, $project ) {
+		$user_email_fields = get_field( 'en_new_proposal_notification_to_employer', 'option' );
+		if ( get_locale() == 'fr_FR' ) {
+			$user_email_fields = get_field( 'fr_new_proposal_notification_to_employer', 'option' );
+		}
+
+		$user_subject      = $user_email_fields['subject'];
+		$user_email_body   = $user_email_fields['email_body'];
+		$user_replaces     = array(
+			'{{project_title}}',
+			'{{project_url}}',
+			'{{employer_name}}',
+		);
+		$user_replace_with = array(
+			$project->post_title,
+			get_permalink( $project->ID ),
+			get_userdata( $employer_id )->display_name,
+		);
+
+		$user_email_body = str_replace( $user_replaces, $user_replace_with, $user_email_body );
+		wp_mail( get_userdata( $employer_id )->user_email, $user_subject, $this->email_body_html( $user_email_body ), $this->headers );
 	}
 
 	// Send Email to admin and freelancer if a bid is accepted
-	public function accept_proposal_notification_cb( $project, $employer, $company_name, $freelancer ) {
-		$subject = __( 'New Project Started!', ET_DOMAIN );
-		$message = $this->email_body_html("Hi there, <br/>The following project: <a href='" . get_permalink( $project->ID ) . "'>" . $project->post_title . "</a> is started. <br/>The project was created by {$employer->display_name} from {$company_name} and it has been assigned to {$freelancer->display_name}. Please contact with them. <br/>Thank you.");
-		wp_mail( $this->admin_emails, $subject, $message, $this->headers );
-		wp_mail( $freelancer->user_email, __( 'Proposal Accepted!', ET_DOMAIN ), $this->email_body_html("Congratulation! Your proposal on <a href='" . get_permalink( $project->ID ) . "'>" . $project->post_title . "</a> has been accepted. Keep up the good work. Thank you." ), $this->headers );
+	public function accept_proposal_notification_cb( $project, $employer_id, $company_name, $freelancer_id ) {
+		$admin_email_fields = get_field( 'en_new_project_started_notification_to_admins', 'option' );
+		$user_email_fields  = get_field( 'en_proposal_accepted_notification_to_freelancer', 'option' );
+		if ( get_locale() == 'fr_FR' ) {
+			$admin_email_fields = get_field( 'fr_new_project_started_notification_to_admins', 'option' );
+			$user_email_fields  = get_field( 'fr_proposal_accepted_notification_to_freelancer', 'option' );
+		}
+
+		// Admin Email
+		$admin_subject      = $admin_email_fields['subject'];
+		$admin_email_body   = $admin_email_fields['email_body'];
+		$admin_replaces     = array(
+			'{{project_title}}',
+			'{{project_url}}',
+			'{{employer_name}}',
+			'{{company_name}}',
+			'{{freelancer_name}}',
+		);
+		$admin_replace_with = array(
+			$project->post_title,
+			get_permalink( $project->ID ),
+			get_userdata( $employer_id )->display_name,
+			$company_name,
+			get_userdata( $freelancer_id )->display_name,
+		);
+		$admin_email_body   = str_replace( $admin_replaces, $admin_replace_with, $admin_email_body );
+		wp_mail( $this->admin_emails, $admin_subject, $this->email_body_html( $admin_email_body ), $this->headers );
+
+		// Freelancer Email
+		$user_subject      = $user_email_fields['subject'];
+		$user_email_body   = $user_email_fields['email_body'];
+		$user_replaces     = array(
+			'{{freelancer_name}}',
+			'{{project_title}}',
+			'{{project_url}}',
+		);
+		$user_replace_with = array(
+			get_userdata( $freelancer_id )->display_name,
+			$project->post_title,
+			get_permalink( $project->ID ),
+		);
+		$user_email_body   = str_replace( $user_replaces, $user_replace_with, $user_email_body );
+		wp_mail( get_userdata( $freelancer_id )->user_email, $user_subject, $this->email_body_html( $user_email_body ), $this->headers );
 	}
 
 	// Send Email to admin and freelancer if a bid is accepted
 	public function declined_proposal_notification_cb( $project, $freelancer ) {
-		$subject = __( 'Sorry, Your proposal is declined.', ET_DOMAIN );
-		$message = $this->email_body_html("Sorry to notify you that your proposal on the The following project: <a href='" . get_permalink( $project->ID ) . "'>" . $project->post_title . "</a> is declined by the project owner. <br/>Thank you.");
-		wp_mail( $freelancer->user_email, $subject, $message, $this->headers );
+		$user_email_fields  = get_field( 'en_proposal_declined_notification_to_freelancer', 'option' );
+		if ( get_locale() == 'fr_FR' ) {
+			$user_email_fields  = get_field( 'fr_proposal_declined_notification_to_freelancer', 'option' );
+		}
+
+		$user_subject      = $user_email_fields['subject'];
+		$user_email_body   = $user_email_fields['email_body'];
+		$user_replaces     = array(
+			'{{freelancer_name}}',
+			'{{project_title}}',
+			'{{project_url}}',
+		);
+		$user_replace_with = array(
+			$freelancer->display_name,
+			$project->post_title,
+			get_permalink( $project->ID ),
+		);
+		$user_email_body   = str_replace( $user_replaces, $user_replace_with, $user_email_body );
+		wp_mail( $freelancer->user_email, $user_subject, $this->email_body_html( $user_email_body ), $this->headers );
 	}
 
 }

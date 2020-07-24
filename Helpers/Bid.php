@@ -142,8 +142,8 @@ class Bid {
 		update_post_meta( $new_bid, 'notify_id', $notification );
 
 		// Send an Email to Project author
-		$employer_email = get_userdata( $project->post_author )->user_email;
-		do_action( 'new_bid_notification', $employer_email, $project );
+		$employer_id =  $project->post_author;
+		do_action( 'new_bid_notification', $employer_id, $project );
 
 		echo wp_json_encode( [
 			'status'   => true,
@@ -228,10 +228,8 @@ class Bid {
 		update_post_meta( $bid, 'notify_id', $notification );
 
 		// Send email to freelancer and admin
-		$employer     = get_userdata( $employer_id );
 		$company_name = get_user_meta( $employer_id, 'company_name', true );
-		$freelancer   = get_userdata( $freelancer_id );
-		do_action( 'accept_proposal_notification', $project, $employer, $company_name, $freelancer );
+		do_action( 'accept_proposal_notification', $project, $employer_id, $company_name, $freelancer_id );
 
 		echo wp_json_encode( [
 			'status'   => true,

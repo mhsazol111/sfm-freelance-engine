@@ -157,5 +157,5 @@ $user_profile_post_id = get_user_meta( $author_id, 'user_profile_id', true );
 
 	<?php wp_nonce_field( 'edit_profile', 'edit_profile_nonce' ); ?>
 
-    <button class="btn-all ie_btn" type="submit" name="submit"><?php _e( 'Save all information', ET_DOMAIN ) ?></button>
+    <button class="btn-all ie_btn submit" type="submit" name="submit"><?php _e( 'Save all information', ET_DOMAIN ) ?></button>
 </form>

@@ -48,11 +48,7 @@
                                         dynamic_sidebar( 'fre-footer-3' );
                                 }?>
                         </div>
-                        <div class="col-auto sfm-col">
-                            <?php if ( is_active_sidebar( 'fre-footer-4' ) ) {
-                                        dynamic_sidebar( 'fre-footer-4' );
-                                }?>
-                        </div>
+                        <?php //on vire le footer 4 pour que le dernier soit plus large ?>
                         <div class="col-auto sfm-col">
                             <?php if ( is_active_sidebar( 'fre-footer-5' ) ) {
                                         dynamic_sidebar( 'fre-footer-5' );
@@ -81,7 +77,7 @@
                     <div class="fre-footer-logo">
                         <a href="<?php echo home_url(); ?>" class="logo-footer"><?php fre_logo( 'site_logo' )?></a>
                     </div>
-                    <div class="smf-social-links">
+                    <div class="smf-social-links" style="visibility: hidden;">
                         <ul>
                             <li><a href="#"><i class="fa fa-instagram"></i></a></li>
                             <li><a href="#"><i class="fa fa-facebook"></i></a></li>

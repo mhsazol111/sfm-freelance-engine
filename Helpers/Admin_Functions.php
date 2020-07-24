@@ -33,8 +33,7 @@ class Admin_Functions {
 			update_user_meta( $user_id, 'account_status', 'active' );
 
 			// Send Approved notification
-			$user_email = get_userdata( $user_id )->user_email;
-			do_action( 'pending_user_approval_email', $user_email );
+			do_action( 'pending_user_approval_email', $user_id );
 
 			echo wp_json_encode( [
 				'success'  => true,

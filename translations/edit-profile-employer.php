@@ -123,7 +123,7 @@ if( ! defined('ABSPATH') ) die('No direct access, please!');
 
 						<?php wp_nonce_field( 'edit_profile', 'edit_profile_nonce' ); ?>
 
-						<button class="btn-all ie_btn" type="submit" name="submit"><?php _e( 'Save all information', ET_DOMAIN ) ?></button>
+						<button class="btn-all ie_btn submit" type="submit" name="submit"><?php _e( 'Save all information', ET_DOMAIN ) ?></button>
 					</form>
 
 				</div><!-- End .project_info -->

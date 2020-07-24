@@ -161,9 +161,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                             </div>
                         </div>
 
-                        <button class="btn-all ie_btn submit" id="update-freelancer-profile" type="submit"
-                                name="submit"><?php _e( 'Save all
-        information', ET_DOMAIN ) ?></button>
+                        <button class="btn-all ie_btn submit" id="update-freelancer-profile" type="submit" name="submit"><?php _e( 'Save all information', ET_DOMAIN ) ?></button>
                     </form>
                 </div><!-- End .project_info -->
             </div>

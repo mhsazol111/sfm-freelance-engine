@@ -7,7 +7,7 @@
             "label": "From Email",
             "name": "from_email",
             "type": "email",
-            "instructions": "",
+            "instructions": "If you are using any SMTP or any other custom email configuration, please make sure both emails from the config and this field match.",
             "required": 1,
             "conditional_logic": 0,
             "wrapper": {
@@ -58,6 +58,905 @@
                     "append": ""
                 }
             ]
+        },
+        {
+            "key": "field_5f19d8808eaba",
+            "label": "Email footer text",
+            "name": "email_footer_text",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "&copy;2020. Switzerland Freelance Marketplace.\r\nAll Right Reserved.",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": 3,
+            "new_lines": "br"
+        },
+        {
+            "key": "field_5f18d5b6cc056",
+            "label": "(EN) New user sign up notification to admins",
+            "name": "en_new_user_sign_up_notification_to_admins",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5f18d5d1cc057",
+                    "label": "Subject",
+                    "name": "subject",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "New user sign up notification",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5f18d5efcc058",
+                    "label": "Email Body",
+                    "name": "email_body",
+                    "type": "textarea",
+                    "instructions": "You can use these parameters (please don't translate these parameters): {{first_name}}, {{last_name}}, {{email}}, {{registered_as}}, {{pending_user_link}}, {{user_id}}",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "A new user just signed up as {{registered_as}}.\r\nFirst name: {{first_name}}, last name: {{last_name}}, email: {email}}.\r\nPlease review the profile and take appropriate action. <a href=\"{{pending_user_link}}\">View User<\/a>\r\n(EN)",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": "br"
+                }
+            ]
+        },
+        {
+            "key": "field_5f19e334c0a8c",
+            "label": "(FR) New user sign up notification to admins",
+            "name": "fr_new_user_sign_up_notification_to_admins",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5f19e334c0a8d",
+                    "label": "Subject",
+                    "name": "subject",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "New user sign up notification",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5f19e334c0a8e",
+                    "label": "Email Body",
+                    "name": "email_body",
+                    "type": "textarea",
+                    "instructions": "You can use these parameters (please don't translate these parameters): {{first_name}}, {{last_name}}, {{email}}, {{registered_as}}, {{pending_user_link}}, {{user_id}}",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "A new user just signed up as {{registered_as}}.\r\nFirst name: {{first_name}}, last name: {{last_name}}, email: {email}}.\r\nPlease review the profile and take appropriate action. <a href=\"{{pending_user_link}}\">View User<\/a>\r\n(FR)",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": "br"
+                }
+            ]
+        },
+        {
+            "key": "field_5f19ed674f6bf",
+            "label": "(EN) Welcome email to new user",
+            "name": "en_welcome_email_to_new_user",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5f19ed674f6c0",
+                    "label": "Subject",
+                    "name": "subject",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Welcome to SFM (EN)",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5f19ed674f6c1",
+                    "label": "Email Body",
+                    "name": "email_body",
+                    "type": "textarea",
+                    "instructions": "You can use these parameters (please don't translate these parameters): {{first_name}}, {{last_name}}, {{email}}, {{registered_as}}",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Hi {{first_name}},\r\nWelcome to SFM, We are currently reviewing your account. We will let you know once your account is approved.\r\nThank you.\r\n(EN)",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": "br"
+                }
+            ]
+        },
+        {
+            "key": "field_5f19ee405d094",
+            "label": "(FR) Welcome email to new user",
+            "name": "fr_welcome_email_to_new_user",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5f19ee405d095",
+                    "label": "Subject",
+                    "name": "subject",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Welcome to SFM (FR)",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5f19ee405d096",
+                    "label": "Email Body",
+                    "name": "email_body",
+                    "type": "textarea",
+                    "instructions": "You can use these parameters (please don't translate these parameters): {{first_name}}, {{last_name}}, {{email}}, {{registered_as}}",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Hi {{first_name}},\r\nWelcome to SFM, We are currently reviewing your account. We will let you know once your account is approved.\r\nThank you.\r\n(FR)",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": "br"
+                }
+            ]
+        },
+        {
+            "key": "field_5f19f71d65af6",
+            "label": "(EN) Account approved notification to user",
+            "name": "en_account_approved_notification_to_user",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5f19f71d65af7",
+                    "label": "Subject",
+                    "name": "subject",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Congratulations, Account is approved (EN)",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5f19f71d65af8",
+                    "label": "Email Body",
+                    "name": "email_body",
+                    "type": "textarea",
+                    "instructions": "You can use these parameters (please don't translate these parameters): {{first_name}}, {{last_name}}, {{email}}",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Hi {{first_name}},\r\nThanks for your patience.\r\nYour account has been approved by SFM. Please update your profile information after login and proceed.\r\nThank you.\r\n\r\n(EN)",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": "br"
+                }
+            ]
+        },
+        {
+            "key": "field_5f19f8a665af9",
+            "label": "(FR) Account approved notification to user",
+            "name": "fr_account_approved_notification_to_user",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5f19f8a665afa",
+                    "label": "Subject",
+                    "name": "subject",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Congratulations, Account is approved (FR)",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5f19f8a665afb",
+                    "label": "Email Body",
+                    "name": "email_body",
+                    "type": "textarea",
+                    "instructions": "You can use these parameters (please don't translate these parameters): {{first_name}}, {{last_name}}, {{email}}",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Hi {{first_name}},\r\nThanks for your patience.\r\nYour account has been approved by SFM. Please update your profile information after login and proceed.\r\nThank you.\r\n\r\n(FR)",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": "br"
+                }
+            ]
+        },
+        {
+            "key": "field_5f19fac5c16f8",
+            "label": "(EN) New project notification to admins",
+            "name": "en_new_project_notification_to_admins",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5f19fac5c16f9",
+                    "label": "Subject",
+                    "name": "subject",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "A new project is submitted. (EN)",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5f19fac5c16fa",
+                    "label": "Email Body",
+                    "name": "email_body",
+                    "type": "textarea",
+                    "instructions": "You can use these parameters (please don't translate these parameters): {{project_title}}, {{project_url}}, {{employer_name}}, {{company_name}}, {{employer_email}}",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "A new project (<a href=\"{{project_url}}\">{{project_title}}<\/a> is posted by {{employer_name}} from {{company_name}}.\r\nPlease take a look and take the necessary action.\r\nThank you.\r\n\r\n(EN)",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": "br"
+                }
+            ]
+        },
+        {
+            "key": "field_5f1a03e4c16fb",
+            "label": "(FR) New project notification to admins",
+            "name": "fr_new_project_notification_to_admins",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5f1a03e4c16fc",
+                    "label": "Subject",
+                    "name": "subject",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "A new project is submitted. (FR)",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5f1a03e4c16fd",
+                    "label": "Email Body",
+                    "name": "email_body",
+                    "type": "textarea",
+                    "instructions": "You can use these parameters (please don't translate these parameters): {{project_title}}, {{project_url}}, {{employer_name}}, {{company_name}}, {{employer_email}}",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "A new project (<a href=\"{{project_url}}\">{{project_title}}<\/a> is posted by {{employer_name}} from {{company_name}}.\r\nPlease take a look and take the necessary action.\r\nThank you.\r\n\r\n(FR)",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": "br"
+                }
+            ]
+        },
+        {
+            "key": "field_5f1a20e53ce57",
+            "label": "(EN) New proposal notification to employer",
+            "name": "en_new_proposal_notification_to_employer",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5f1a20e53ce58",
+                    "label": "Subject",
+                    "name": "subject",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "You have a new proposal on your project. (EN)",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5f1a20e53ce59",
+                    "label": "Email Body",
+                    "name": "email_body",
+                    "type": "textarea",
+                    "instructions": "You can use these parameters (please don't translate these parameters): {{project_title}}, {{project_url}}, {{employer_name}}",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Hi {{employer_name}},\r\nYou have a new proposal on your following project: <a href=\"{{project_url}},\">{{project_title}}<\/a>.\r\nThank you.\r\n\r\n(EN)",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": "br"
+                }
+            ]
+        },
+        {
+            "key": "field_5f1a2334707ba",
+            "label": "(FR) New proposal notification to employer",
+            "name": "fr_new_proposal_notification_to_employer",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5f1a2334707bb",
+                    "label": "Subject",
+                    "name": "subject",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "You have a new proposal on your project. (FR)",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5f1a2334707bc",
+                    "label": "Email Body",
+                    "name": "email_body",
+                    "type": "textarea",
+                    "instructions": "You can use these parameters (please don't translate these parameters): {{project_title}}, {{project_url}}, {{employer_name}}",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Hi {{employer_name}},\r\nYou have a new proposal on your following project: <a href=\"{{project_url}},\">{{project_title}}<\/a>.\r\nThank you.\r\n\r\n(FR)",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": "br"
+                }
+            ]
+        },
+        {
+            "key": "field_5f1a27a0e2ccf",
+            "label": "(EN) New project started notification to admins",
+            "name": "en_new_project_started_notification_to_admins",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5f1a27a0e2cd0",
+                    "label": "Subject",
+                    "name": "subject",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "New Project Started (EN)",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5f1a27a0e2cd1",
+                    "label": "Email Body",
+                    "name": "email_body",
+                    "type": "textarea",
+                    "instructions": "You can use these parameters (please don't translate these parameters): {{project_title}}, {{project_url}}, {{employer_name}}, {{company_name}}, {{freelancer_name}}",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Hi there,\r\nThe following project: <a href=\"{{project_url}}\">{{project_title}}<\/a> is started.\r\nThe project was created by {{employer_name}} from {{company_name}} and it has been assigned to {{freelancer_name}}.\r\nPlease contact with them.\r\nThank you.\r\n\r\n(EN)",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": "br"
+                }
+            ]
+        },
+        {
+            "key": "field_5f1a28cff4dde",
+            "label": "(FR) New project started notification to admins",
+            "name": "fr_new_project_started_notification_to_admins",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5f1a28cff4ddf",
+                    "label": "Subject",
+                    "name": "subject",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "New Project Started (FR)",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5f1a28cff4de0",
+                    "label": "Email Body",
+                    "name": "email_body",
+                    "type": "textarea",
+                    "instructions": "You can use these parameters (please don't translate these parameters): {{project_title}}, {{project_url}}, {{employer_name}}, {{company_name}}, {{freelancer_name}}",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Hi there,\r\nThe following project: <a href=\"{{project_url}}\">{{project_title}}<\/a> is started.\r\nThe project was created by {{employer_name}} from {{company_name}} and it has been assigned to {{freelancer_name}}.\r\nPlease contact with them.\r\nThank you.\r\n\r\n(FR)",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": "br"
+                }
+            ]
+        },
+        {
+            "key": "field_5f1a2a531ea0e",
+            "label": "(EN) Proposal accepted notification to freelancer",
+            "name": "en_proposal_accepted_notification_to_freelancer",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5f1a2a531ea0f",
+                    "label": "Subject",
+                    "name": "subject",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Proposal Accepted! (EN)",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5f1a2a531ea10",
+                    "label": "Email Body",
+                    "name": "email_body",
+                    "type": "textarea",
+                    "instructions": "You can use these parameters (please don't translate these parameters): {{freelancer_name}}, {{project_title}}, {{project_url}}",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Congratulations {{freelancer_name}},\r\nYour proposal on <a href=\"{{project_url}}\">{{project_title}}<\/a> has been accepted.\r\nKeep up the good work.\r\nThank you.\r\n\r\n(EN)",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": "br"
+                }
+            ]
+        },
+        {
+            "key": "field_5f1a2b911ea14",
+            "label": "(FR) Proposal accepted notification to freelancer",
+            "name": "fr_proposal_accepted_notification_to_freelancer",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5f1a2b911ea15",
+                    "label": "Subject",
+                    "name": "subject",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Proposal Accepted! (FR)",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5f1a2b911ea16",
+                    "label": "Email Body",
+                    "name": "email_body",
+                    "type": "textarea",
+                    "instructions": "You can use these parameters (please don't translate these parameters): {{freelancer_name}}, {{project_title}}, {{project_url}}",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Congratulations {{freelancer_name}},\r\nYour proposal on <a href=\"{{project_url}}\">{{project_title}}<\/a> has been accepted.\r\nKeep up the good work.\r\nThank you.\r\n\r\n(FR)",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": "br"
+                }
+            ]
+        },
+        {
+            "key": "field_5f1a2e29ac77a",
+            "label": "(EN) Proposal declined notification to freelancer",
+            "name": "en_proposal_declined_notification_to_freelancer",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5f1a2e29ac77b",
+                    "label": "Subject",
+                    "name": "subject",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Your proposal is declined (EN)",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5f1a2e29ac77c",
+                    "label": "Email Body",
+                    "name": "email_body",
+                    "type": "textarea",
+                    "instructions": "You can use these parameters (please don't translate these parameters): {{freelancer_name}}, {{project_title}}, {{project_url}}",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Hi {{freelancer_name}},\r\nSorry to notify you that your proposal on the The following project: <a href=\"{{project_url}}\">{{project_title}}<\/a> is declined by the project owner.\r\nThank you.\r\n\r\n(EN)",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": "br"
+                }
+            ]
+        },
+        {
+            "key": "field_5f1a2e9fac77d",
+            "label": "(FR) Proposal declined notification to freelancer",
+            "name": "fr_proposal_declined_notification_to_freelancer",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_5f1a2e9fac77e",
+                    "label": "Subject",
+                    "name": "subject",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Your proposal is declined (FR)",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_5f1a2e9fac77f",
+                    "label": "Email Body",
+                    "name": "email_body",
+                    "type": "textarea",
+                    "instructions": "You can use these parameters (please don't translate these parameters): {{freelancer_name}}, {{project_title}}, {{project_url}}",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "Hi {{freelancer_name}},\r\nSorry to notify you that your proposal on the The following project: <a href=\"{{project_url}}\">{{project_title}}<\/a> is declined by the project owner.\r\nThank you.\r\n\r\n(FR)",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "rows": "",
+                    "new_lines": "br"
+                }
+            ]
         }
     ],
     "location": [
@@ -77,5 +976,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1593473144
+    "modified": 1595552141
 }
