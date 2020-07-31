@@ -8,6 +8,8 @@ $keyword_label  = get_field( 'en_search_keyword' );
 $skill_label    = get_field( 'en_select_by_skill' );
 $language_label = get_field( 'en_working_languages' );
 $country_label  = get_field( 'en_select_by_country' );
+
+$current_lang = get_locale();
 ?>
 <div class="search_fields">
     <form id="browse-freelancer-form" method="POST">
@@ -22,17 +24,30 @@ $country_label  = get_field( 'en_select_by_country' );
                 <option value=""><?php echo $skill_label; ?></option>
 				<?php
 				foreach ( $skills as $skill ) {
-					echo '<option value="' . $skill->term_id . '">' . __( $skill->name, ET_DOMAIN ) . '</option>';
+					$la_opt_skill = get_field( $current_lang . '_label', $skill );
+
+					if ( get_locale() == 'en_US' ) :
+						echo '<option value="' . $skill->term_id . '">' . __( $skill->name, ET_DOMAIN ) . '</option>';
+					else:
+						echo '<option class="la-option" value="' . $skill->term_id . '">' . __( $la_opt_skill, ET_DOMAIN ) . '</option>';
+					endif;
 				}
 				?>
             </select>
         </div>
 
         <div class="form-group fre-input-field freelancer-language-input">
-            <select class="custom-select form-control sfm-select2" id="freelancer-language" name="freelancer-language[]" multiple data-placeholder="<?php echo $language_label; ?>">
+            <select class="custom-select form-control sfm-select2" id="freelancer-language" name="freelancer-language[]"
+                    multiple data-placeholder="<?php echo $language_label; ?>">
 				<?php
 				foreach ( $languages as $language ) {
-					echo '<option value="' . $language->term_id . '">' . __( $language->name, ET_DOMAIN ) . '</option>';
+                    $la_opt_language = get_field( $current_lang . '_label', $language );
+
+                    if ( get_locale() == 'en_US' ) :
+                        echo '<option value="' . $language->term_id . '">' . __( $language->name, ET_DOMAIN ) . '</option>';
+                    else:
+                        echo '<option class="la-option" value="' . $language->term_id . '">' . __( $la_opt_language, ET_DOMAIN ) . '</option>';
+                    endif;
 				}
 				?>
             </select>
@@ -43,7 +58,13 @@ $country_label  = get_field( 'en_select_by_country' );
                 <option value=""><?php echo $country_label; ?></option>
 				<?php
 				foreach ( $countries as $country ) {
-					echo '<option value="' . $country->term_id . '">' . __( $country->name, ET_DOMAIN ) . '</option>';
+                    $la_opt_country = get_field( $current_lang . '_label', $country );
+
+                    if ( get_locale() == 'en_US' ) :
+                        echo '<option value="' . $country->term_id . '">' . __( $country->name, ET_DOMAIN ) . '</option>';
+                    else:
+                        echo '<option class="la-option" value="' . $country->term_id . '">' . __( $la_opt_country, ET_DOMAIN ) . '</option>';
+                    endif;
 				}
 				?>
             </select>

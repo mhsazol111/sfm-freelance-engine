@@ -1,4 +1,7 @@
-<?php $project = get_post( $_REQUEST['id'] ); ?>
+<?php 
+$current_lang = get_locale();
+$project = get_post( $_REQUEST['id'] ); 
+?>
 <div id="fre-post-project-2 step-post" class="step-wrapper">
     <div class="fre-post-project-boxx">
         <form class="employee-edit-form validation-enabled" id="post-project-form" role="form">
@@ -22,11 +25,21 @@
 						}
 
 						foreach ( $cats as $cat ) {
-							if ( in_array( $cat->term_id, $cate_arr ) ) {
-								echo '<option value="' . $cat->term_id . '" selected>' . __( $cat->name, ET_DOMAIN ) . '</option>';
-							} else {
-								echo '<option value="' . $cat->term_id . '">' . __( $cat->name, ET_DOMAIN ) . '</option>';
-							}
+                            $la_opt_cat = get_field( $current_lang . '_label', $cat );
+
+                            if ( get_locale() == 'en_US' ) :
+                                if ( in_array( $cat->term_id, $cate_arr ) ) {
+                                    echo '<option value="' . $cat->term_id . '" selected>' . __( $cat->name, ET_DOMAIN ) . '</option>';
+                                } else {
+                                    echo '<option value="' . $cat->term_id . '">' . __( $cat->name, ET_DOMAIN ) . '</option>';
+                                }
+                            else:
+                                if ( in_array( $cat->term_id, $cate_arr ) ) {
+                                    echo '<option class="la-option" value="' . $cat->term_id . '" selected>' . __( $la_opt_cat, ET_DOMAIN ) . '</option>';
+                                } else {
+                                    echo '<option class="la-option" value="' . $cat->term_id . '">' . __( $la_opt_cat, ET_DOMAIN ) . '</option>';
+                                }
+                            endif;
 						}
 						?>
                     </select>
@@ -65,11 +78,21 @@
 			            }
 
 			            foreach ( $skills as $skill ) {
-				            if ( in_array( $skill->term_id, $c_skills ) ) {
-					            echo '<option value="' . $skill->term_id . '" selected>' . __( $skill->name, ET_DOMAIN ) . '</option>';
-				            } else {
-					            echo '<option value="' . $skill->term_id . '">' . __( $skill->name, ET_DOMAIN ) . '</option>';
-				            }
+                            $la_opt_skill = get_field( $current_lang . '_label', $skill );
+
+                            if ( get_locale() == 'en_US' ) :
+                                if ( in_array( $skill->term_id, $c_skills ) ) {
+                                    echo '<option value="' . $skill->term_id . '" selected>' . __( $skill->name, ET_DOMAIN ) . '</option>';
+                                } else {
+                                    echo '<option value="' . $skill->term_id . '">' . __( $skill->name, ET_DOMAIN ) . '</option>';
+                                }
+                            else:
+                                if ( in_array( $skill->term_id, $c_skills ) ) {
+                                    echo '<option class="la-option" value="' . $skill->term_id . '" selected>' . __( $la_opt_skill, ET_DOMAIN ) . '</option>';
+                                } else {
+                                    echo '<option class="la-option" value="' . $skill->term_id . '">' . __( $la_opt_skill, ET_DOMAIN ) . '</option>';
+                                }
+                            endif;
 			            }
 			            ?>
                     </select>
@@ -131,11 +154,21 @@
 			                }
 
 			                foreach ( $languages as $language ) {
-				                if ( in_array( $language->term_id, $c_languages ) ) {
-					                echo '<option value="' . $language->term_id . '" selected>' . __( $language->name, ET_DOMAIN ) . '</option>';
-				                } else {
-					                echo '<option value="' . $language->term_id . '">' . __( $language->name, ET_DOMAIN ) . '</option>';
-				                }
+                                $la_opt_language = get_field( $current_lang . '_label', $language );
+
+                                if ( get_locale() == 'en_US' ) :
+                                    if ( in_array( $language->term_id, $c_languages ) ) {
+                                        echo '<option value="' . $language->term_id . '" selected>' . __( $language->name, ET_DOMAIN ) . '</option>';
+                                    } else {
+                                        echo '<option value="' . $language->term_id . '">' . __( $language->name, ET_DOMAIN ) . '</option>';
+                                    }
+                                else:
+                                    if ( in_array( $language->term_id, $c_languages ) ) {
+                                        echo '<option class="la-option" value="' . $language->term_id . '" selected>' . __( $la_opt_language, ET_DOMAIN ) . '</option>';
+                                    } else {
+                                        echo '<option class="la-option" value="' . $language->term_id . '">' . __( $la_opt_language, ET_DOMAIN ) . '</option>';
+                                    }
+                                endif;
 			                }
 			                ?>
                         </select>
@@ -157,8 +190,15 @@
 			                }
 
 			                foreach ( $countries as $country ) {
-			                    $selected = $c_country == $country->term_id ? 'selected' : '';
-				                echo '<option value="' . $country->term_id . '" '. $selected . '>' . __( $country->name, ET_DOMAIN ) . '</option>';
+                                $la_opt_country = get_field( $current_lang . '_label', $country );
+
+                                if ( get_locale() == 'en_US' ) :
+                                    $selected = $c_country == $country->term_id ? 'selected' : '';
+                                    echo '<option value="' . $country->term_id . '" '. $selected . '>' . __( $country->name, ET_DOMAIN ) . '</option>';
+                                else:
+                                    $selected = $c_country == $country->term_id ? 'selected' : '';
+                                    echo '<option class="la-option" value="' . $country->term_id . '" '. $selected . '>' . __( $la_opt_country, ET_DOMAIN ) . '</option>';
+                                endif;
 			                }
 			                ?>
                         </select>

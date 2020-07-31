@@ -23,6 +23,8 @@ $ie_freelancer_title     = get_field( 'freelancer_title' );
 $ie_freelancer_sub_title = get_field( 'freelancer_sub_title' );
 $freelancer_singup_img   = get_field( 'freelancer_signup_image' );
 
+$current_lang = get_locale();
+
 ?>
 
 
@@ -197,7 +199,13 @@ $freelancer_singup_img   = get_field( 'freelancer_signup_image' );
                                          ) );
                                          $selected_country_id = get_the_terms( $user_profile_post_id, 'country' );
                                          foreach ( $countries as $country ) {
-                                             echo '<option value="' . $country->term_id . '">' . $country->name . '</option>';
+                                            $la_opt_country = get_field( $current_lang . '_label', $country );
+
+                                            if ( get_locale() == 'en_US' ) :
+                                                echo '<option value="' . $country->term_id . '">' . $country->name . '</option>';
+                                            else:
+                                                echo '<option class="la-option" value="' . $country->term_id . '">' . __( $la_opt_country, ET_DOMAIN ) . '</option>';
+                                            endif;
                                          }
                                         ?>
                                     </select>

@@ -1853,12 +1853,12 @@ label.error, p.input-error {
     border-color: #cccccc;
 }
 
-#select2-freelancer-skill-results, #select2-freelancer-country-results, #select2-project-skill-results, #select2-project-category-results, #select2-project-country-results {
-    min-height: 350px;
-}
-input.select2-search__field[aria-controls="select2-freelancer-skill-results"], input.select2-search__field[aria-controls="select2-freelancer-language-results"], input.select2-search__field[aria-controls="select2-freelancer-country-results"], input.select2-search__field[aria-controls="select2-project-skill-results"], input.select2-search__field[aria-controls="select2-project-category-results"], input.select2-search__field[aria-controls="select2-project-country-results"], input.select2-search__field[aria-controls="select2-country_you_live-results"], input.select2-search__field[aria-controls="select2-country-results"] {
-    display: none;
-}
+/*#select2-freelancer-skill-results, #select2-freelancer-country-results, #select2-project-skill-results, #select2-project-category-results, #select2-project-country-results {*/
+/*    min-height: 350px;*/
+/*}*/
+/*input.select2-search__field[aria-controls="select2-freelancer-skill-results"], input.select2-search__field[aria-controls="select2-freelancer-language-results"], input.select2-search__field[aria-controls="select2-freelancer-country-results"], input.select2-search__field[aria-controls="select2-project-skill-results"], input.select2-search__field[aria-controls="select2-project-category-results"], input.select2-search__field[aria-controls="select2-project-country-results"], input.select2-search__field[aria-controls="select2-country_you_live-results"], input.select2-search__field[aria-controls="select2-country-results"] {*/
+/*!*     display: none; *!*/
+/*}*/
 
 #post-project-form input,
 #post-project-form div#country_chosen {

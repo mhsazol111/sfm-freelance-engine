@@ -1,3 +1,4 @@
+<?php $current_lang = get_locale(); ?>
 <div id="fre-post-project-2 step-post" class="step-wrapper">
     <div class="fre-post-project-boxx">
         <form class="employee-edit-form validation-enabled" id="post-project-form" role="form">
@@ -12,7 +13,13 @@
 						$user_profile_id = get_user_meta( get_current_user_id(), 'user_profile_id', true );
 						$cats            = get_the_terms( $user_profile_id, 'project_category' );
 						foreach ( $cats as $cat ) {
-							echo '<option value="' . $cat->term_id . '">' . __( $cat->name, ET_DOMAIN ) . '</option>';
+                            $la_opt_cat = get_field( $current_lang . '_label', $cat );
+
+                            if ( get_locale() == 'en_US' ) :
+                                echo '<option value="' . $cat->term_id . '">' . __( $cat->name, ET_DOMAIN ) . '</option>';
+                            else:
+                                echo '<option class="la-option" value="' . $cat->term_id . '">' . __( $la_opt_cat, ET_DOMAIN ) . '</option>';
+                            endif;
 						}
 						?>
                     </select>
@@ -39,7 +46,13 @@
                             'hide_empty' => false,
                         ) );
 			            foreach ( $skills as $skill ) {
-				            echo '<option value="' . $skill->term_id . '">' . __( $skill->name, ET_DOMAIN ) . '</option>';
+                            $la_opt_skill = get_field( $current_lang . '_label', $skill );
+
+                            if ( get_locale() == 'en_US' ) :
+                                echo '<option value="' . $skill->term_id . '">' . __( $skill->name, ET_DOMAIN ) . '</option>';
+                            else:
+                                echo '<option class="la-option" value="' . $skill->term_id . '">' . __( $la_opt_skill, ET_DOMAIN ) . '</option>';
+                            endif;
 			            }
 			            ?>
                     </select>
@@ -77,7 +90,13 @@
 			                ) );
 
 			                foreach ( $languages as $language ) {
-				                echo '<option value="' . $language->term_id . '">' . $language->name . '</option>';
+                                $la_opt_language = get_field( $current_lang . '_label', $language );
+
+                                if ( get_locale() == 'en_US' ) :
+                                    echo '<option value="' . $language->term_id . '">' . $language->name . '</option>';
+                                else:
+                                    echo '<option class="la-option" value="' . $language->term_id . '">' . $la_opt_language . '</option>';
+                                endif;
 			                }
 			                ?>
                         </select>
@@ -93,7 +112,13 @@
 				                'hide_empty' => false,
 			                ) );
 			                foreach ( $countries as $country ) {
-				                echo '<option value="' . $country->term_id . '">' . __( $country->name, ET_DOMAIN ) . '</option>';
+                                $la_opt_country = get_field( $current_lang . '_label', $country );
+
+                                if ( get_locale() == 'en_US' ) :
+                                    echo '<option value="' . $country->term_id . '">' . __( $country->name, ET_DOMAIN ) . '</option>';
+                                else:
+                                    echo '<option class="la-option" value="' . $country->term_id . '">' . __( $la_opt_country, ET_DOMAIN ) . '</option>';
+                                endif;
 			                }
 			                ?>
                         </select>

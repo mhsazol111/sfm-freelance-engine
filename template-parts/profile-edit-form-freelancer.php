@@ -1,6 +1,7 @@
 <?php
 $author_id            = get_current_user_id();
 $user_profile_post_id = get_user_meta( $author_id, 'user_profile_id', true );
+$current_lang = get_locale();
 ?>
 <form action="" method="POST" id="freelancer-profile-edit-form" class="edit-form validation-enabled"
       enctype="multipart/form-data">
@@ -30,11 +31,21 @@ $user_profile_post_id = get_user_meta( $author_id, 'user_profile_id', true );
 				}
 
 				foreach ( $languages as $language ) {
-					if ( in_array( $language->term_id, $selected_languages ) ) {
-						echo '<option value="' . $language->term_id . '" selected>' . $language->name . '</option>';
-					} else {
-						echo '<option value="' . $language->term_id . '">' . $language->name . '</option>';
-					}
+                    $la_opt_language = get_field( $current_lang . '_label', $language );
+
+                    if ( get_locale() == 'en_US' ) :
+                        if ( in_array( $language->term_id, $selected_languages ) ) {
+                            echo '<option value="' . $language->term_id . '" selected>' . $language->name . '</option>';
+                        } else {
+                            echo '<option value="' . $language->term_id . '">' . $language->name . '</option>';
+                        }
+                    else:
+                        if ( in_array( $language->term_id, $selected_languages ) ) {
+                            echo '<option class="la-option" value="' . $language->term_id . '" selected>' . $la_opt_language . '</option>';
+                        } else {
+                            echo '<option class="la-option" value="' . $language->term_id . '">' . $la_opt_language . '</option>';
+                        }
+                    endif;
 				}
 				?>
             </select>
@@ -59,11 +70,21 @@ $user_profile_post_id = get_user_meta( $author_id, 'user_profile_id', true );
 				}
 
 				foreach ( $categories as $cat ) {
-					if ( in_array( $cat->term_id, $selected_cats ) ) {
-						echo '<option value="' . $cat->term_id . '" selected>' . $cat->name . '</option>';
-					} else {
-						echo '<option value="' . $cat->term_id . '">' . $cat->name . '</option>';
-					}
+                    $la_opt_cat = get_field( $current_lang . '_label', $cat );
+
+                    if ( get_locale() == 'en_US' ) :
+                        if ( in_array( $cat->term_id, $selected_cats ) ) {
+                            echo '<option value="' . $cat->term_id . '" selected>' . $cat->name . '</option>';
+                        } else {
+                            echo '<option value="' . $cat->term_id . '">' . $cat->name . '</option>';
+                        }
+                    else:
+                        if ( in_array( $cat->term_id, $selected_cats ) ) {
+                            echo '<option class="la-option" value="' . $cat->term_id . '" selected>' . $la_opt_cat . '</option>';
+                        } else {
+                            echo '<option class="la-option" value="' . $cat->term_id . '">' . $la_opt_cat . '</option>';
+                        }
+                    endif;
 				}
 				?>
             </select>
@@ -88,11 +109,21 @@ $user_profile_post_id = get_user_meta( $author_id, 'user_profile_id', true );
 				}
 
 				foreach ( $skills as $skill ) {
-					if ( in_array( $skill->term_id, $selected_skill ) ) {
-						echo '<option value="' . $skill->term_id . '" selected>' . $skill->name . '</option>';
-					} else {
-						echo '<option value="' . $skill->term_id . '">' . $skill->name . '</option>';
-					}
+                    $la_opt_skill = get_field( $current_lang . '_label', $skill );
+
+                    if ( get_locale() == 'en_US' ) :
+                        if ( in_array( $skill->term_id, $selected_skill ) ) {
+                            echo '<option value="' . $skill->term_id . '" selected>' . $skill->name . '</option>';
+                        } else {
+                            echo '<option value="' . $skill->term_id . '">' . $skill->name . '</option>';
+                        }
+                    else:
+                        if ( in_array( $skill->term_id, $selected_skill ) ) {
+                            echo '<option class="la-option" value="' . $skill->term_id . '" selected>' . $la_opt_skill . '</option>';
+                        } else {
+                            echo '<option class="la-option" value="' . $skill->term_id . '">' . $la_opt_skill . '</option>';
+                        }
+                    endif;
 				}
 				?>
             </select>
@@ -176,11 +207,21 @@ $user_profile_post_id = get_user_meta( $author_id, 'user_profile_id', true );
 					$selected_country_id = $user_country_id ? $user_country_id : $user_profile_country_id;
 
 					foreach ( $countries as $country ) {
-						if ( $selected_country_id ) {
-							echo '<option value="' . $country->term_id . '" ' . ( $selected_country_id == $country->term_id ? 'selected' : '' ) . '>' . $country->name . '</option>';
-						} else {
-							echo '<option value="' . $country->term_id . '">' . $country->name . '</option>';
-						}
+                        $la_opt_country = get_field( $current_lang . '_label', $country );
+
+                        if ( get_locale() == 'en_US' ) :
+                            if ( $selected_country_id ) {
+                                echo '<option value="' . $country->term_id . '" ' . ( $selected_country_id == $country->term_id ? 'selected' : '' ) . '>' . $country->name . '</option>';
+                            } else {
+                                echo '<option value="' . $country->term_id . '">' . $country->name . '</option>';
+                            }
+                        else:
+                            if ( $selected_country_id ) {
+                                echo '<option class="la-option" value="' . $country->term_id . '" ' . ( $selected_country_id == $country->term_id ? 'selected' : '' ) . '>' . $la_opt_country . '</option>';
+                            } else {
+                                echo '<option class="la-option" value="' . $country->term_id . '">' . $la_opt_country . '</option>';
+                            }
+                        endif;
 					}
 					?>
                 </select>

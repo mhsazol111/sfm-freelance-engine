@@ -9,6 +9,7 @@ if ( current_user_can( 'administrator' ) ) {
 	$categories = get_the_terms( $user_profile_id, 'project_category' );
 	$skills     = get_the_terms( $user_profile_id, 'skill' );
 }
+$current_lang = get_locale();
 ?>
 <div class="search_fields">
     <form id="browse-project-form">
@@ -23,8 +24,15 @@ if ( current_user_can( 'administrator' ) ) {
                 <option value=""><?php _e( 'Select Projects by Skill', ET_DOMAIN ) ?></option>
 				<?php
 				foreach ( $skills as $skill ) {
-					$selected = ( $current_skill == $skill->slug ? 'selected' : '' );
-					echo sprintf( '<option value="%s" %s>%s</option>', $skill->slug, $selected, $skill->name );
+                    $la_opt_skill = get_field( $current_lang . '_label', $skill );
+
+					if ( get_locale() == 'en_US' ) :
+                        $selected = ( $current_skill == $skill->slug ? 'selected' : '' );
+                        echo sprintf( '<option value="%s" %s>%s</option>', $skill->slug, $selected, $skill->name );
+                    else:
+                        $selected = ( $current_skill == $skill->slug ? 'selected' : '' );
+                        echo sprintf( '<option class="la-option" value="%s" %s>%s</option>', $skill->slug, $selected, $la_opt_skill );
+                    endif;
 				}
 				?>
             </select>
@@ -35,8 +43,15 @@ if ( current_user_can( 'administrator' ) ) {
                 <option value=""><?php _e( 'Select Project Category', ET_DOMAIN ) ?></option>
 				<?php
 				foreach ( $categories as $category ) {
-					$selected = ( $current_category == $category->slug ? 'selected' : '' );
-					echo sprintf( '<option value="%s" %s>%s</option>', $category->slug, $selected, $category->name );
+                    $la_opt_cat = get_field( $current_lang . '_label', $category );
+
+					if ( get_locale() == 'en_US' ) :
+                        $selected = ( $current_category == $category->slug ? 'selected' : '' );
+                        echo sprintf( '<option value="%s" %s>%s</option>', $category->slug, $selected, $category->name );
+                    else:
+                        $selected = ( $current_category == $category->slug ? 'selected' : '' );
+                        echo sprintf( '<option class="la-option" value="%s" %s>%s</option>', $category->slug, $selected, $la_opt_cat );
+                    endif;
 				}
 				?>
             </select>
@@ -47,7 +62,13 @@ if ( current_user_can( 'administrator' ) ) {
                 <option value=""><?php _e( 'Select Country', ET_DOMAIN ) ?></option>
 				<?php
 				foreach ( $countries as $country ) {
-					echo '<option value="' . $country->slug . '">' . $country->name . '</option>';
+                    $la_opt_country = get_field( $current_lang . '_label', $country );
+
+					if ( get_locale() == 'en_US' ) :
+                        echo '<option value="' . $country->slug . '">' . $country->name . '</option>';
+                    else:
+                        echo '<option class="la-option" value="' . $country->slug . '">' . $la_opt_country . '</option>';
+                    endif;
 				}
 				?>
             </select>
