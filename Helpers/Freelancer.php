@@ -222,6 +222,7 @@ class Freelancer {
 			$errors[]  = array( 'name' => 'city_name', 'message' => 'City Name is required!' );
 			$has_error = true;
 		}
+
 		if ( $has_error && $errors ) {
 			echo wp_json_encode( array( 'status' => false, 'errors' => $errors ) );
 			die();
@@ -290,6 +291,7 @@ class Freelancer {
 
 		// Remove old country term id from user meta
 		delete_user_meta( $freelancer_id, 'user_country_id' );
+		delete_user_meta( $freelancer_id, 'user_category' );
 
 		// Update Professional Job title
 		update_post_meta( $user_profile_post, 'et_professional_title', sanitize_text_field( $form_data['job_title'] ) );

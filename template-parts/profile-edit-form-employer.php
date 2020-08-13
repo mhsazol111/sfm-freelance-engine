@@ -47,38 +47,44 @@ $current_lang = get_locale();
                 <select name="project_category[]" id="project_category" class="sfm-select2" multiple required>
                     <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
 
-					<?php
-					$categories = get_terms( array(
-						'taxonomy'   => 'project_category',
-						'hide_empty' => false,
-					) );
+	                <?php
+	                $categories = get_terms( array(
+		                'taxonomy'   => 'project_category',
+		                'hide_empty' => false,
+	                ) );
 
-					$user_categories = get_the_terms( $user_profile_post_id, 'project_category' );
-					$selected_cats   = [];
-					if ( $user_categories ) {
-						foreach ( $user_categories as $cat ) {
-							$selected_cats[] = $cat->term_id;
-						}
-					}
+	                $user_category_ids      = unserialize( get_user_meta( get_current_user_id(), 'user_category', true ) );
+	                $user_profile_categories = get_the_terms( $user_profile_post_id, 'project_category' );
 
-					foreach ( $categories as $cat ) {
-                        $la_opt_cat = get_field( $current_lang . '_label', $cat );
+	                $selected_categories      = [];
+	                if ($user_category_ids) {
+		                $selected_categories = $user_category_ids;
+	                } else {
+		                if ( $user_profile_categories ) {
+			                foreach ( $user_profile_categories as $category ) {
+				                $selected_categories[] = $category->term_id;
+			                }
+		                }
+	                }
 
-                        if ( get_locale() == 'en_US' ) :
-                            if ( in_array( $cat->term_id, $selected_cats ) ) {
-                                echo '<option value="' . $cat->term_id . '" selected>' . $cat->name . '</option>';
-                            } else {
-                                echo '<option value="' . $cat->term_id . '">' . $cat->name . '</option>';
-                            }
-                        else:
-                            if ( in_array( $cat->term_id, $selected_cats ) ) {
-                                echo '<option class="la-option" value="' . $cat->term_id . '" selected>' . $la_opt_cat . '</option>';
-                            } else {
-                                echo '<option class="la-option" value="' . $cat->term_id . '">' . $la_opt_cat . '</option>';
-                            }
-                        endif;
-					}
-					?>
+	                foreach ( $categories as $category ) {
+		                $la_opt_cat = get_field( $current_lang . '_label', $category );
+
+		                if ( get_locale() == 'en_US' ) :
+			                if ( in_array( $category->term_id, $selected_categories ) ) {
+				                echo '<option value="' . $category->term_id . '" selected>' . $category->name . '</option>';
+			                } else {
+				                echo '<option value="' . $category->term_id . '">' . $category->name . '</option>';
+			                }
+		                else:
+			                if ( in_array( $category->term_id, $selected_categories ) ) {
+				                echo '<option class="la-option" value="' . $category->term_id . '" selected>' . $la_opt_cat . '</option>';
+			                } else {
+				                echo '<option class="la-option" value="' . $category->term_id . '">' . $la_opt_cat . '</option>';
+			                }
+		                endif;
+	                }
+	                ?>
 
                 </select>
             </div>

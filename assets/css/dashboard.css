@@ -1853,6 +1853,19 @@ label.error, p.input-error {
     border-color: #cccccc;
 }
 
+.page-template-page-register .fre-input-field .select2-container, .page-template-page-register .fre-input-field .select2-container span.select2-selection {
+    border-color: rgb(33, 143, 190);
+}
+.page-template-page-register .fre-input-field .select2-container span.select2-selection span.select2-search input {
+    margin-left: 15px;
+    color: #9ea5aa;
+    font-size: 16px;
+}
+#sfm_sign_up_form .select2-container .select2-selection--single .select2-selection__rendered {
+    color: #9ea5aa;
+    font-size: 16px;
+}
+
 /*#select2-freelancer-skill-results, #select2-freelancer-country-results, #select2-project-skill-results, #select2-project-category-results, #select2-project-country-results {*/
 /*    min-height: 350px;*/
 /*}*/
@@ -1908,7 +1921,10 @@ label.error, p.input-error {
 }
 .fre-input-field .select2-container span.select2-selection span.select2-search input {
     margin: 0;
-    margin-left: 5px;
+    margin-left: 10px;
+}
+.page-template-page-browse-freelancers .fre-input-field.freelancer-language-input .select2-container span.select2-selection {
+    border-color: #AAAAAA;
 }
 .select2-dropdown span.select2-results ul li {
     background-color: #fff;

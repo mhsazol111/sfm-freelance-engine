@@ -121,6 +121,7 @@ header#employer-header-wrap.register-page-header #main_header .desktop_phone a.s
     height: 0px;
     margin-bottom: 0px;
     z-index: 9999;
+    position: relative;
 }
 a.smf-phone {
     color: #fff !important;

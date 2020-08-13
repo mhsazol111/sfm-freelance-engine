@@ -25,6 +25,7 @@ $freelancer_singup_img   = get_field( 'freelancer_signup_image' );
 
 $current_lang = get_locale();
 
+$categories = Custom::all_terms('project_category', false);
 ?>
 
 
@@ -192,12 +193,13 @@ $current_lang = get_locale();
                                         <?php else : ?>
                                             <option value=""><?php _e( 'Country', ET_DOMAIN ); ?></option>
                                         <?php endif; ?>
+
                                         <?php
-                                         $countries           = get_terms( array(
+                                         $countries = get_terms( array(
                                              'taxonomy'   => 'country',
                                              'hide_empty' => false,
                                          ) );
-                                         $selected_country_id = get_the_terms( $user_profile_post_id, 'country' );
+
                                          foreach ( $countries as $country ) {
                                             $la_opt_country = get_field( $current_lang . '_label', $country );
 
@@ -205,6 +207,23 @@ $current_lang = get_locale();
                                                 echo '<option value="' . $country->term_id . '">' . $country->name . '</option>';
                                             else:
                                                 echo '<option class="la-option" value="' . $country->term_id . '">' . __( $la_opt_country, ET_DOMAIN ) . '</option>';
+                                            endif;
+                                         }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="fre-input-field">
+                                <div class="select-box">
+                                    <select name="user_category[]" id="user_category" class="sfm-select2" multiple required data-placeholder="<?php _e('Select category (at least one)', ET_DOMAIN); ?>">
+                                        <?php
+                                         foreach ( $categories as $category ) {
+                                            $la_opt_category = get_field( $current_lang . '_label', $category );
+
+                                            if ( get_locale() == 'en_US' ) :
+                                                echo '<option value="' . $category->term_id . '">' . $category->name . '</option>';
+                                            else:
+                                                echo '<option class="la-option" value="' . $category->term_id . '">' . __( $la_opt_category, ET_DOMAIN ) . '</option>';
                                             endif;
                                          }
                                         ?>

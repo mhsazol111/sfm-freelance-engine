@@ -25,6 +25,16 @@ class Authentication {
 	 */
 	public function show_user_profile_custom_fields( $user ) {
 		?>
+        <style>
+            td span.user-category-item {
+                display: inline-block;
+                background-color: #fff;
+                padding: 5px 12px;
+                border-radius: 5px;
+                margin-right: 7px;
+                margin-bottom: 7px;
+            }
+        </style>
         <h3>Additional Information</h3>
         <table class="form-table">
             <tr>
@@ -97,6 +107,28 @@ class Authentication {
                 <th><label for="city_name">City Name</label></th>
                 <td><input type="text" id="city_name" class="regular-text code" name="city_name" value="<?= esc_attr( get_user_meta( $user->ID, 'city_name', true ) ) ?>"></td>
             </tr>
+
+            <tr>
+                <th><label>Categories</label></th>
+                <td>
+                    <?php
+                    $category_ids = get_user_meta( $user->ID, 'user_category', true );
+                    if ($category_ids) {
+                        foreach (unserialize($category_ids) as $category) {
+                            $cat = get_term($category, 'project_category');
+                            echo '<span class="user-category-item">' . $cat->name . '</span>';
+                        }
+                    } else {
+                        $user_profile_post = get_user_meta( $user->ID, 'user_profile_id', true );
+                        $categories        = get_the_terms( $user_profile_post, 'project_category' );
+                        foreach ($categories as $category) {
+                            echo '<span class="user-category-item">' . $category->name . '</span>';
+                        }
+                    }
+                    ?>
+                </td>
+            </tr>
+
             <tr>
                 <th><label for="account_status">Account Status</label></th>
                 <td>
@@ -212,6 +244,10 @@ class Authentication {
 			$errors[]  = array( 'name' => 'user_country', 'message' => 'Please select a country!' );
 			$has_error = true;
 		}
+		if ( $form_data['user_category'] == '' ) {
+			$errors[]  = array( 'name' => 'user_category[]', 'message' => 'Please select a category!' );
+			$has_error = true;
+		}
 
 		if ( $has_error && $errors ) {
 			echo wp_json_encode( array( 'status' => false, 'errors' => $errors ) );
@@ -227,8 +263,12 @@ class Authentication {
 			'user_pass'  => sanitize_text_field( $form_data['user_pass'] ),
 			'role'       => $_REQUEST['role'],
 		) );
-//
+
+
 //		// Set account status to pending
+		$categories = serialize($form_data['user_category']);
+		update_user_meta( $user_id, 'user_category', $categories );
+
 		update_user_meta( $user_id, 'account_status', 'pending' );
 		update_user_meta( $user_id, 'user_country_id', sanitize_text_field( $form_data['user_country'] ) );
 		update_user_meta( $user_id, 'company_name', sanitize_text_field( $form_data['company_name'] ) );
