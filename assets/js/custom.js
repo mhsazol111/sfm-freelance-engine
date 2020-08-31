@@ -224,5 +224,13 @@
         });
 
 
+        // contact form 7 submission
+        document.addEventListener('wpcf7mailsent', function (event) {
+            if ('213' == event.detail.contactFormId || '544' == event.detail.contactFormId) {
+                gtag('event', 'conversion', {'send_to': 'AW-629736632/11SCCMfiq9EBELiJpKwC'});
+            }
+        }, false);
+
+
     }); // Document Ready
 })(jQuery);

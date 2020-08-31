@@ -89,43 +89,45 @@ class Authentication {
             </tr>
             <tr>
                 <th><label for="nationality">Nationality</label></th>
-                <?php
-                $term_id = get_user_meta( $user->ID, 'user_country_id', true );
-                if ($term_id) {
-	                $nationality = get_term_by( 'id', $term_id, 'country' );
-                } else {
-	                $user_profile_post = get_user_meta( $user->ID, 'user_profile_id', true );
-	                $country           = get_the_terms( $user_profile_post, 'country' );
-	                $nationality = $country[0];
-                }
-                ?>
+				<?php
+				$term_id = get_user_meta( $user->ID, 'user_country_id', true );
+				if ( $term_id ) {
+					$nationality = get_term_by( 'id', $term_id, 'country' );
+				} else {
+					$user_profile_post = get_user_meta( $user->ID, 'user_profile_id', true );
+					$country           = get_the_terms( $user_profile_post, 'country' );
+					$nationality       = $country[0];
+				}
+				?>
                 <td>
-                    <input readonly type="text" id="nationality" class="regular-text code" name="nationality" value="<?= esc_attr( $nationality->name ); ?>">
+                    <input readonly type="text" id="nationality" class="regular-text code" name="nationality"
+                           value="<?= esc_attr( $nationality->name ); ?>">
                 </td>
             </tr>
             <tr>
                 <th><label for="city_name">City Name</label></th>
-                <td><input type="text" id="city_name" class="regular-text code" name="city_name" value="<?= esc_attr( get_user_meta( $user->ID, 'city_name', true ) ) ?>"></td>
+                <td><input type="text" id="city_name" class="regular-text code" name="city_name"
+                           value="<?= esc_attr( get_user_meta( $user->ID, 'city_name', true ) ) ?>"></td>
             </tr>
 
             <tr>
                 <th><label>Categories</label></th>
                 <td>
-                    <?php
-                    $category_ids = get_user_meta( $user->ID, 'user_category', true );
-                    if ($category_ids) {
-                        foreach (unserialize($category_ids) as $category) {
-                            $cat = get_term($category, 'project_category');
-                            echo '<span class="user-category-item">' . $cat->name . '</span>';
-                        }
-                    } else {
-                        $user_profile_post = get_user_meta( $user->ID, 'user_profile_id', true );
-                        $categories        = get_the_terms( $user_profile_post, 'project_category' );
-                        foreach ($categories as $category) {
-                            echo '<span class="user-category-item">' . $category->name . '</span>';
-                        }
-                    }
-                    ?>
+					<?php
+					$category_ids = get_user_meta( $user->ID, 'user_category', true );
+					if ( $category_ids ) {
+						foreach ( unserialize( $category_ids ) as $category ) {
+							$cat = get_term( $category, 'project_category' );
+							echo '<span class="user-category-item">' . $cat->name . '</span>';
+						}
+					} else {
+						$user_profile_post = get_user_meta( $user->ID, 'user_profile_id', true );
+						$categories        = get_the_terms( $user_profile_post, 'project_category' );
+						foreach ( $categories as $category ) {
+							echo '<span class="user-category-item">' . $category->name . '</span>';
+						}
+					}
+					?>
                 </td>
             </tr>
 
@@ -234,7 +236,7 @@ class Authentication {
 			$errors[]  = array( 'name' => 'repeat_pass', 'message' => 'Password didn\'t match' );
 			$has_error = true;
 		}
-		if($_REQUEST['role']=='employer') {
+		if ( $_REQUEST['role'] == 'employer' ) {
 			if ( $form_data['company_name'] == '' ) {
 				$errors[]  = array( 'name' => 'company_name', 'message' => 'Company Name is required!' );
 				$has_error = true;
@@ -266,7 +268,7 @@ class Authentication {
 
 
 //		// Set account status to pending
-		$categories = serialize($form_data['user_category']);
+		$categories = serialize( $form_data['user_category'] );
 		update_user_meta( $user_id, 'user_category', $categories );
 
 		update_user_meta( $user_id, 'account_status', 'pending' );
@@ -281,9 +283,10 @@ class Authentication {
 		wp_set_auth_cookie( $user_id );
 
 		echo wp_json_encode( [
-			'status'   => true,
-			'message'  => __( 'Registration Successful!', ET_DOMAIN ),
-			'redirect' => home_url() . '/dashboard'
+			'status'    => true,
+			'message'   => __( 'Registration Successful!', ET_DOMAIN ),
+			'redirect'  => home_url() . '/dashboard',
+			'user_role' => $_REQUEST['role'],
 		] );
 
 		wp_die();

@@ -481,6 +481,15 @@ function register_language_taxonomy() {
 
 add_action( 'init', 'register_language_taxonomy' );
 
+
+// Custom Header Codes inside <head></head> tag
+function sfm_add_header_scripts() {
+	$codes = get_field('custom_header_codes', 'option');
+	echo $codes;
+}
+add_action('wp_head', 'sfm_add_header_scripts');
+
+
 // Helper Classes
 require 'Helpers/Authentication.php';
 require 'Helpers/Pending_Users_Table.php';

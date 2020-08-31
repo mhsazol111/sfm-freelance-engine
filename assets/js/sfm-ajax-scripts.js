@@ -467,6 +467,14 @@
                             text: res.message ? res.message : "Success!",
                         }).show();
 
+                        if (res.user_role === 'freelancer') {
+                            // console.log('freelancer got it');
+                            gtag('event', 'conversion', {'send_to': 'AW-629736632/XiKkCOe3vNEBELiJpKwC'});
+                        } else if (res.user_role === 'employer') {
+                            // console.log('employer got it');
+                            gtag('event', 'conversion', {'send_to': 'AW-629736632/C8oaCPjaq9EBELiJpKwC'});
+                        }
+
                         if (res.redirect) {
                             location.reload(true);
                             window.location.replace(res.redirect);

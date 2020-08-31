@@ -1,0 +1,43 @@
+{
+    "key": "group_5f4d8426e359c",
+    "title": "Custom Header Codes",
+    "fields": [
+        {
+            "key": "field_5f4d8433b1ac7",
+            "label": "Custom Header codes",
+            "name": "custom_header_codes",
+            "type": "textarea",
+            "instructions": "Put any codes that need to be in the \"head\" tag",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": 16,
+            "new_lines": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1598915717
+}
