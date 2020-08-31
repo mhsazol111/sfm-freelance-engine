@@ -9,7 +9,7 @@ $current_lang = get_locale();
     <div class="work-skil" id="fre-post-project">
         <div class="input-field">
             <label for="daily_wage"><?php _e( 'Daily wage rate', ET_DOMAIN ) ?></label>
-            <input id="daily_wage" type="number" placeholder="Amount of daily wage" name="daily_wage_rate" value="<?php echo get_the_author_meta( 'daily_wage_rate', $author_id ); ?>" required>
+            <input id="daily_wage" type="number" placeholder="<?php _e( 'Amount of daily wage', ET_DOMAIN ); ?>" name="daily_wage_rate" value="<?php echo get_the_author_meta( 'daily_wage_rate', $author_id ); ?>" required>
         </div>
 
         <div class="input-field fre-input-field">
