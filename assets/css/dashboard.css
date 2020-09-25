@@ -2131,6 +2131,15 @@ form.edit-form {
     height: 50px;
 }
 
+@media only screen and (min-width: 1200px) {
+    .search_fields #browse-freelancer-form .form-group {
+        width: calc( 33.33% - 20px );
+        margin-bottom: 20px;
+    }
+    .search_fields #browse-freelancer-form .clear_div {
+        width: auto;
+    }
+}
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .personal-details .input-field,
     .social-details .input-field,

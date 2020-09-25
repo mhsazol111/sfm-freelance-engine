@@ -342,6 +342,10 @@ class Freelancer {
 			$term_ids[] = $term->term_id;
 		}
 
+		if ( isset( $form_data['freelancer-category'] ) && $form_data['freelancer-category'] != '' ) {
+			$term_ids = $form_data['freelancer-category'];
+		}
+
 		$query_args = array(
 			'post_type'      => PROFILE,
 			'post_status'    => 'publish',
