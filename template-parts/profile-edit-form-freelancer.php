@@ -1,7 +1,7 @@
 <?php
 $author_id            = get_current_user_id();
 $user_profile_post_id = get_user_meta( $author_id, 'user_profile_id', true );
-$current_lang = get_locale();
+$current_lang         = get_locale();
 ?>
 <form action="" method="POST" id="freelancer-profile-edit-form" class="edit-form validation-enabled"
       enctype="multipart/form-data">
@@ -9,7 +9,9 @@ $current_lang = get_locale();
     <div class="work-skil" id="fre-post-project">
         <div class="input-field">
             <label for="daily_wage"><?php _e( 'Daily wage rate', ET_DOMAIN ) ?></label>
-            <input id="daily_wage" type="number" placeholder="<?php _e( 'Amount of daily wage', ET_DOMAIN ); ?>" name="daily_wage_rate" value="<?php echo get_the_author_meta( 'daily_wage_rate', $author_id ); ?>" required>
+            <input id="daily_wage" type="number" placeholder="<?php _e( 'Amount of daily wage', ET_DOMAIN ); ?>"
+                   name="daily_wage_rate" value="<?php echo get_the_author_meta( 'daily_wage_rate', $author_id ); ?>"
+                   required>
         </div>
 
         <div class="input-field fre-input-field">
@@ -31,69 +33,70 @@ $current_lang = get_locale();
 				}
 
 				foreach ( $languages as $language ) {
-                    $la_opt_language = get_field( $current_lang . '_label', $language );
+					$la_opt_language = get_field( $current_lang . '_label', $language );
 
-                    if ( get_locale() == 'en_US' ) :
-                        if ( in_array( $language->term_id, $selected_languages ) ) {
-                            echo '<option value="' . $language->term_id . '" selected>' . $language->name . '</option>';
-                        } else {
-                            echo '<option value="' . $language->term_id . '">' . $language->name . '</option>';
-                        }
-                    else:
-                        if ( in_array( $language->term_id, $selected_languages ) ) {
-                            echo '<option class="la-option" value="' . $language->term_id . '" selected>' . $la_opt_language . '</option>';
-                        } else {
-                            echo '<option class="la-option" value="' . $language->term_id . '">' . $la_opt_language . '</option>';
-                        }
-                    endif;
+					if ( get_locale() == 'en_US' ) :
+						if ( in_array( $language->term_id, $selected_languages ) ) {
+							echo '<option value="' . $language->term_id . '" selected>' . $language->name . '</option>';
+						} else {
+							echo '<option value="' . $language->term_id . '">' . $language->name . '</option>';
+						}
+					else:
+						if ( in_array( $language->term_id, $selected_languages ) ) {
+							echo '<option class="la-option" value="' . $language->term_id . '" selected>' . $la_opt_language . '</option>';
+						} else {
+							echo '<option class="la-option" value="' . $language->term_id . '">' . $la_opt_language . '</option>';
+						}
+					endif;
 				}
 				?>
             </select>
         </div>
 
         <div class="input-field fre-input-field full">
-            <label class="fre-field-title" for="project_category"><?php _e( 'Interested Project Categories', ET_DOMAIN ) ?></label>
+            <label class="fre-field-title"
+                   for="project_category"><?php _e( 'Interested Project Categories', ET_DOMAIN ) ?></label>
             <select name="project_category[]" id="project_category" class="sfm-select2" multiple required>
                 <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
 
-	            <?php
-	            $categories = get_terms( array(
-		            'taxonomy'   => 'project_category',
-		            'hide_empty' => false,
-	            ) );
+				<?php
+				$categories = get_terms( array(
+					'taxonomy'   => 'project_category',
+					'hide_empty' => false,
+				) );
 
-	            $user_category_ids      = unserialize( get_user_meta( get_current_user_id(), 'user_category', true ) );
-	            $user_profile_categories = get_the_terms( $user_profile_post_id, 'project_category' );
+				$user_category_ids       = unserialize( get_user_meta( get_current_user_id(), 'user_category', true ) );
+				$user_profile_categories = get_the_terms( $user_profile_post_id, 'project_category' );
 
-	            $selected_categories      = [];
-	            if ($user_category_ids) {
-		            $selected_categories = $user_category_ids;
-	            } else {
-		            if ( $user_profile_categories ) {
-			            foreach ( $user_profile_categories as $category ) {
-				            $selected_categories[] = $category->term_id;
-			            }
-		            }
-	            }
+				$selected_categories = [];
+				if ( $user_category_ids ) {
+					$selected_categories = $user_category_ids;
+				} else {
+					if ( $user_profile_categories ) {
+						foreach ( $user_profile_categories as $category ) {
+							$selected_categories[] = $category->term_id;
+						}
+					}
+				}
 
-	            foreach ( $categories as $category ) {
-		            $la_opt_cat = get_field( $current_lang . '_label', $category );
+				foreach ( $categories as $category ) {
+					$la_opt_cat = get_field( $current_lang . '_label', $category );
 
-		            if ( get_locale() == 'en_US' ) :
-			            if ( in_array( $category->term_id, $selected_categories ) ) {
-				            echo '<option value="' . $category->term_id . '" selected>' . $category->name . '</option>';
-			            } else {
-				            echo '<option value="' . $category->term_id . '">' . $category->name . '</option>';
-			            }
-		            else:
-			            if ( in_array( $category->term_id, $selected_categories ) ) {
-				            echo '<option class="la-option" value="' . $category->term_id . '" selected>' . $la_opt_cat . '</option>';
-			            } else {
-				            echo '<option class="la-option" value="' . $category->term_id . '">' . $la_opt_cat . '</option>';
-			            }
-		            endif;
-	            }
-	            ?>
+					if ( get_locale() == 'en_US' ) :
+						if ( in_array( $category->term_id, $selected_categories ) ) {
+							echo '<option value="' . $category->term_id . '" selected>' . $category->name . '</option>';
+						} else {
+							echo '<option value="' . $category->term_id . '">' . $category->name . '</option>';
+						}
+					else:
+						if ( in_array( $category->term_id, $selected_categories ) ) {
+							echo '<option class="la-option" value="' . $category->term_id . '" selected>' . $la_opt_cat . '</option>';
+						} else {
+							echo '<option class="la-option" value="' . $category->term_id . '">' . $la_opt_cat . '</option>';
+						}
+					endif;
+				}
+				?>
             </select>
         </div>
 
@@ -116,21 +119,21 @@ $current_lang = get_locale();
 				}
 
 				foreach ( $skills as $skill ) {
-                    $la_opt_skill = get_field( $current_lang . '_label', $skill );
+					$la_opt_skill = get_field( $current_lang . '_label', $skill );
 
-                    if ( get_locale() == 'en_US' ) :
-                        if ( in_array( $skill->term_id, $selected_skill ) ) {
-                            echo '<option value="' . $skill->term_id . '" selected>' . $skill->name . '</option>';
-                        } else {
-                            echo '<option value="' . $skill->term_id . '">' . $skill->name . '</option>';
-                        }
-                    else:
-                        if ( in_array( $skill->term_id, $selected_skill ) ) {
-                            echo '<option class="la-option" value="' . $skill->term_id . '" selected>' . $la_opt_skill . '</option>';
-                        } else {
-                            echo '<option class="la-option" value="' . $skill->term_id . '">' . $la_opt_skill . '</option>';
-                        }
-                    endif;
+					if ( get_locale() == 'en_US' ) :
+						if ( in_array( $skill->term_id, $selected_skill ) ) {
+							echo '<option value="' . $skill->term_id . '" selected>' . $skill->name . '</option>';
+						} else {
+							echo '<option value="' . $skill->term_id . '">' . $skill->name . '</option>';
+						}
+					else:
+						if ( in_array( $skill->term_id, $selected_skill ) ) {
+							echo '<option class="la-option" value="' . $skill->term_id . '" selected>' . $la_opt_skill . '</option>';
+						} else {
+							echo '<option class="la-option" value="' . $skill->term_id . '">' . $la_opt_skill . '</option>';
+						}
+					endif;
 				}
 				?>
             </select>
@@ -138,21 +141,35 @@ $current_lang = get_locale();
     </div>
     <h3 class="profile-title"><?php _e( 'Personal Details', ET_DOMAIN ) ?></h3>
     <div class="personal-details">
-        <div class="input-field">
-            <label for="first_name"><?php _e( 'First Name', ET_DOMAIN ) ?></label>
-            <input id="first_name" type="text" name="first_name" placeholder="First Name"
-                   value="<?php echo get_the_author_meta( 'first_name', $author_id ); ?>" required>
-        </div>
-        <div class="input-field">
-            <label for="last_name"><?php _e( 'Last Name', ET_DOMAIN ) ?></label>
-            <input id="last_name" type="text" name="last_name" placeholder="Last Name"
-                   value="<?php echo get_the_author_meta( 'last_name', $author_id ); ?>" required>
-        </div>
         <div class="three-column-row">
+            <div class="input-field">
+                <label for="first_name"><?php _e( 'First Name', ET_DOMAIN ) ?></label>
+                <input id="first_name" type="text" name="first_name" placeholder="First Name"
+                       value="<?php echo get_the_author_meta( 'first_name', $author_id ); ?>" required>
+            </div>
+            <div class="input-field">
+                <label for="last_name"><?php _e( 'Last Name', ET_DOMAIN ) ?></label>
+                <input id="last_name" type="text" name="last_name" placeholder="Last Name"
+                       value="<?php echo get_the_author_meta( 'last_name', $author_id ); ?>" required>
+            </div>
             <div class="input-field">
                 <label for="display_name"><?php _e( 'Display Name', ET_DOMAIN ) ?></label>
                 <input id="display_name" type="text" name="display_name" placeholder="Public Name"
                        value="<?php echo get_the_author_meta( 'display_name', $author_id ); ?>" required>
+            </div>
+            <div class="input-field">
+                <label for="nationality_visible"><?php _e( 'Nationality', ET_DOMAIN ) ?></label>
+				<?php
+				$user_nationality_id  = get_user_meta( get_current_user_id(), 'user_country_id', true );
+				$user_profile_country = get_the_terms( $user_profile_post_id, 'country' );
+				if ( $user_nationality_id ) {
+					$nationality = get_term( $user_nationality_id, 'country' )->name;
+				} else {
+					$nationality = $user_profile_country[0]->name;
+				}
+				?>
+                <input id="nationality_visible" type="text" name="nationality_visible" placeholder="Nationality"
+                       value="<?php echo $nationality; ?>" readonly>
             </div>
             <div class="input-field">
                 <label for="phone_number"><?php _e( 'Phone Number', ET_DOMAIN ) ?></label>
@@ -207,28 +224,24 @@ $current_lang = get_locale();
 						'hide_empty' => false,
 					) );
 
-					$user_country_id         = get_user_meta( get_current_user_id(), 'user_country_id', true );
-					$user_profile_country    = get_the_terms( $user_profile_post_id, 'country' );
-					$user_profile_country_id = $user_profile_country != '' ? $user_profile_country[0]->term_id : '';
-
-					$selected_country_id = $user_country_id ? $user_country_id : $user_profile_country_id;
+					$selected_country_id = get_the_terms( $user_profile_post_id, 'country' );
 
 					foreach ( $countries as $country ) {
-                        $la_opt_country = get_field( $current_lang . '_label', $country );
+						$la_opt_country = get_field( $current_lang . '_label', $country );
 
-                        if ( get_locale() == 'en_US' ) :
-                            if ( $selected_country_id ) {
-                                echo '<option value="' . $country->term_id . '" ' . ( $selected_country_id == $country->term_id ? 'selected' : '' ) . '>' . $country->name . '</option>';
-                            } else {
-                                echo '<option value="' . $country->term_id . '">' . $country->name . '</option>';
-                            }
-                        else:
-                            if ( $selected_country_id ) {
-                                echo '<option class="la-option" value="' . $country->term_id . '" ' . ( $selected_country_id == $country->term_id ? 'selected' : '' ) . '>' . $la_opt_country . '</option>';
-                            } else {
-                                echo '<option class="la-option" value="' . $country->term_id . '">' . $la_opt_country . '</option>';
-                            }
-                        endif;
+						if ( get_locale() == 'en_US' ) :
+							if ( $selected_country_id ) {
+								echo '<option value="' . $country->term_id . '" ' . ( $selected_country_id[0]->term_id == $country->term_id ? 'selected' : '' ) . '>' . $country->name . '</option>';
+							} else {
+								echo '<option value="' . $country->term_id . '">' . $country->name . '</option>';
+							}
+						else:
+							if ( $selected_country_id ) {
+								echo '<option class="la-option" value="' . $country->term_id . '" ' . ( $selected_country_id[0]->term_id == $country->term_id ? 'selected' : '' ) . '>' . $la_opt_country . '</option>';
+							} else {
+								echo '<option class="la-option" value="' . $country->term_id . '">' . $la_opt_country . '</option>';
+							}
+						endif;
 					}
 					?>
                 </select>
@@ -243,7 +256,7 @@ $current_lang = get_locale();
     <h3 class="profile-title"><?php _e( 'Profile Picture', ET_DOMAIN ) ?></h3>
     <div class="picture-change">
         <div class="profile-image">
-            <?php echo get_avatar($author_id, 150, '', '', array('width' => 150, 'height' => 150)); ?>
+			<?php echo get_avatar( $author_id, 150, '', '', array( 'width' => 150, 'height' => 150 ) ); ?>
         </div>
         <div class="upload-file">
             <label for="input-file-now"><?php _e( 'Change your profile picture', ET_DOMAIN ) ?></label>
@@ -258,5 +271,6 @@ $current_lang = get_locale();
 
 	<?php wp_nonce_field( 'edit_profile', 'edit_profile_nonce' ); ?>
 
-    <button class="btn-all ie_btn submit" id="update-freelancer-profile" type="submit" name="submit"><?php _e( 'Save all information', ET_DOMAIN ) ?></button>
+    <button class="btn-all ie_btn submit" id="update-freelancer-profile" type="submit"
+            name="submit"><?php _e( 'Save all information', ET_DOMAIN ) ?></button>
 </form>

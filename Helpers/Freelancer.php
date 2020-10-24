@@ -290,7 +290,7 @@ class Freelancer {
 		wp_set_post_terms( $user_profile_post, $form_data['country_you_live'], 'country' );
 
 		// Remove old country term id from user meta
-		delete_user_meta( $freelancer_id, 'user_country_id' );
+//		delete_user_meta( $freelancer_id, 'user_country_id' );
 		delete_user_meta( $freelancer_id, 'user_category' );
 
 		// Update Professional Job title

@@ -67,25 +67,31 @@ if ( ! defined( 'ABSPATH' ) ) {
                         </div>
                         <h3 class="profile-title"><?php _e( 'Personal Details', ET_DOMAIN ) ?></h3>
                         <div class="personal-details">
-                            <div class="input-field">
-                                <label for="first_name"><?php _e( 'First Name', ET_DOMAIN ) ?></label>
-                                <input id="first_name" type="text" name="first_name" placeholder="First Name" required>
-                                <label id="first_name-error" class="error"
-                                       for="first_name"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
-                            </div>
-                            <div class="input-field">
-                                <label for="last_name"><?php _e( 'Last Name', ET_DOMAIN ) ?></label>
-                                <input id="last_name" type="text" name="last_name" placeholder="Last Name" required>
-                                <label id="last_name-error" class="error"
-                                       for="last_name"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
-                            </div>
                             <div class="three-column-row">
+                                <div class="input-field">
+                                    <label for="first_name"><?php _e( 'First Name', ET_DOMAIN ) ?></label>
+                                    <input id="first_name" type="text" name="first_name" placeholder="First Name"
+                                           required>
+                                    <label id="first_name-error" class="error"
+                                           for="first_name"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
+                                </div>
+                                <div class="input-field">
+                                    <label for="last_name"><?php _e( 'Last Name', ET_DOMAIN ) ?></label>
+                                    <input id="last_name" type="text" name="last_name" placeholder="Last Name" required>
+                                    <label id="last_name-error" class="error"
+                                           for="last_name"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
+                                </div>
                                 <div class="input-field">
                                     <label for="display_name"><?php _e( 'Display Name', ET_DOMAIN ) ?></label>
                                     <input id="display_name" type="text" name="display_name" placeholder="Public Name"
                                            required>
                                     <label id="display_name-error" class="error"
                                            for="display_name"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
+                                </div>
+                                <div class="input-field">
+                                    <label for="nationality_visible"><?php _e( 'Nationality', ET_DOMAIN ) ?></label>
+                                    <input id="nationality_visible" type="text" name="nationality_visible"
+                                           placeholder="Nationality" value="" readonly>
                                 </div>
                                 <div class="input-field">
                                     <label for="phone_number"><?php _e( 'Phone Number', ET_DOMAIN ) ?></label>
@@ -161,7 +167,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                             </div>
                         </div>
 
-                        <button class="btn-all ie_btn submit" id="update-freelancer-profile" type="submit" name="submit"><?php _e( 'Save all information', ET_DOMAIN ) ?></button>
+                        <button class="btn-all ie_btn submit" id="update-freelancer-profile" type="submit"
+                                name="submit"><?php _e( 'Save all information', ET_DOMAIN ) ?></button>
                     </form>
                 </div><!-- End .project_info -->
             </div>
