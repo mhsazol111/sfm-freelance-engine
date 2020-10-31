@@ -7,11 +7,23 @@ $current_lang         = get_locale();
       enctype="multipart/form-data">
     <h3 class="profile-title"><?php _e( 'Work rates and skills', ET_DOMAIN ) ?></h3>
     <div class="work-skil" id="fre-post-project">
-        <div class="input-field">
+        <div class="input-field fre-input-field">
             <label for="daily_wage"><?php _e( 'Daily wage rate', ET_DOMAIN ) ?></label>
-            <input id="daily_wage" type="number" placeholder="<?php _e( 'Amount of daily wage', ET_DOMAIN ); ?>"
-                   name="daily_wage_rate" value="<?php echo get_the_author_meta( 'daily_wage_rate', $author_id ); ?>"
-                   required>
+            <div class="fre-daily-wage">
+				<?php $wage = get_the_author_meta( 'daily_wage_rate', $author_id ); ?>
+                <select name="daily_wage_rate" id="daily_wage_rate" class="budget-select2" required style="width: 100%">
+					<?php if ( $wage && $wage != 'agreed' ) : ?>
+                        <option value="<?php echo $wage; ?>" selected><?php echo $wage; ?></option>
+                        <option value="agreed"><?php _e( 'To be agreed', ET_DOMAIN ); ?></option>
+					<?php elseif ( $wage == 'agreed' ) : ?>
+                        <option value=""><?php _e( 'Input your wage or select from dropdown', ET_DOMAIN ); ?></option>
+                        <option value="agreed" selected><?php _e( 'To be agreed', ET_DOMAIN ); ?></option>
+					<?php else : ?>
+                        <option value=""><?php _e( 'Input your wage or select from dropdown', ET_DOMAIN ); ?></option>
+                        <option value="agreed"><?php _e( 'To be agreed', ET_DOMAIN ); ?></option>
+					<?php endif; ?>
+                </select>
+            </div>
         </div>
 
         <div class="input-field fre-input-field">

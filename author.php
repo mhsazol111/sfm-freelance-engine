@@ -149,13 +149,6 @@ if( isset($convert->hour_rate) )
                                               <?php _e( "Invite", ET_DOMAIN ) ?>
                                             </a>
                                           <?php }  ?>
-                                          <?php
-//                                            $show_btn =  apply_filters('show_btn_contact', false); // @since 1.8.5
-//                                            if( $show_btn ){ ?>
-<!--                                            <a href="#" data-toggle="modal" class="contact-me"   data-user="--><?php //echo $convert->post_author ?><!--">-->
-<!--                                                --><?php //_e( "Contact", ET_DOMAIN ) ?>
-<!--                                            </a>-->
-<!--                                          --><?php //} ?>
                                         </div>
                                       <?php } ?>
                                       <?php if ( fre_share_role() || ae_user_role( $author_id ) == FREELANCER ) { ?>
@@ -168,7 +161,16 @@ if( isset($convert->hour_rate) )
                                           <div class="fpp-wage-rate">
                                               <span><?php _e( 'Wage Rate:', ET_DOMAIN ) ?></span>
                                               <span>
-                                                  <b>CHF <?php echo $author_freelancer->daily_wage_rate; ?> </b>/<?php _e( 'day', ET_DOMAIN ) ?>
+                                                  <?php
+                                                    $wage = $author_freelancer->daily_wage_rate;
+                                                    if ( $wage && $wage != 'agreed' ) :
+                                                        ?>
+                                                      <b>CHF <?php echo $wage; ?> </b>/<?php _e( 'day', ET_DOMAIN ); ?>
+                                                  <?php elseif ( $wage == 'agreed' ) : ?>
+	                                                  <b><?php _e( 'To be agreed', ET_DOMAIN ); ?></b>
+                                                  <?php else : ?>
+                                                      <b>CHF <?php echo $wage; ?> </b>/<?php _e( 'day', ET_DOMAIN ); ?>
+                                                  <?php endif; ?>
                                               </span>
                                           </div>
                                           <div class="fpp-social-link">

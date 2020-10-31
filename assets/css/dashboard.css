@@ -169,7 +169,6 @@ h4.complete-profile-notice {
     color: #2094c6;
     font-weight: 700;
 }
-
 #dashboard_content {
     padding: 35px;
     padding-bottom: 50px;
@@ -385,7 +384,6 @@ h4.complete-profile-notice {
     color: #ffa300;
     font-size: 8px;
 }
-
 .ie_btn_small {
     color: #fff;
     font-size: 14px;
@@ -413,7 +411,6 @@ h4.complete-profile-notice {
 .ie_btn_small.ie_btn_orange {
     background: #d09936;
 }
-
 @media only screen and (max-width: 1410px) {
     #dashboard_content .project_info .pro_row, #freelancer-dashboard #dashboard_content .project_info .pro_row {
         flex-basis: calc(33.33% - 30px);
@@ -459,7 +456,6 @@ h4.complete-profile-notice {
         background-color: #fff !important;
     }
 }
-
 @media only screen and (max-width: 1199px) {
     #dashboard_content .project_info .pro_row, #freelancer-dashboard #dashboard_content .project_info .pro_row {
         flex-basis: calc(50% - 15px);
@@ -480,7 +476,6 @@ h4.complete-profile-notice {
         margin-bottom: 30px;
     }
 }
-
 @media only screen and (max-width: 991px) {
     #dashboard_content {
         width: calc(100% - 250px);
@@ -533,7 +528,6 @@ h4.complete-profile-notice {
         text-align: center;
     }
 }
-
 /* tab css */
 .emp-tabs {
     display: flex;
@@ -584,7 +578,6 @@ h4.complete-profile-notice {
     border: 0;
     background: transparent;
 }
-
 .emp-tabs .form-group {
     width: 280px;
     position: relative;
@@ -601,7 +594,6 @@ h4.complete-profile-notice {
     background: transparent;
     font-style: italic;
 }
-
 /* project row css */
 .project_posts .project_row {
     margin-top: 30px;
@@ -879,7 +871,6 @@ hr.clear {
         margin-bottom: 20px;
     }
 }
-
 /* ==================================================
                         Single Projects 
 ==================================================*/
@@ -918,7 +909,6 @@ hr.clear {
 .single-project-wrapper .dashboard_inn > .project-detail-box div > a:hover {
     background-color: #333 !important;
 }
-
 .post-project-wrapper .fre-field-title {
     font-size: 14px;
     font-weight: 700;
@@ -1284,7 +1274,6 @@ hr.bottom_hr {
     color: #000;
     font-weight: 700;
 }
-
 .project_content p {
     font-size: 14px;
     line-height: 24px;
@@ -1314,7 +1303,6 @@ hr.bottom_hr {
     transition: 0.5s cubic-bezier(0.86, 0, 0.07, 1);
     font-family: "Open Sans";
 }
-
 .dashboard_inn.single-projects-bid-wrap {
     margin-top: 30px;
 }
@@ -1462,7 +1450,6 @@ hr.bottom_hr {
     right: 10px;
     top: 0;
 }
-
 /* SideBar Slide */
 .profile_dashboard .hamburger-menu-dashbord {
     position: absolute;
@@ -1559,7 +1546,6 @@ label.error, p.input-error {
         left: 0 !important;
     }
 }
-
 @media only screen and (max-width: 991px) {
     .project_info .info_left {
         width: 100%;
@@ -1589,7 +1575,6 @@ label.error, p.input-error {
         left: 230px;
     }
 }
-
 @media only screen and (max-width: 767px) {
     .single-project-wrapper #dashboard_content .proposals_freelancers .dashboard_inn {
         padding-left: 0;
@@ -1647,7 +1632,6 @@ label.error, p.input-error {
         text-align: left;
     }
 }
-
 .project_info .employer.info_right {
     display: none;
 }
@@ -1762,7 +1746,6 @@ label.error, p.input-error {
 /* ==================================================
                         Single Projects 
 ==================================================*/
-
 /* ==================================================
                         Post A Project 
 ==================================================*/
@@ -1824,7 +1807,6 @@ label.error, p.input-error {
     display: flex;
     justify-content: flex-end;
 }
-
 .fre-input-field .select2-container--default .select2-selection--multiple .select2-selection__choice {
     background: #f2f5f7;
     border: none;
@@ -1852,7 +1834,12 @@ label.error, p.input-error {
     position: relative;
     border-color: #cccccc;
 }
-
+.fre-daily-wage .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 46px !important;
+}
+.fre-daily-wage .select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 44px;
+}
 .page-template-page-register .fre-input-field .select2-container, .page-template-page-register .fre-input-field .select2-container span.select2-selection {
     border-color: rgb(33, 143, 190);
 }
@@ -1865,14 +1852,12 @@ label.error, p.input-error {
     color: #9ea5aa;
     font-size: 16px;
 }
-
 /*#select2-freelancer-skill-results, #select2-freelancer-country-results, #select2-project-skill-results, #select2-project-category-results, #select2-project-country-results {*/
 /*    min-height: 350px;*/
 /*}*/
 /*input.select2-search__field[aria-controls="select2-freelancer-skill-results"], input.select2-search__field[aria-controls="select2-freelancer-language-results"], input.select2-search__field[aria-controls="select2-freelancer-country-results"], input.select2-search__field[aria-controls="select2-project-skill-results"], input.select2-search__field[aria-controls="select2-project-category-results"], input.select2-search__field[aria-controls="select2-project-country-results"], input.select2-search__field[aria-controls="select2-country_you_live-results"], input.select2-search__field[aria-controls="select2-country-results"] {*/
 /*!*     display: none; *!*/
 /*}*/
-
 #post-project-form input,
 #post-project-form div#country_chosen {
     min-height: 51px;
@@ -1883,7 +1868,6 @@ label.error, p.input-error {
     line-height: inherit !important;
     margin-bottom: 15px !important;
 }
-
 .bid-location-details .fre-project-budget .select2-container {
     display: block !important;
     width: 100% !important;
@@ -1958,7 +1942,6 @@ label.error, p.input-error {
 /* ==================================================
                         Post A Project 
 ==================================================*/
-
 /* ==================================================
                         Edit Profile
 ==================================================*/
@@ -1980,7 +1963,6 @@ label.error, p.input-error {
     -webkit-appearance: none;
     -moz-appearance: none;
 }
-
 .input-field label {
     display: block;
     margin-bottom: 15px;
@@ -2009,7 +1991,6 @@ label.error, p.input-error {
     margin-left: -15px;
     margin-right: -15px;
 }
-
 .input-field input,
 .location-details select {
     width: 100%;
@@ -2045,7 +2026,6 @@ h3.profile-title {
     margin-bottom: 30px;
     justify-content: space-between;
 }
-
 .profile-image {
     margin-right: 30px;
     max-width: 133px;
@@ -2099,7 +2079,6 @@ label.custom-file-label {
     padding: 0;
     cursor: pointer;
 }
-
 .upload-file {
     max-width: 100%;
     width: calc(100% - 163px);
@@ -2124,7 +2103,6 @@ label.custom-file-label {
 form.edit-form {
     width: 100%;
 }
-
 .location-details span.select2 .select2-selection {
     width: 100%;
     border: 1px solid #ccc;
@@ -2138,10 +2116,9 @@ form.edit-form {
 .location-details span.select2 .select2-selection span.select2-selection__arrow {
     height: 50px;
 }
-
 @media only screen and (min-width: 1200px) {
     .search_fields #browse-freelancer-form .form-group {
-        width: calc( 33.33% - 20px );
+        width: calc(33.33% - 20px);
         margin-bottom: 20px;
     }
     .search_fields #browse-freelancer-form .clear_div {
@@ -2208,7 +2185,6 @@ form.edit-form {
 /* ==================================================
                         Edit Profile
 ==================================================*/
-
 /* ==================================================
                         Public Profile Page
 ==================================================*/
@@ -2449,9 +2425,7 @@ h4.fpp-title {
 section.fpp-completed-project-section {
     padding-bottom: 30px;
 }
-
 /* portfolio css */
-
 .fpp-portfolio-wrap {
     display: flex;
     flex-wrap: wrap;
@@ -2468,7 +2442,6 @@ section.fpp-completed-project-section {
     margin-left: 10px;
     margin-right: 10px;
 }
-
 .fpp-inner-cont {
     background: rgba(246, 85, 137, 0.5) none repeat scroll 0 0;
     height: 100%;
@@ -2516,7 +2489,6 @@ a.fpp-lightbox-image {
 .fpp-pf-content a {
     margin: 0px 10px;
 }
-
 .fpp-pf-cnts-inner {
     position: absolute;
     bottom: 25%;
@@ -2526,7 +2498,6 @@ a.fpp-lightbox-image {
     padding-right: 5%;
     width: 100%;
 }
-
 .fpp-pf-cnts-inner p {
     color: #fff;
     margin-bottom: 0;
@@ -2670,7 +2641,6 @@ a.fpp-lightbox-image {
 /* ==================================================
                         Public Profile Page
 ==================================================*/
-
 /* ==================================================
                         Single Bid Projects
 ==================================================*/
@@ -2859,7 +2829,6 @@ a.fpp-lightbox-image {
     right: 15px;
     top: 10px;
 }
-
 @media only screen and (min-width: 992px) and (max-width: 1280px) {
     .single-bid-wrapper .freelancer_row {
         border-left: 1px solid rgb(239, 239, 239);
@@ -2937,11 +2906,9 @@ a.fpp-lightbox-image {
         flex-basis: 100%;
     }
 }
-
 /* ==================================================
                         Single Bid Projects
 ==================================================*/
-
 /* ==================================================
                         Browse Projects Style
 ==================================================*/
@@ -3053,7 +3020,6 @@ a.fpp-lightbox-image {
 .browse-project-wrapper .project_row .head_right .freelancer_info p i {
     width: 15px;
 }
-
 @media only screen and (max-width: 1199px) {
     .browse-project-wrapper .project_row .head_left {
         width: calc(100% - 190px);
@@ -3078,7 +3044,6 @@ a.fpp-lightbox-image {
 /* ==================================================
                         Browse Projects Style
 ==================================================*/
-
 /* ==================================================
                         Messages
 ==================================================*/
@@ -3288,7 +3253,6 @@ a.fpp-lightbox-image {
 /* ==================================================
                         Messages
 ==================================================*/
-
 /* ==================================================
                         Submit Proposal
 ==================================================*/
@@ -3572,7 +3536,6 @@ a.fpp-lightbox-image {
         font-size: 14px;
         margin-bottom: 10px;
     }
-
 }
 @media only screen and (max-width: 575px) {
     .proposal-meta-description .proposal-skill,
@@ -3728,7 +3691,6 @@ ul.fpp-portfolio-wrap li .freelance-portfolio-wrap .portfolio-action a {
 /* ==================================================
                         My Portfolio Page
 ==================================================*/
-
 /* ==================================================
                 Freelancer Archive Page
 ==================================================*/
@@ -3820,7 +3782,6 @@ ul.fpp-portfolio-wrap li .freelance-portfolio-wrap .portfolio-action a {
 /* ==================================================
                         Freelancer Archive Page
 ==================================================*/
-
 /* ==================================================
                         Help & Support Page
 ==================================================*/
@@ -3865,7 +3826,6 @@ ul.fpp-portfolio-wrap li .freelance-portfolio-wrap .portfolio-action a {
 /* ==================================================
                         Help & Support Page
 ==================================================*/
-
 /* ==================================================
                         Not Verified Page
 ==================================================*/
@@ -3893,7 +3853,6 @@ ul.fpp-portfolio-wrap li .freelance-portfolio-wrap .portfolio-action a {
 /* ==================================================
                         Not Verified Page
 ==================================================*/
-
 /* ==================================================
                         Pagination
 ==================================================*/
@@ -3928,7 +3887,6 @@ ul.fpp-portfolio-wrap li .freelance-portfolio-wrap .portfolio-action a {
 /* ==================================================
                         Pagination
 ==================================================*/
-
 /* ==================================================
                         Modal Form
 ==================================================*/
@@ -3963,7 +3921,6 @@ ul.fpp-portfolio-wrap li .freelance-portfolio-wrap .portfolio-action a {
 /* ==================================================
                         Modal Form
 ==================================================*/
-
 /* ==================================================
                         Employer Project Review
 ==================================================*/
