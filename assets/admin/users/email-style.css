@@ -1,0 +1,127 @@
+/* Loader */
+#loader-wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, .8);
+    z-index: 99999;
+}
+.loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.sfm-admin-ea-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.sfm-admin-ea-body {
+    margin-top: 15px;
+}
+.send-button-wrap {
+    position: fixed;
+    z-index: 9;
+    right: 20px;
+    bottom: 25px;
+    background-color: #7db1ff;
+    width: 110px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 5px;
+    display: none;
+}
+#email-popup-wrap {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    background-color: rgba(0, 0, 0, .7);
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s ease-in-out;
+}
+#email-popup-wrap.active {
+    opacity: 1;
+    visibility: visible;
+}
+.email-popup-container {
+    max-width: 900px;
+    width: 90%;
+    background-color: #fff;
+    padding: 20px 30px 40px;
+    position: relative;
+    box-sizing: border-box;
+}
+#email-popup-close {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    transition: opacity .3s ease-in-out;
+}
+#email-popup-close span {
+    font-size: 20px;
+    margin-top: -4px;
+    margin-left: 3px;
+}
+#email-popup-close:hover {
+    opacity: .7;
+}
+.email-popup-container h4 {
+    font-size: 18px;
+    margin: 0 0 10px;
+    text-align: center;
+}
+.email-editor-wrap {
+    margin-bottom: 15px;
+}
+.email-content-wrapper {
+    display: flex;
+}
+.email-content-wrapper #sfm-user-mail-form {
+    width: 80%;
+}
+.params-container {
+    width: 20%;
+    padding: 10px 0 10px 20px;
+}
+.sfm-user-input-wrap {
+    margin-bottom: 10px;
+}
+.sfm-user-input-wrap label {
+    display: block;
+    margin-bottom: 5px;
+}
+.sfm-user-input-wrap input {
+    width: 100%;
+}

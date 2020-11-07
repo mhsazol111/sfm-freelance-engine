@@ -324,13 +324,19 @@ function pending_users_admin_view() {
 add_action( 'admin_menu', 'pending_users_submenu' );
 
 function sfm_admin_scripts( $hook ) {
-	if ( 'users_page_pending_users' != $hook ) {
-		return;
+	if ( 'users_page_pending_users' == $hook ) {
+		wp_enqueue_script( 'sfm-admin-js', get_stylesheet_directory_uri() . '/assets/js/sfm-admin-script.js', array( 'jquery' ), '1.0', true );
+		wp_localize_script( 'sfm-admin-js', 'ajaxObject', array(
+			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+		) );
 	}
-	wp_enqueue_script( 'sfm-admin-js', get_stylesheet_directory_uri() . '/assets/js/sfm-admin-script.js', array( 'jquery' ), '1.0', true );
-	wp_localize_script( 'sfm-admin-js', 'ajaxObject', array(
-		'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-	) );
+	if ( 'users_page_mass_email_to_users' == $hook ) {
+		wp_enqueue_style( 'sfm-admin-user-email-style', get_stylesheet_directory_uri() . '/assets/admin/users/email-style.css', null, '1.0', 'all' );
+		wp_enqueue_script( 'sfm-admin-user-email-script', get_stylesheet_directory_uri() . '/assets/admin/users/email-script.js', array( 'jquery' ), '1.0', true );
+		wp_localize_script( 'sfm-admin-user-email-script', 'ajaxObject', array(
+			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+		) );
+	}
 }
 
 add_action( 'admin_enqueue_scripts', 'sfm_admin_scripts' );
@@ -484,10 +490,39 @@ add_action( 'init', 'register_language_taxonomy' );
 
 // Custom Header Codes inside <head></head> tag
 function sfm_add_header_scripts() {
-	$codes = get_field('custom_header_codes', 'option');
+	$codes = get_field( 'custom_header_codes', 'option' );
 	echo $codes;
 }
-add_action('wp_head', 'sfm_add_header_scripts');
+
+add_action( 'wp_head', 'sfm_add_header_scripts' );
+
+
+/*
+ * Send Emails to users
+ */
+add_action( 'admin_menu', 'mass_email_to_users_menu' );
+function mass_email_to_users_menu() {
+	add_users_page(
+		__( 'Send Email to Users', ET_DOMAIN ),
+		__( 'Send Email to Users', ET_DOMAIN ),
+		'manage_options',
+		'mass_email_to_users',
+		'mass_email_to_users_admin_view'
+	);
+}
+
+// Add display_name to WP_User_Query search column
+add_filter( 'user_search_columns', function ( $search_columns ) {
+	$search_columns[] = 'display_name';
+
+	return $search_columns;
+} );
+
+function mass_email_to_users_admin_view() {
+	ob_start();
+	get_template_part( 'template-parts/admin/users/user-email', 'page' );
+	echo ob_get_clean();
+}
 
 
 // Helper Classes
@@ -501,3 +536,4 @@ require 'Helpers/Project.php';
 require 'Helpers/Bid.php';
 require 'Helpers/Email_Notification.php';
 require 'Helpers/sfmInvitations.php';
+require 'Helpers/Send_Email_To_Users.php';
