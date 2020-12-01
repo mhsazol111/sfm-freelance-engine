@@ -98,7 +98,7 @@
 
                 $("#browse-project-form").submit();
             })
-            .on( "click", ".browse-project-wrapper .sfm-pagination ul li .page-numbers", function (e) {
+            .on("click", ".browse-project-wrapper .sfm-pagination ul li .page-numbers", function (e) {
                     e.preventDefault();
 
                     let formData = new FormData($("#browse-project-form")[0]);

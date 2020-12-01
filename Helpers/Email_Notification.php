@@ -4,7 +4,7 @@
 class Email_Notification {
 
 	private $admin_emails;
-	private $headers;
+	public $headers;
 	private $from_email;
 
 	public function __construct() {

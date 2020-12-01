@@ -1,5 +1,7 @@
 <?php
 
+define( 'ET_DOMAIN', 'enginetheme' );
+
 /**
  * Including Custom scripts
  */
@@ -31,11 +33,6 @@ function sfm_load_scripts() {
 	if ( is_singular() ) {
 		wp_enqueue_style( 'single-post-css', get_stylesheet_directory_uri() . '/assets/css/single.css', null, time(), 'all' );
 	}
-//	if ( is_post_type_archive( 'project' ) ) {
-//		wp_enqueue_script( 'wnumb', '//cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js', array( 'jquery' ), '14.0.3', true );
-//		wp_enqueue_script( 'noui-js', '//cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.js', array( 'jquery' ), '14.0.3', true );
-//		wp_enqueue_style( 'noui-css', '//cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.0.3/nouislider.min.css', null, '14.0.3', 'all' );
-//	}
 
 	wp_enqueue_style( 'sfm-dashboard', get_stylesheet_directory_uri() . '/assets/css/dashboard.css', null, time(), 'all' );
 
@@ -233,7 +230,7 @@ if ( ! function_exists( 'sfm_register_nav_menu' ) ) {
 
 
 function disable_logged_out_user_from_protected_pages() {
-	if ( ( is_post_type_archive( PROJECT ) || is_page_template( 'page-edit-profile.php' ) || is_singular( PROJECT ) || is_singular( PROFILE ) || is_singular( BID ) ) && ! is_user_logged_in() ) {
+	if ( ( is_post_type_archive( PROJECT ) || is_page_template( 'page-edit-profile.php' ) || is_singular( PROJECT ) || is_singular( PROFILE ) || is_singular( BID ) || is_page_template( 'page-notification-settings.php' ) ) && ! is_user_logged_in() ) {
 		$loginUrl = home_url( '/login/' );
 		wp_redirect( $loginUrl );
 		exit();
@@ -275,6 +272,12 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 	acf_add_options_sub_page( array(
 		'page_title'  => 'Email Options',
 		'menu_title'  => 'Email Options',
+		'parent_slug' => 'theme-options',
+	) );
+	acf_add_options_sub_page( array(
+		'page_title'  => 'Notification Settings',
+		'menu_title'  => 'Notification Settings',
+		'menu_slug'   => 'notification-option',
 		'parent_slug' => 'theme-options',
 	) );
 }
@@ -537,3 +540,386 @@ require 'Helpers/Bid.php';
 require 'Helpers/Email_Notification.php';
 require 'Helpers/sfmInvitations.php';
 require 'Helpers/Send_Email_To_Users.php';
+require 'Helpers/User_Notification.php';
+
+
+function custom_logs( $message ) {
+	if ( is_array( $message ) ) {
+		$message = json_encode( $message );
+	}
+	$file = fopen( __DIR__ . '/debug.log', "a" );
+	echo fwrite( $file, "\n" . date( 'Y-m-d h:i:s' ) . " :: " . $message );
+	fclose( $file );
+}
+
+
+/**
+ * Sending User Email Notifications
+ */
+$user_notification = new User_Notification();
+
+//  Daily notification
+if ( ! wp_next_scheduled( 'send_daily_employer_notification', array( 'employer', 'daily' ) ) ) {
+	wp_schedule_event( time(), 'daily', 'send_daily_employer_notification', array( 'employer', 'daily' ) );
+}
+add_action( 'send_daily_employer_notification', 'send_daily_user_notification', 10, 2 );
+
+if ( ! wp_next_scheduled( 'send_daily_freelancer_notification', array( 'freelancer', 'daily' ) ) ) {
+	wp_schedule_event( time(), 'daily', 'send_daily_freelancer_notification', array( 'freelancer', 'daily' ) );
+}
+add_action( 'send_daily_freelancer_notification', 'send_daily_user_notification', 10, 2 );
+
+
+//  Weekly notification
+if ( ! wp_next_scheduled( 'send_weekly_employer_notification', array( 'employer', 'weekly' ) ) ) {
+	wp_schedule_event( time(), 'weekly', 'send_weekly_employer_notification', array( 'employer', 'weekly' ) );
+}
+add_action( 'send_weekly_employer_notification', 'send_daily_user_notification', 10, 2 );
+
+if ( ! wp_next_scheduled( 'send_weekly_freelancer_notification', array( 'freelancer', 'weekly' ) ) ) {
+	wp_schedule_event( time(), 'weekly', 'send_weekly_freelancer_notification', array( 'freelancer', 'weekly' ) );
+}
+add_action( 'send_weekly_freelancer_notification', 'send_daily_user_notification', 10, 2 );
+
+
+//  Fortnightly notification
+if ( ! wp_next_scheduled( 'send_fortnightly_employer_notification', array( 'employer', 'fortnightly' ) ) ) {
+	wp_schedule_event( time(), 'fortnightly', 'send_fortnightly_employer_notification', array(
+		'employer',
+		'fortnightly'
+	) );
+}
+add_action( 'send_fortnightly_employer_notification', 'send_daily_user_notification', 10, 2 );
+
+if ( ! wp_next_scheduled( 'send_fortnightly_freelancer_notification', array( 'freelancer', 'fortnightly' ) ) ) {
+	wp_schedule_event( time(), 'fortnightly', 'send_fortnightly_freelancer_notification', array(
+		'freelancer',
+		'fortnightly'
+	) );
+}
+add_action( 'send_fortnightly_freelancer_notification', 'send_daily_user_notification', 10, 2 );
+
+
+//  Monthly notification
+if ( ! wp_next_scheduled( 'send_once_monthly_employer_notification', array( 'employer', 'once_monthly' ) ) ) {
+	wp_schedule_event( time(), 'once_monthly', 'send_once_monthly_employer_notification', array(
+		'employer',
+		'once_monthly'
+	) );
+}
+add_action( 'send_once_monthly_employer_notification', 'send_daily_user_notification', 10, 2 );
+
+if ( ! wp_next_scheduled( 'send_once_monthly_freelancer_notification', array( 'freelancer', 'once_monthly' ) ) ) {
+	wp_schedule_event( time(), 'once_monthly', 'send_once_monthly_freelancer_notification', array(
+		'freelancer',
+		'once_monthly'
+	) );
+}
+add_action( 'send_once_monthly_freelancer_notification', 'send_daily_user_notification', 10, 2 );
+
+
+function send_daily_user_notification( $role, $recurrence ) {
+	$users = get_users( array(
+		'role' => $role,
+	) );
+
+	$notification = new User_Notification();
+
+	foreach ( $users as $user ) {
+		$notification_settings = get_user_meta( $user->ID, 'notification_settings', true ) ? unserialize( get_user_meta( $user->ID, 'notification_settings', true ) ) : false;
+		if ( $notification_settings ) {
+			$status = $notification_settings['status'];
+			if ( $status ) {
+				$frequency = $notification_settings['frequency'];
+				$quantity  = $notification_settings['quantity'];
+
+				if ( $role == 'freelancer' ) {
+					$project_cat_ids = $notification_settings['project_cat_ids'];
+
+					if ( $recurrence == $frequency ) {
+						$projects = get_eligible_project_ids( $recurrence, $project_cat_ids );
+
+						if ( $projects ) {
+
+							$projects_html = '<ul style="margin: 0; padding: 0; list-style-type: none;">';
+
+							foreach ( $projects as $project ) {
+								$projects_html .= '<li id="project_id_' . $project->ID . '" style="margin: 0 0 5px;"><a href="' . get_permalink( $project->ID ) . '" target="_blank" style="font-size: 14px;text-decoration: none;display: block;color: #333;padding: 5px 10px 5px 15px;background-color: rgba(32, 148, 198, .1);border-radius: 15px;">' . get_the_title( $project->ID ) . '</a></li>';
+							}
+
+							$projects_html .= '</ul>';
+
+							$email_fields       = get_field( 'en_freelancer_notification_email_template', 'option' );
+							$email_subject      = $email_fields['subject'];
+							$email_body         = $email_fields['email_body'];
+							$email_replaces     = array(
+								'{{freelancer_name}}',
+								'{{freelancer_email}}',
+								'{{project_list}}',
+								'{{notification_settings}}'
+							);
+							$email_replace_with = array(
+								$user->display_name,
+								$user->user_email,
+								$projects_html,
+								esc_url( get_site_url() . '/notification-settings' ),
+							);
+							$email_body         = str_replace( $email_replaces, $email_replace_with, $email_body );
+							wp_mail( $user->user_email, $email_subject, $notification->email_body_html( $email_body ), $notification->headers );
+						}
+					}
+				} elseif ( $role == 'employer' ) {
+					$freelancer_required_categories = $notification_settings['freelancer_cat_ids'];
+					$freelancer_required_skills     = $notification_settings['freelancer_skill_ids'];
+
+					if ( $recurrence == $frequency ) {
+						$freelancer_ids = get_eligible_freelancer_ids( $recurrence, $freelancer_required_categories, $freelancer_required_skills );
+
+						if ( $freelancer_ids ) {
+
+							$freelancers_html = '<ul style="margin: 0; padding: 0; list-style-type: none;">';
+
+							foreach ( $freelancer_ids as $f_id ) {
+								$freelancer       = get_user_by( 'ID', $f_id );
+								$freelancers_html .= '
+								<li id="freelancer_id_' . $f_id . '" style="margin: 0 0 10px;">
+								    <a href="' . get_author_posts_url( $f_id ) . '" target="_blank" style="display: table; max-width: 535px; width:100%; font-size: 14px;text-decoration: none;color: #333;padding: 5px 10px 5px 15px;background-color: rgba(32, 148, 198, .1);border-radius: 7px;">
+								        <div style="width: 50px; height: 50px; border-radius: 50px; overflow: hidden; display: block; margin-right: 10px; margin-top: 5px;">' . get_avatar( $f_id, 50 ) . '</div>
+								        <div style="width: 495px; display: table-cell; vertical-align: middle; padding: 10px 5px;"><p style="margin: 0;">' . $freelancer->display_name . '</p><small>' . get_user_meta( $f_id, 'job_title', true ) . '</small></div>
+								    </a>
+								</li>';
+							}
+
+							$freelancers_html .= '</ul>';
+
+							$email_fields       = get_field( 'en_employer_notification_email_template', 'option' );
+							$email_subject      = $email_fields['subject'];
+							$email_body         = $email_fields['email_body'];
+							$email_replaces     = array(
+								'{{employer_name}}',
+								'{{employer_email}}',
+								'{{freelancer_list}}',
+								'{{notification_settings}}'
+							);
+							$email_replace_with = array(
+								$user->display_name,
+								$user->user_email,
+								$freelancers_html,
+								esc_url( get_site_url() . '/notification-settings' ),
+							);
+							$email_body         = str_replace( $email_replaces, $email_replace_with, $email_body );
+
+							wp_mail( $user->user_email, $email_subject, $notification->email_body_html( $email_body ), $notification->headers );
+						}
+
+					}
+				}
+			}
+		}
+	}
+}
+
+//add_action( 'init', 'send_daily_user_notification', 9999, 1 );
+
+
+/**
+ * Get eligible freelancer ids based on category and skill
+ *
+ * @param string $time_period
+ * @param array $required_categories
+ * @param array $required_skills
+ *
+ * @return array|false
+ */
+function get_eligible_freelancer_ids( $time_period = 'daily', $required_categories = array(), $required_skills = array() ) {
+
+	$date_query = '-1 day';
+
+	if ( $time_period == 'weekly' ) {
+		$date_query = '-7 days';
+	} elseif ( $time_period == 'fortnightly' ) {
+		$date_query = '-15 days';
+	} elseif ( $time_period == 'once_monthly' ) {
+		$date_query = 'last month';
+	}
+
+	$args = array(
+		'role'       => 'freelancer',
+		'meta_query' => array(
+			'relation' => 'AND',
+			array(
+				'key'     => 'account_status',
+				'value'   => 'active',
+				'compare' => '='
+			),
+			array(
+				'key'     => 'user_profile_id',
+				'compare' => 'EXISTS'
+			),
+		),
+		'date_query' => array(
+			array( 'after' => $date_query, 'inclusive' => true )
+		)
+	);
+
+	$users = new WP_User_Query( $args );
+
+	if ( ! $users->get_results() ) {
+		return false;
+	}
+
+
+	$freelancer_ids           = wp_list_pluck( $users->get_results(), 'ID' );
+	$cat_filtered_freelancers = [];
+	$filtered_ids             = [];
+
+//	pri_dump( 'required categories' );
+//	pri_dump( $required_categories );
+//	pri_dump( 'required skills' );
+//	pri_dump( $required_skills );
+
+	//	if ( $required_categories ) {
+//		foreach ( $required_categories as $cat ) {
+//			foreach ( $freelancer_ids as $id ) {
+//				$freelancer_profile_post_id = get_user_meta( $id, 'user_profile_id', true );
+//				$freelancer_categories      = wp_get_post_terms( $freelancer_profile_post_id, 'project_category', array( 'fields' => 'ids' ) );
+//				$freelancer_skills          = wp_get_post_terms( $freelancer_profile_post_id, 'skill', array( 'fields' => 'ids' ) );
+//
+//				if ( in_array( $cat, $freelancer_categories ) ) {
+//					$cat_filtered_freelancer[] = $id;
+//				}
+//
+//				print_r( $cat_filtered_freelancer );
+//			}
+//		}
+//	}
+
+//	print_r( $cat_filtered_freelancer );
+
+	foreach ( $freelancer_ids as $id ) {
+		$freelancer_profile_post_id = get_user_meta( $id, 'user_profile_id', true );
+		$freelancer_categories      = wp_get_post_terms( $freelancer_profile_post_id, 'project_category', array( 'fields' => 'ids' ) );
+		$freelancer_skills          = wp_get_post_terms( $freelancer_profile_post_id, 'skill', array( 'fields' => 'ids' ) );
+
+		// Checks if freelancer has any of the categories available
+		if ( $required_categories && array_intersect( $freelancer_categories, $required_categories ) ) {
+			$cat_filtered_freelancers[] = $id;
+		}
+	}
+
+	return $cat_filtered_freelancers;
+
+//	foreach ( $cat_filtered_freelancers as $id ) {
+//		$freelancer_profile_post_id = get_user_meta( $id, 'user_profile_id', true );
+//		$freelancer_categories      = wp_get_post_terms( $freelancer_profile_post_id, 'project_category', array( 'fields' => 'ids' ) );
+//		$freelancer_skills          = wp_get_post_terms( $freelancer_profile_post_id, 'skill', array( 'fields' => 'ids' ) );
+//
+//		pri_dump( 'freelancer skills' );
+//		pri_dump( $freelancer_skills );
+//
+//		foreach ( $required_categories as $cat ) {
+//			if ( $required_skills[ $cat ] ) {
+//				print_r( array_diff( $required_skills[ $cat ], $freelancer_skills ) );
+//			}
+//		}
+//	}
+
+//		if ( $required_categories ) {
+//			foreach ( $required_categories as $cat ) {
+//				if ( in_array( $cat, $freelancer_categories ) ) {
+//					if ( ! in_array( $id, $filtered_ids ) ) {
+//						$filtered_ids[] = $id;
+//					}
+//
+////					if ( $required_skills && $required_skills[ $cat ] && ! array_diff( $required_skills[ $cat ], $freelancer_skills ) && ! in_array( $id, $filtered_ids ) ) {
+////						$filtered_ids[] = $id;
+////						echo 'required skill available';
+////					}
+////					if ( ! $required_skills && ! $required_skills[ $cat ] && ! in_array( $id, $filtered_ids ) ) {
+////						$filtered_ids[] = $id;
+////						echo 'no required skill available';
+////					}
+//
+////
+////					if ( ! $required_skills[ $cat ] && ! in_array( $id, $filtered_ids ) ) {
+////						$filtered_ids[] = $id;
+////					} elseif ( $required_skills[ $cat ] && ! array_diff( $required_skills[ $cat ], $freelancer_skills ) && ! in_array( $id, $filtered_ids ) ) {
+////						$filtered_ids[] = $id;
+////					}
+//				}
+//			}
+//		}
+
+//		if ( $required_skills ) {
+//			foreach ( $required_skills as $skill ) {
+////				print_r( $skill );
+////                echo '<br/>';
+//				print_r( array_diff( $skill, $freelancer_skills ) );
+//
+//				if ( array_diff( $skill, $freelancer_skills ) ) {
+//					if ( in_array( $id, $filtered_ids ) ) {
+////						$filtered_ids = array_diff( $filtered_ids, [ $id ] );
+//					}
+//				}
+//			}
+//		}
+
+//	foreach ( $filtered_ids as $id ) {
+//		$freelancer_profile_post_id = get_user_meta( $id, 'user_profile_id', true );
+//		$freelancer_categories      = wp_get_post_terms( $freelancer_profile_post_id, 'project_category', array( 'fields' => 'ids' ) );
+//		$freelancer_skills          = wp_get_post_terms( $freelancer_profile_post_id, 'skill', array( 'fields' => 'ids' ) );
+//
+//
+//	}
+
+//	return [
+//		'freelancer id'           => $freelancer_ids,
+//		'cat filtered freelancer' => $cat_filtered_freelancers,
+//		'all filtered freelancer' => $filtered_ids
+//	];
+}
+
+
+/**
+ * Get eligible post objects matched based on category
+ *
+ * @param string $time_period
+ * @param array $required_categories
+ *
+ * @return false|array
+ */
+function get_eligible_project_ids( $time_period = 'daily', $required_categories = array() ) {
+	$date_query = '-1 day';
+	if ( $time_period == 'weekly' ) {
+		$date_query = '-7 days';
+	} elseif ( $time_period == 'fortnightly' ) {
+		$date_query = '-15 days';
+	} elseif ( $time_period == 'once_monthly' ) {
+		$date_query = 'last month';
+	}
+
+	$args = array(
+		'post_type'      => 'project',
+		'post_status'    => 'publish',
+		'posts_per_page' => 9999,
+		'tax_query'      => array(
+			'relation' => 'AND',
+			array(
+				'taxonomy' => 'project_category',
+				'field'    => 'term_id',
+				'terms'    => $required_categories,
+			),
+		),
+		'date_query'     => array(
+			array( 'after' => $date_query, 'inclusive' => true )
+		)
+	);
+
+	$projects = new WP_Query( $args );
+
+	if ( ! $projects->posts ) {
+		return false;
+	}
+
+	return $projects->posts;
+}
