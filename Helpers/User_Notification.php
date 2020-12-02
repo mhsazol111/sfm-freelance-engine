@@ -14,8 +14,7 @@ class User_Notification extends Email_Notification {
 	public function notification_settings() {
 		header( 'Content-Type: application/json' );
 
-		$formData = $_REQUEST;
-
+		$formData              = $_REQUEST;
 		$errors                = [];
 		$has_error             = false;
 		$notification_settings = [];
@@ -60,7 +59,10 @@ class User_Notification extends Email_Notification {
 			}
 		} else {
 			if ( isset( $formData['freelancer-cat-ids'] ) && $formData['freelancer-cat-ids'] != '' ) {
-				$notification_settings['freelancer_cat_ids'] = $formData['freelancer-cat-ids'];
+				foreach ( $formData['freelancer-cat-ids'] as $cat_id ) {
+					$notification_settings['freelancer_cat_ids'][ $cat_id ] = [];
+				}
+//				$notification_settings['freelancer_cat_ids'] = $formData['freelancer-cat-ids'];
 			} else {
 				$errors[]  = array(
 					'name'    => 'freelancer-cat-ids[]',
@@ -76,9 +78,19 @@ class User_Notification extends Email_Notification {
 			}
 
 			if ( isset( $formData['freelancer-skill-ids'] ) && $formData['freelancer-skill-ids'] != '' ) {
-				$notification_settings['freelancer_skill_ids'] = $formData['freelancer-skill-ids'];
+				foreach ( $formData['freelancer-skill-ids'] as $key => $id ) {
+					if ( array_key_exists( $key, $notification_settings['freelancer_cat_ids'] ) ) {
+						$notification_settings['freelancer_cat_ids'][ $key ] = $id;
+					} else {
+						$notification_settings['freelancer_cat_ids'];
+					}
+				}
+//				$notification_settings['freelancer_skill_ids'] = $formData['freelancer-skill-ids'];
 			}
 		}
+
+//		pri_dump( $notification_settings );
+//		wp_die();
 
 		if ( $has_error && $errors ) {
 			echo wp_json_encode( array( 'success' => false, 'errors' => $errors ) );

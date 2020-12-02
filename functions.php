@@ -562,24 +562,24 @@ $user_notification = new User_Notification();
 if ( ! wp_next_scheduled( 'send_daily_employer_notification', array( 'employer', 'daily' ) ) ) {
 	wp_schedule_event( time(), 'daily', 'send_daily_employer_notification', array( 'employer', 'daily' ) );
 }
-add_action( 'send_daily_employer_notification', 'send_daily_user_notification', 10, 2 );
+add_action( 'send_daily_employer_notification', 'send_user_email_notification', 10, 2 );
 
 if ( ! wp_next_scheduled( 'send_daily_freelancer_notification', array( 'freelancer', 'daily' ) ) ) {
 	wp_schedule_event( time(), 'daily', 'send_daily_freelancer_notification', array( 'freelancer', 'daily' ) );
 }
-add_action( 'send_daily_freelancer_notification', 'send_daily_user_notification', 10, 2 );
+add_action( 'send_daily_freelancer_notification', 'send_user_email_notification', 10, 2 );
 
 
 //  Weekly notification
 if ( ! wp_next_scheduled( 'send_weekly_employer_notification', array( 'employer', 'weekly' ) ) ) {
 	wp_schedule_event( time(), 'weekly', 'send_weekly_employer_notification', array( 'employer', 'weekly' ) );
 }
-add_action( 'send_weekly_employer_notification', 'send_daily_user_notification', 10, 2 );
+add_action( 'send_weekly_employer_notification', 'send_user_email_notification', 10, 2 );
 
 if ( ! wp_next_scheduled( 'send_weekly_freelancer_notification', array( 'freelancer', 'weekly' ) ) ) {
 	wp_schedule_event( time(), 'weekly', 'send_weekly_freelancer_notification', array( 'freelancer', 'weekly' ) );
 }
-add_action( 'send_weekly_freelancer_notification', 'send_daily_user_notification', 10, 2 );
+add_action( 'send_weekly_freelancer_notification', 'send_user_email_notification', 10, 2 );
 
 
 //  Fortnightly notification
@@ -589,7 +589,7 @@ if ( ! wp_next_scheduled( 'send_fortnightly_employer_notification', array( 'empl
 		'fortnightly'
 	) );
 }
-add_action( 'send_fortnightly_employer_notification', 'send_daily_user_notification', 10, 2 );
+add_action( 'send_fortnightly_employer_notification', 'send_user_email_notification', 10, 2 );
 
 if ( ! wp_next_scheduled( 'send_fortnightly_freelancer_notification', array( 'freelancer', 'fortnightly' ) ) ) {
 	wp_schedule_event( time(), 'fortnightly', 'send_fortnightly_freelancer_notification', array(
@@ -597,7 +597,7 @@ if ( ! wp_next_scheduled( 'send_fortnightly_freelancer_notification', array( 'fr
 		'fortnightly'
 	) );
 }
-add_action( 'send_fortnightly_freelancer_notification', 'send_daily_user_notification', 10, 2 );
+add_action( 'send_fortnightly_freelancer_notification', 'send_user_email_notification', 10, 2 );
 
 
 //  Monthly notification
@@ -607,7 +607,7 @@ if ( ! wp_next_scheduled( 'send_once_monthly_employer_notification', array( 'emp
 		'once_monthly'
 	) );
 }
-add_action( 'send_once_monthly_employer_notification', 'send_daily_user_notification', 10, 2 );
+add_action( 'send_once_monthly_employer_notification', 'send_user_email_notification', 10, 2 );
 
 if ( ! wp_next_scheduled( 'send_once_monthly_freelancer_notification', array( 'freelancer', 'once_monthly' ) ) ) {
 	wp_schedule_event( time(), 'once_monthly', 'send_once_monthly_freelancer_notification', array(
@@ -615,10 +615,10 @@ if ( ! wp_next_scheduled( 'send_once_monthly_freelancer_notification', array( 'f
 		'once_monthly'
 	) );
 }
-add_action( 'send_once_monthly_freelancer_notification', 'send_daily_user_notification', 10, 2 );
+add_action( 'send_once_monthly_freelancer_notification', 'send_user_email_notification', 10, 2 );
 
-
-function send_daily_user_notification( $role, $recurrence ) {
+// Callback for user notification
+function send_user_email_notification( $role, $recurrence ) {
 	$users = get_users( array(
 		'role' => $role,
 	) );
@@ -637,16 +637,21 @@ function send_daily_user_notification( $role, $recurrence ) {
 					$project_cat_ids = $notification_settings['project_cat_ids'];
 
 					if ( $recurrence == $frequency ) {
-						$projects = get_eligible_project_ids( $recurrence, $project_cat_ids );
+						$projects_ids = get_eligible_project_ids( $recurrence, $project_cat_ids );
 
-						if ( $projects ) {
+						if ( $projects_ids ) {
 
-							$projects_html = '<ul style="margin: 0; padding: 0; list-style-type: none;">';
-
-							foreach ( $projects as $project ) {
-								$projects_html .= '<li id="project_id_' . $project->ID . '" style="margin: 0 0 5px;"><a href="' . get_permalink( $project->ID ) . '" target="_blank" style="font-size: 14px;text-decoration: none;display: block;color: #333;padding: 5px 10px 5px 15px;background-color: rgba(32, 148, 198, .1);border-radius: 15px;">' . get_the_title( $project->ID ) . '</a></li>';
+							$total_projects = count( $projects_ids );
+							if ( $total_projects > $quantity ) {
+								shuffle( $projects_ids );
+								$projects_ids = array_slice( $projects_ids, 0, $quantity );
 							}
 
+							$projects_html = '<ul style="margin: 0; padding: 0; list-style-type: none;">';
+							foreach ( $projects_ids as $project ) {
+								$project       = get_post( $project );
+								$projects_html .= '<li id="project_id_' . $project->ID . '" style="margin: 0 0 5px;"><a href="' . get_permalink( $project->ID ) . '" target="_blank" style="font-size: 14px;text-decoration: none;display: block;color: #333;padding: 5px 10px 5px 15px;background-color: rgba(32, 148, 198, .1);border-radius: 15px;">' . get_the_title( $project->ID ) . '</a></li>';
+							}
 							$projects_html .= '</ul>';
 
 							$email_fields       = get_field( 'en_freelancer_notification_email_template', 'option' );
@@ -665,6 +670,7 @@ function send_daily_user_notification( $role, $recurrence ) {
 								esc_url( get_site_url() . '/notification-settings' ),
 							);
 							$email_body         = str_replace( $email_replaces, $email_replace_with, $email_body );
+
 							wp_mail( $user->user_email, $email_subject, $notification->email_body_html( $email_body ), $notification->headers );
 						}
 					}
@@ -677,8 +683,13 @@ function send_daily_user_notification( $role, $recurrence ) {
 
 						if ( $freelancer_ids ) {
 
-							$freelancers_html = '<ul style="margin: 0; padding: 0; list-style-type: none;">';
+							$total_freelancers = count( $freelancer_ids );
+							if ( $total_freelancers > $quantity ) {
+								shuffle( $freelancer_ids );
+								$freelancer_ids = array_slice( $freelancer_ids, 0, $quantity );
+							}
 
+							$freelancers_html = '<ul style="margin: 0; padding: 0; list-style-type: none;">';
 							foreach ( $freelancer_ids as $f_id ) {
 								$freelancer       = get_user_by( 'ID', $f_id );
 								$freelancers_html .= '
@@ -689,7 +700,6 @@ function send_daily_user_notification( $role, $recurrence ) {
 								    </a>
 								</li>';
 							}
-
 							$freelancers_html .= '</ul>';
 
 							$email_fields       = get_field( 'en_employer_notification_email_template', 'option' );
@@ -719,8 +729,7 @@ function send_daily_user_notification( $role, $recurrence ) {
 	}
 }
 
-//add_action( 'init', 'send_daily_user_notification', 9999, 1 );
-
+add_action( 'init', 'get_eligible_freelancer_ids', 9999, 1 );
 
 /**
  * Get eligible freelancer ids based on category and skill
@@ -757,9 +766,9 @@ function get_eligible_freelancer_ids( $time_period = 'daily', $required_categori
 				'compare' => 'EXISTS'
 			),
 		),
-		'date_query' => array(
-			array( 'after' => $date_query, 'inclusive' => true )
-		)
+//		'date_query' => array(
+//			array( 'after' => $date_query, 'inclusive' => true )
+//		)
 	);
 
 	$users = new WP_User_Query( $args );
@@ -768,115 +777,30 @@ function get_eligible_freelancer_ids( $time_period = 'daily', $required_categori
 		return false;
 	}
 
-
-	$freelancer_ids           = wp_list_pluck( $users->get_results(), 'ID' );
-	$cat_filtered_freelancers = [];
-	$filtered_ids             = [];
-
-//	pri_dump( 'required categories' );
-//	pri_dump( $required_categories );
-//	pri_dump( 'required skills' );
-//	pri_dump( $required_skills );
-
-	//	if ( $required_categories ) {
-//		foreach ( $required_categories as $cat ) {
-//			foreach ( $freelancer_ids as $id ) {
-//				$freelancer_profile_post_id = get_user_meta( $id, 'user_profile_id', true );
-//				$freelancer_categories      = wp_get_post_terms( $freelancer_profile_post_id, 'project_category', array( 'fields' => 'ids' ) );
-//				$freelancer_skills          = wp_get_post_terms( $freelancer_profile_post_id, 'skill', array( 'fields' => 'ids' ) );
-//
-//				if ( in_array( $cat, $freelancer_categories ) ) {
-//					$cat_filtered_freelancer[] = $id;
-//				}
-//
-//				print_r( $cat_filtered_freelancer );
-//			}
-//		}
-//	}
-
-//	print_r( $cat_filtered_freelancer );
+	$freelancer_ids          = wp_list_pluck( $users->get_results(), 'ID' );
+	$eligible_freelancer_ids = [];
 
 	foreach ( $freelancer_ids as $id ) {
 		$freelancer_profile_post_id = get_user_meta( $id, 'user_profile_id', true );
 		$freelancer_categories      = wp_get_post_terms( $freelancer_profile_post_id, 'project_category', array( 'fields' => 'ids' ) );
 		$freelancer_skills          = wp_get_post_terms( $freelancer_profile_post_id, 'skill', array( 'fields' => 'ids' ) );
 
-		// Checks if freelancer has any of the categories available
-		if ( $required_categories && array_intersect( $freelancer_categories, $required_categories ) ) {
-			$cat_filtered_freelancers[] = $id;
+		foreach ( $required_categories as $cat => $skills ) {
+			if ( in_array( $cat, $freelancer_categories ) ) {
+				if ( ! in_array( $id, $eligible_freelancer_ids ) ) {
+					$eligible_freelancer_ids[] = $id;
+				}
+
+				if ( in_array( $id, $eligible_freelancer_ids ) ) {
+					if ( $required_categories[ $cat ] && array_diff( $required_categories[ $cat ], $freelancer_skills ) ) {
+						$eligible_freelancer_ids = array_diff( $eligible_freelancer_ids, [ $id ] );
+					}
+				}
+			}
 		}
 	}
 
-	return $cat_filtered_freelancers;
-
-//	foreach ( $cat_filtered_freelancers as $id ) {
-//		$freelancer_profile_post_id = get_user_meta( $id, 'user_profile_id', true );
-//		$freelancer_categories      = wp_get_post_terms( $freelancer_profile_post_id, 'project_category', array( 'fields' => 'ids' ) );
-//		$freelancer_skills          = wp_get_post_terms( $freelancer_profile_post_id, 'skill', array( 'fields' => 'ids' ) );
-//
-//		pri_dump( 'freelancer skills' );
-//		pri_dump( $freelancer_skills );
-//
-//		foreach ( $required_categories as $cat ) {
-//			if ( $required_skills[ $cat ] ) {
-//				print_r( array_diff( $required_skills[ $cat ], $freelancer_skills ) );
-//			}
-//		}
-//	}
-
-//		if ( $required_categories ) {
-//			foreach ( $required_categories as $cat ) {
-//				if ( in_array( $cat, $freelancer_categories ) ) {
-//					if ( ! in_array( $id, $filtered_ids ) ) {
-//						$filtered_ids[] = $id;
-//					}
-//
-////					if ( $required_skills && $required_skills[ $cat ] && ! array_diff( $required_skills[ $cat ], $freelancer_skills ) && ! in_array( $id, $filtered_ids ) ) {
-////						$filtered_ids[] = $id;
-////						echo 'required skill available';
-////					}
-////					if ( ! $required_skills && ! $required_skills[ $cat ] && ! in_array( $id, $filtered_ids ) ) {
-////						$filtered_ids[] = $id;
-////						echo 'no required skill available';
-////					}
-//
-////
-////					if ( ! $required_skills[ $cat ] && ! in_array( $id, $filtered_ids ) ) {
-////						$filtered_ids[] = $id;
-////					} elseif ( $required_skills[ $cat ] && ! array_diff( $required_skills[ $cat ], $freelancer_skills ) && ! in_array( $id, $filtered_ids ) ) {
-////						$filtered_ids[] = $id;
-////					}
-//				}
-//			}
-//		}
-
-//		if ( $required_skills ) {
-//			foreach ( $required_skills as $skill ) {
-////				print_r( $skill );
-////                echo '<br/>';
-//				print_r( array_diff( $skill, $freelancer_skills ) );
-//
-//				if ( array_diff( $skill, $freelancer_skills ) ) {
-//					if ( in_array( $id, $filtered_ids ) ) {
-////						$filtered_ids = array_diff( $filtered_ids, [ $id ] );
-//					}
-//				}
-//			}
-//		}
-
-//	foreach ( $filtered_ids as $id ) {
-//		$freelancer_profile_post_id = get_user_meta( $id, 'user_profile_id', true );
-//		$freelancer_categories      = wp_get_post_terms( $freelancer_profile_post_id, 'project_category', array( 'fields' => 'ids' ) );
-//		$freelancer_skills          = wp_get_post_terms( $freelancer_profile_post_id, 'skill', array( 'fields' => 'ids' ) );
-//
-//
-//	}
-
-//	return [
-//		'freelancer id'           => $freelancer_ids,
-//		'cat filtered freelancer' => $cat_filtered_freelancers,
-//		'all filtered freelancer' => $filtered_ids
-//	];
+	return $eligible_freelancer_ids;
 }
 
 
@@ -910,9 +834,9 @@ function get_eligible_project_ids( $time_period = 'daily', $required_categories 
 				'terms'    => $required_categories,
 			),
 		),
-		'date_query'     => array(
-			array( 'after' => $date_query, 'inclusive' => true )
-		)
+//		'date_query'     => array(
+//			array( 'after' => $date_query, 'inclusive' => true )
+//		)
 	);
 
 	$projects = new WP_Query( $args );
@@ -921,5 +845,5 @@ function get_eligible_project_ids( $time_period = 'daily', $required_categories 
 		return false;
 	}
 
-	return $projects->posts;
+	return wp_list_pluck( $projects->posts, 'ID' );
 }

@@ -92,7 +92,7 @@ $current_settings = unserialize( $current_settings );
                         <label class="container-checkbox">
 							<?php if ( isset( $selected_cats ) && $selected_cats ) : ?>
                                 <input type="checkbox" name="freelancer-cat-ids[]" class="freelancer-cat-switch"
-                                       value="<?php echo $category->term_id; ?>" <?php echo in_array( $category->term_id, $selected_cats ) ? 'checked' : ''; ?>/>
+                                       value="<?php echo $category->term_id; ?>" <?php echo array_key_exists( $category->term_id, $selected_cats ) ? 'checked' : ''; ?>/>
 							<?php else : ?>
                                 <input type="checkbox" name="freelancer-cat-ids[]" class="freelancer-cat-switch"
                                        value="<?php echo $category->term_id; ?>"
@@ -103,7 +103,7 @@ $current_settings = unserialize( $current_settings );
 
                         <div class="freelancer-category-name"><?php _e( $category->name, ET_DOMAIN ); ?></div>
 
-                        <div class="freelancer-skill-switch-row <?php echo ! $current_settings || ( $selected_cats && in_array( $category->term_id, $selected_cats ) ) ? '' : 'fields-disabled'; ?>">
+                        <div class="freelancer-skill-switch-row <?php echo ! $current_settings || ( $selected_cats && array_key_exists( $category->term_id, $selected_cats ) ) ? '' : 'fields-disabled'; ?>">
                             <p><?php _e( 'Must have skills', ET_DOMAIN ); ?></p>
                             <label class="switch" for="checkbox-<?php echo $category->term_id; ?>">
                                 <input type="checkbox" id="checkbox-<?php echo $category->term_id; ?>"
@@ -114,23 +114,23 @@ $current_settings = unserialize( $current_settings );
                             </label>
                         </div>
 
-                        <div class="freelancer-skills-row <?php echo $selected_skills && $selected_skills[ $category->term_id ] ? '' : 'display-none'; ?>">
+                        <div class="freelancer-skills-row <?php echo $selected_cats && $selected_cats[ $category->term_id ] ? '' : 'display-none'; ?>">
                             <select name="freelancer-skill-ids[<?php echo $category->term_id; ?>][]"
                                     class="form-control skill-select2" multiple
-                                    required <?php echo ( $selected_skills && $selected_skills[ $category->term_id ] ) ? '' : 'disabled'; ?>
+                                    required <?php echo ( $selected_cats && $selected_cats[ $category->term_id ] ) ? '' : 'disabled'; ?>
                                     style="width: 100%">
 								<?php
 								foreach ( $skills as $skill ) :
 									$la_opt_cat = get_field( $current_lang . '_label', $skill );
 
 									if ( get_locale() == 'en_US' ) :
-										if ( $selected_skills[ $category->term_id ] && in_array( $skill->term_id, $selected_skills[ $category->term_id ] ) ) {
+										if ( $selected_cats[ $category->term_id ] && in_array( $skill->term_id, $selected_cats[ $category->term_id ] ) ) {
 											echo '<option value="' . $skill->term_id . '" selected>' . $skill->name . '</option>';
 										} else {
 											echo '<option value="' . $skill->term_id . '">' . $skill->name . '</option>';
 										}
 									else:
-										if ( $selected_skills[ $category->term_id ] && in_array( $skill->term_id, $selected_skills[ $category->term_id ] ) ) {
+										if ( $selected_cats[ $category->term_id ] && in_array( $skill->term_id, $selected_cats[ $category->term_id ] ) ) {
 											echo '<option class="la-option" value="' . $skill->term_id . '" selected>' . $la_opt_cat . '</option>';
 										} else {
 											echo '<option class="la-option" value="' . $skill->term_id . '">' . $la_opt_cat . '</option>';

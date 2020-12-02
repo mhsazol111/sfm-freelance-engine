@@ -21,7 +21,14 @@ $current_page_url = home_url( $wp->request );
         <li class="<?php echo $current_page_url == home_url( 'edit-profile' ) ? 'current-page' : ''; ?>">
             <a href="<?php echo esc_url( home_url( 'edit-profile' ) ); ?>"><i class="fa fa-cog"></i><?php _e( 'Edit My Profile', ET_DOMAIN ) ?></a>
         </li>
-        <li class="<?php echo $current_page_url == home_url( 'help-and-support' ) ? 'current-page' : ''; ?>"><a href="<?php echo home_url( 'help-and-support' ); ?>"><i class="fa fa-question-circle"></i><?php _e( 'Help and Support', ET_DOMAIN ) ?></a></li>
-        <li><a href="<?php echo wp_logout_url( home_url() ); ?>"><i class="fa fa-sign-out"></i><?php _e( 'Logout', ET_DOMAIN ) ?></a></li>
+        <li class="<?php echo $current_page_url == home_url( 'notification-settings' ) ? 'current-page' : ''; ?>">
+            <a href="<?php echo esc_url( home_url( 'notification-settings' ) ); ?>"><i class="fa fa-bell"></i><?php _e( 'Notification Settings', ET_DOMAIN ) ?></a>
+        </li>
+        <li class="<?php echo $current_page_url == home_url( 'help-and-support' ) ? 'current-page' : ''; ?>">
+            <a href="<?php echo home_url( 'help-and-support' ); ?>"><i class="fa fa-question-circle"></i><?php _e( 'Help and Support', ET_DOMAIN ) ?></a>
+        </li>
+        <li>
+            <a href="<?php echo wp_logout_url( home_url() ); ?>"><i class="fa fa-sign-out"></i><?php _e( 'Logout', ET_DOMAIN ) ?></a>
+        </li>
     </ul>
 </div>
