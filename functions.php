@@ -766,9 +766,9 @@ function get_eligible_freelancer_ids( $time_period = 'daily', $required_categori
 				'compare' => 'EXISTS'
 			),
 		),
-//		'date_query' => array(
-//			array( 'after' => $date_query, 'inclusive' => true )
-//		)
+// 		'date_query' => array(
+// 			array( 'after' => $date_query, 'inclusive' => true )
+// 		)
 	);
 
 	$users = new WP_User_Query( $args );
@@ -846,4 +846,15 @@ function get_eligible_project_ids( $time_period = 'daily', $required_categories 
 	}
 
 	return wp_list_pluck( $projects->posts, 'ID' );
+}
+
+
+add_action('admin_head', 'fix_profile_pagination_admin_css');
+
+function fix_profile_pagination_admin_css() {
+  echo '<style>
+    .tablenav {
+    	display: block !important;
+	}
+  </style>';
 }

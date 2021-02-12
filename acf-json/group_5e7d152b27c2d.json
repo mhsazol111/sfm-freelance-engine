@@ -144,6 +144,25 @@
                     "display": "row",
                     "sub_fields": [
                         {
+                            "key": "field_5fd8e21504758",
+                            "label": "Entity",
+                            "name": "entity",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "Switzerland Freelance is an entity of the Interiman Group.",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
                             "key": "field_5e7d1b9a6c1dd",
                             "label": "Title",
                             "name": "title",
@@ -588,7 +607,7 @@
     "hide_on_screen": [
         "the_content"
     ],
-    "active": 1,
+    "active": true,
     "description": "",
-    "modified": 1592684841
+    "modified": 1608049482
 }

@@ -553,15 +553,15 @@ p.banner-content {
     }
 }
 .banner-bottom-coner {
-    background-image: url(../../uploads/2020/04/left-arrow_bg.png);
-    background-repeat: no-repeat;
+    background-color: rgb(228, 27, 35);
     background-size: 100%;
     text-align: center;
     position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 160px;
-    height: 100px;
+    bottom: 26px;
+    right: 26px;
+    width: 271px;
+    height: 64px;
+    z-index:1;
 }
 .banner-bottom-coner p {
     color: #fff;
@@ -569,8 +569,8 @@ p.banner-content {
 }
 .bottom-btn-wrapper {
     position: absolute;
-    top: 40px;
-    right: 18px;
+    /*top: 40px;
+    right: 18px;*/
 }
 .sfm-heading {
     text-align: center;
