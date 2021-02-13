@@ -28,6 +28,18 @@ class Send_Email_To_Users extends Email_Notification {
 			$args['meta_value']   = 'pending';
 			$args['meta_compare'] = '=';
 		}
+		if ( isset( $data['role'] ) && $data['role'] == 'completed' ) {
+			$args['role__in']     = [ 'freelancer', 'employer' ];
+			$args['meta_key']     = 'user_profile_id';
+			$args['meta_value']   = '';
+			$args['meta_compare'] = 'EXISTS';
+		}
+		if ( isset( $data['role'] ) && $data['role'] == 'incomplete' ) {
+			$args['role__in']     = [ 'freelancer', 'employer' ];
+			$args['meta_key']     = 'user_profile_id';
+			$args['meta_value']   = '';
+			$args['meta_compare'] = 'NOT EXISTS';
+		}
 		if ( isset( $data['search'] ) && $data['search'] != '' ) {
 			$args['search']         = $data['search'];
 			$args['search_columns'] = array( 'user_nicename', 'user_login', 'user_email', 'display_name' );

@@ -364,6 +364,7 @@ class Freelancer {
 					'taxonomy' => 'project_category',
 					'field'    => 'term_id',
 					'terms'    => $term_ids,
+					'operator' => ( isset( $form_data['freelancer-category'] ) && $form_data['freelancer-category'] != '' ) ? 'AND' : '',
 				),
 			)
 		);
@@ -376,6 +377,7 @@ class Freelancer {
 				'taxonomy' => 'skill',
 				'field'    => 'term_id',
 				'terms'    => $form_data['freelancer-skill'],
+				'operator' => 'AND',
 			);
 		}
 		if ( isset( $form_data['freelancer-language'] ) && $form_data['freelancer-language'] != '' ) {
@@ -383,6 +385,7 @@ class Freelancer {
 				'taxonomy' => 'language',
 				'field'    => 'term_id',
 				'terms'    => $form_data['freelancer-language'],
+				'operator' => 'AND',
 			);
 		}
 		if ( isset( $form_data['freelancer-country'] ) && $form_data['freelancer-country'] != '' ) {

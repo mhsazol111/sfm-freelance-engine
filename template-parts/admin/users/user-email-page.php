@@ -12,6 +12,18 @@ $pending    = array(
 	'meta_value'   => 'pending',
 	'meta_compare' => '='
 );
+$completed  = array(
+	'role__in'     => [ 'freelancer', 'employer' ],
+	'meta_key'     => 'user_profile_id',
+	'meta_value'   => '',
+	'meta_compare' => 'EXISTS'
+);
+$incomplete = array(
+	'role__in'     => [ 'freelancer', 'employer' ],
+	'meta_key'     => 'user_profile_id',
+	'meta_value'   => '',
+	'meta_compare' => 'NOT EXISTS'
+);
 $users      = array( 'role__in' => [ 'freelancer', 'employer' ] );
 
 $params = $users;
@@ -23,6 +35,10 @@ if ( isset( $_REQUEST['role'] ) && $_REQUEST['role'] == 'freelancer' ) {
 	$params = $pending;
 } elseif ( isset( $_REQUEST['role'] ) && $_REQUEST['role'] == 'all' ) {
 	$params = $users;
+} elseif ( isset( $_REQUEST['status'] ) && $_REQUEST['status'] == 'completed' ) {
+	$params = $completed;
+} elseif ( isset( $_REQUEST['status'] ) && $_REQUEST['status'] == 'incomplete' ) {
+	$params = $incomplete;
 }
 ?>
 
@@ -59,6 +75,22 @@ if ( isset( $_REQUEST['role'] ) && $_REQUEST['role'] == 'freelancer' ) {
                        data-type="pending">
                         Pending
                         <span class="count">(<?php echo count( get_users_query( $pending ) ); ?>)</span>
+                    </a>
+                </li>
+                <li class="completed">
+                    <a href="?page=mass_email_to_users&status=completed"
+                       class="<?php echo ( isset( $_REQUEST['status'] ) && $_REQUEST['status'] == 'completed' ) ? 'current' : '' ?>"
+                       data-type="completed">
+                        Completed
+                        <span class="count">(<?php echo count( get_users_query( $completed ) ); ?>)</span>
+                    </a>
+                </li>
+                <li class="incomplete">
+                    <a href="?page=mass_email_to_users&status=incomplete"
+                       class="<?php echo ( isset( $_REQUEST['status'] ) && $_REQUEST['status'] == 'incomplete' ) ? 'current' : '' ?>"
+                       data-type="incomplete">
+                        Incomplete
+                        <span class="count">(<?php echo count( get_users_query( $incomplete ) ); ?>)</span>
                     </a>
                 </li>
             </ul>

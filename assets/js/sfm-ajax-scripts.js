@@ -4,6 +4,7 @@
         if ($('.sfm-select2').length) {
             $('.sfm-select2').select2({
                 width: '100%',
+                minimumResultsForSearch: -1
                 // allowClear: true
             });
 
@@ -73,11 +74,8 @@
                     // Ajax Callback
                     filteredAjaxPagination($(this), formData);
                 }
-            );
-
-        // Browse Project Ajax
-        $("body")
-            .on("submit", "#browse-project-form", function (e) {
+            )
+            .on("submit", "#browse-project-form", function (e) { // Browse Project Ajax
                 e.preventDefault();
 
                 let formData = new FormData(this);
@@ -97,8 +95,9 @@
                 $('#project-country').val($('#project-country option:eq(0)').val()).trigger('change');
 
                 $("#browse-project-form").submit();
+                location.reload();
             })
-            .on( "click", ".browse-project-wrapper .sfm-pagination ul li .page-numbers", function (e) {
+            .on("click", ".browse-project-wrapper .sfm-pagination ul li .page-numbers", function (e) {
                     e.preventDefault();
 
                     let formData = new FormData($("#browse-project-form")[0]);
@@ -107,11 +106,8 @@
                     // Ajax Callback
                     filteredAjaxPagination($(this), formData);
                 }
-            );
-
-        // Browse Freelancer Ajax Start
-        $("body")
-            .on("submit", "#browse-freelancer-form", function (e) {
+            )
+            .on("submit", "#browse-freelancer-form", function (e) { // Browse Freelancer Ajax Start
                 e.preventDefault();
 
                 let formData = new FormData(this);
@@ -131,6 +127,7 @@
                 $('#freelancer-language').val($('#freelancer-language option:eq(0)').val()).trigger('change');
 
                 $("#browse-freelancer-form").submit();
+                location.reload();
             }).on("click", ".browse-freelancer-wrapper .sfm-pagination ul li .page-numbers", function (e) {
                 e.preventDefault();
 

@@ -20,7 +20,10 @@
         data-colname="Username"><?php echo $user->user_nicename; ?></td>
     <td class="status column-status" style="text-transform: capitalize"
         data-colname="Status">
-		<?php echo get_user_meta( $user->id, 'account_status', true ); ?>
+		<?php echo ( get_user_meta( $user->id, 'account_status', true ) == 'active' ) ? 'Approved' : 'Pending'; ?>
     </td>
-    <!--    <td class="action column-action" data-colname="Action">Action</td>-->
+    <td class="status column-profile_status" style="text-transform: capitalize"
+        data-colname="Profile Status">
+		<?php echo ( get_user_meta( $user->id, 'user_profile_id', true ) ) ? 'Completed' : 'Incomplete'; ?>
+    </td>
 </tr>

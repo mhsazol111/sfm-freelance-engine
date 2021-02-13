@@ -24,9 +24,9 @@ $current_lang = get_locale();
             <button type="submit"><i class="fas fa-search"></i></button>
         </div>
 
-        <div class="form-group">
-            <select class="custom-select form-control sfm-select2" id="freelancer-category" name="freelancer-category">
-                <option value=""><?php echo $category_label; ?></option>
+        <div class="form-group fre-input-field freelancer-language-input">
+            <select class="custom-select form-control sfm-select2" id="freelancer-category" name="freelancer-category[]"
+                    multiple data-placeholder="<?php echo $category_label; ?>">
 				<?php
 				foreach ( $categories as $category ) {
 					$la_opt_category = get_field( $current_lang . '_label', $category );
@@ -41,9 +41,9 @@ $current_lang = get_locale();
             </select>
         </div>
 
-        <div class="form-group">
-            <select class="custom-select form-control sfm-select2" id="freelancer-skill" name="freelancer-skill">
-                <option value=""><?php echo $skill_label; ?></option>
+        <div class="form-group fre-input-field freelancer-language-input">
+            <select class="custom-select form-control sfm-select2" id="freelancer-skill" name="freelancer-skill[]"
+                    multiple data-placeholder="<?php echo $skill_label; ?>">
 				<?php
 				foreach ( $skills as $skill ) {
 					$la_opt_skill = get_field( $current_lang . '_label', $skill );

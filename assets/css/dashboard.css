@@ -1195,7 +1195,7 @@ hr.bottom_hr {
 #browse-project-form span.select2,
 #browse-project-form span.select2 span.select2-selection,
 #browse-project-form span.select2 span.select2-selection > span {
-    height: 45px;
+    min-height: 45px;
     line-height: 45px;
 }
 /*.proposal_rows .d_footer .footer_left {*/
@@ -3959,11 +3959,10 @@ ul.fpp-portfolio-wrap li .freelance-portfolio-wrap .portfolio-action a {
 div.fre-chosen-multi.chosen-container .chosen-results li.highlighted {
     background-color: #2094c6 !important;
 }
-#select2-freelancer-language-container button.select2-selection__choice__remove {
+#select2-freelancer-language-container button.select2-selection__choice__remove, #select2-freelancer-skill-container button.select2-selection__choice__remove, #select2-freelancer-category-container button.select2-selection__choice__remove {
     left: 1px;
 }
 .fre-input-field.freelancer-language-input .select2-container span.select2-selection {
-    height: 45px !important;
     min-height: 45px !important;
     border-color: #333333;
 }
@@ -4116,4 +4115,7 @@ input:checked + .slider:before {
 }
 .freelancer-skills-row {
     width: 100%;
+}
+span.select2-dropdown.select2-dropdown--below {
+    margin-top: 32px;
 }
