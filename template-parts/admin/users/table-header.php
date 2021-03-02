@@ -7,7 +7,11 @@
     </td>
     <th scope="col" id="name" class="manage-column column-name column-primary">Name</th>
     <th scope="col" id="email" class="manage-column column-email">Email</th>
-    <th scope="col" id="username" class="manage-column column-username">Username</th>
-    <th scope="col" id="status" class="manage-column column-status">Status</th>
+    <th scope="col" id="usertype" class="manage-column column-usertype">User Type</th>
+    <th scope="col" id="status" class="manage-column column-status">Approval Status</th>
+    <th scope="col" id="category" class="manage-column column-category">Category</th>
+    <th scope="col" id="skill" class="manage-column column-skill">Skills</th>
+    <th scope="col" id="country" class="manage-column column-country">Country</th>
+    <th scope="col" id="language" class="manage-column column-language">Languages</th>
     <th scope="col" id="profile_status" class="manage-column column-profile_status">Profile Status</th>
 </tr>

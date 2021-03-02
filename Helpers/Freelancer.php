@@ -182,8 +182,15 @@ class Freelancer {
 		}
 
 		// Check required fields
-		if ( $form_data['daily_wage_rate'] == '' ) {
-			$errors[]  = array( 'name' => 'daily_wage_rate', 'message' => 'Daily Wage is required!' );
+		if ( ( $form_data['daily_wage_rate'] == '' ) && ( $form_data['daily_wage_agreed'] == '' ) ) {
+			$errors[]  = array( 'name' => 'daily_wage_rate', 'message' => __( 'Daily Wage is required!', ET_DOMAIN ) );
+			$has_error = true;
+		}
+		if ( is_numeric( $form_data['daily_wage_rate'] ) && $form_data['daily_wage_rate'] < 320 ) {
+			$errors[]  = array(
+				'name'    => 'daily_wage_rate',
+				'message' => __( 'Invalid wage, minimum is CHF 320.-', ET_DOMAIN )
+			);
 			$has_error = true;
 		}
 		if ( $form_data['language'] == '' ) {
@@ -297,9 +304,11 @@ class Freelancer {
 		update_post_meta( $user_profile_post, 'et_professional_title', sanitize_text_field( $form_data['job_title'] ) );
 		update_post_meta( $user_profile_post, 'user_role', USER_ROLE );
 
+		$wage = isset( $form_data['daily_wage_rate'] ) && $form_data['daily_wage_rate'] != '' ? sanitize_text_field( $form_data['daily_wage_rate'] ) : 'agreed';
+
 		// Update User Metas
 		$metas = array(
-			'daily_wage_rate' => sanitize_text_field( $form_data['daily_wage_rate'] ),
+			'daily_wage_rate' => $wage,
 			'first_name'      => sanitize_text_field( $form_data['first_name'] ),
 			'last_name'       => sanitize_text_field( $form_data['last_name'] ),
 			'phone_number'    => sanitize_text_field( $form_data['phone_number'] ),
@@ -364,7 +373,7 @@ class Freelancer {
 					'taxonomy' => 'project_category',
 					'field'    => 'term_id',
 					'terms'    => $term_ids,
-					'operator' => ( isset( $form_data['freelancer-category'] ) && $form_data['freelancer-category'] != '' ) ? 'AND' : '',
+					'operator' => ( isset( $form_data['freelancer-category'] ) && $form_data['freelancer-category'] != '' && isset( $form_data['and-or-category'] ) && $form_data['and-or-category'] == 'and' ) ? 'AND' : 'IN',
 				),
 			)
 		);
@@ -377,7 +386,7 @@ class Freelancer {
 				'taxonomy' => 'skill',
 				'field'    => 'term_id',
 				'terms'    => $form_data['freelancer-skill'],
-				'operator' => 'AND',
+				'operator' => ( isset( $form_data['and-or-skill'] ) && $form_data['and-or-skill'] == 'and' ) ? 'AND' : 'IN',
 			);
 		}
 		if ( isset( $form_data['freelancer-language'] ) && $form_data['freelancer-language'] != '' ) {
@@ -385,7 +394,7 @@ class Freelancer {
 				'taxonomy' => 'language',
 				'field'    => 'term_id',
 				'terms'    => $form_data['freelancer-language'],
-				'operator' => 'AND',
+				'operator' => ( isset( $form_data['and-or-language'] ) && $form_data['and-or-language'] == 'and' ) ? 'AND' : 'IN',
 			);
 		}
 		if ( isset( $form_data['freelancer-country'] ) && $form_data['freelancer-country'] != '' ) {
@@ -393,6 +402,7 @@ class Freelancer {
 				'taxonomy' => 'country',
 				'field'    => 'term_id',
 				'terms'    => $form_data['freelancer-country'],
+				'operator' => ( isset( $form_data['and-or-country'] ) && $form_data['and-or-country'] == 'and' ) ? 'AND' : 'IN',
 			);
 		}
 

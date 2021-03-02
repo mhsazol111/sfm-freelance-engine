@@ -82,7 +82,6 @@
                     <div class="fre-input-field">
                         <label class="fre-field-title" for="language"><?php _e( 'Select Preferred Language', ET_DOMAIN ) ?></label>
                         <select name="language[]" id="language" class="sfm-select2" multiple required>
-                            <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
 			                <?php
 			                $languages = get_terms( array(
 				                'taxonomy'   => 'language',

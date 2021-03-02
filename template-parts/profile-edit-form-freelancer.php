@@ -7,29 +7,34 @@ $current_lang         = get_locale();
       enctype="multipart/form-data">
     <h3 class="profile-title"><?php _e( 'Work rates and skills', ET_DOMAIN ) ?></h3>
     <div class="work-skil" id="fre-post-project">
-        <div class="input-field fre-input-field">
-            <label for="daily_wage"><?php _e( 'Daily wage rate', ET_DOMAIN ) ?></label>
+        <div class="input-field ">
+            <label for="daily_wage_rate">
+				<?php _e( 'Daily Wage Rate (minimum of CHF 320.-)', ET_DOMAIN ) ?>
+                <span class="label-notice">
+                    <i class="icon">?</i>
+                    <span><?php _e( 'The minimum of CHF 320.- relates to the Swiss Global Labor Agreement on Temporary work that applies on wage portage', ET_DOMAIN ); ?></span>
+                </span>
+            </label>
             <div class="fre-daily-wage">
-				<?php $wage = get_the_author_meta( 'daily_wage_rate', $author_id ); ?>
-                <select name="daily_wage_rate" id="daily_wage_rate" class="budget-select2" required style="width: 100%">
-					<?php if ( $wage && $wage != 'agreed' ) : ?>
-                        <option value="<?php echo $wage; ?>" selected><?php echo $wage; ?></option>
-                        <option value="agreed"><?php _e( 'To be agreed', ET_DOMAIN ); ?></option>
-					<?php elseif ( $wage == 'agreed' ) : ?>
-                        <option value=""><?php _e( 'Input your wage or select from dropdown', ET_DOMAIN ); ?></option>
-                        <option value="agreed" selected><?php _e( 'To be agreed', ET_DOMAIN ); ?></option>
-					<?php else : ?>
-                        <option value=""><?php _e( 'Input your wage or select from dropdown', ET_DOMAIN ); ?></option>
-                        <option value="agreed"><?php _e( 'To be agreed', ET_DOMAIN ); ?></option>
-					<?php endif; ?>
-                </select>
+                <div class="daily-input-wrap">
+                    <input id="daily_wage" type="number" name="daily_wage_rate"
+                           placeholder="<?php _e( 'Daily Wage Rate (minimum of CHF 320.-)', ET_DOMAIN ); ?>"
+                           value="<?php echo get_the_author_meta( 'daily_wage_rate', $author_id ); ?>"
+                           class="number numberVal" required <?php echo get_the_author_meta( 'daily_wage_rate', $author_id ) == 'agreed' ? 'disabled' : '' ?>>
+                </div>
+                <div class="daily-wage-checkbox">
+                    <label class="container-checkbox">
+                        <input type="checkbox" name="daily_wage_agreed" class="freelancer-wage-switch" value="agreed" <?php echo get_the_author_meta( 'daily_wage_rate', $author_id ) == 'agreed' ? 'checked' : '' ?>>
+                        <span class="checkmark"></span>
+                    </label>
+                    <div class="daily-wage-agreed"><?php _e( 'To be agreed (minimum of CHF 320.-)', ET_DOMAIN ); ?></div>
+                </div>
             </div>
         </div>
 
         <div class="input-field fre-input-field">
             <label class="fre-field-title" for="language"><?php _e( 'Select Your Language', ET_DOMAIN ) ?></label>
             <select name="language[]" id="language" class="sfm-select2" multiple required>
-                <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
 				<?php
 				$languages = get_terms( array(
 					'taxonomy'   => 'language',
@@ -68,9 +73,8 @@ $current_lang         = get_locale();
         <div class="input-field fre-input-field full">
             <label class="fre-field-title"
                    for="project_category"><?php _e( 'Interested Project Categories', ET_DOMAIN ) ?></label>
-            <select name="project_category[]" id="project_category" class="sfm-select2" multiple required>
-                <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
-
+            <select name="project_category[]" id="project_category" class="sfm-select2-limited-category" multiple
+                    required>
 				<?php
 				$categories = get_terms( array(
 					'taxonomy'   => 'project_category',
@@ -114,8 +118,7 @@ $current_lang         = get_locale();
 
         <div class="input-field fre-input-field full">
             <label for="project_skills"><?php _e( 'Interested Project Skills', ET_DOMAIN ) ?></label>
-            <select name="project_skills[]" id="project_skills" class="sfm-select2" multiple required>
-                <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
+            <select name="project_skills[]" id="project_skills" class="sfm-select2-limited-skill" multiple required>
 				<?php
 				$skills = get_terms( array(
 					'taxonomy'   => 'skill',

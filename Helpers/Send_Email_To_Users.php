@@ -8,6 +8,15 @@ class Send_Email_To_Users extends Email_Notification {
 
 		add_action( 'wp_ajax_handle_multiple_user_email', array( $this, 'send_multiple_user_email' ) );
 		add_action( 'wp_ajax_nopriv_handle_multiple_user_email', array( $this, 'send_multiple_user_email' ) );
+
+		add_action( 'delete_user', array( $this, 'custom_redirect_after_deleting_user' ) );
+	}
+
+	public function custom_redirect_after_deleting_user( $user_id ) {
+		add_action( "deleted_user", function () {
+			wp_redirect( admin_url( '/users.php?page=mass_email_to_users' ) );
+			exit;
+		} );
 	}
 
 	public function render_user_list_type() {

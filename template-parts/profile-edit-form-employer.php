@@ -45,8 +45,6 @@ $current_lang = get_locale();
                 <label class="fre-field-title"
                        for="project_category"><?php _e( 'Interested Project Categories', ET_DOMAIN ) ?></label>
                 <select name="project_category[]" id="project_category" class="sfm-select2" multiple required>
-                    <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
-
 	                <?php
 	                $categories = get_terms( array(
 		                'taxonomy'   => 'project_category',

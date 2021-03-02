@@ -25,13 +25,36 @@ if ( ! defined( 'ABSPATH' ) ) {
                           enctype="multipart/form-data">
                         <h3 class="profile-title"><?php _e( 'Work rates and skills', ET_DOMAIN ) ?></h3>
                         <div class="work-skil" id="fre-post-project">
-                            <div class="input-field">
-                                <label for="daily_wage"><?php _e( 'Daily wage rate', ET_DOMAIN ) ?></label>
-                                <input id="daily_wage" type="number"
-                                       placeholder="<?php _e( 'Amount of daily wage', ET_DOMAIN ); ?>"
-                                       name="daily_wage_rate" value="000" required>
-                                <label id="daily_wage-error" class="error"
-                                       for="daily_wage"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
+
+                            <div class="input-field ">
+                                <label for="daily_wage_rate">
+									<?php _e( 'Daily Wage Rate (minimum of CHF 320.-)', ET_DOMAIN ) ?>
+                                    <span class="label-notice">
+                                        <i class="icon">?</i>
+                                        <span><?php _e( 'The minimum of CHF 320.- relates to the Swiss Global Labor Agreement on Temporary work that applies on wage portage', ET_DOMAIN ); ?></span>
+                                    </span>
+                                </label>
+                                <div class="fre-daily-wage">
+                                    <div class="daily-input-wrap">
+                                        <input id="daily_wage" type="number" name="daily_wage_rate"
+                                               placeholder="<?php _e( 'Daily Wage Rate (minimum of CHF 320.-)', ET_DOMAIN ); ?>"
+                                               value=""
+                                               class="number numberVal" min="320"
+                                               required>
+                                        <label id="daily_wage-error" class="error"
+                                               for="daily_wage"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
+                                        <p class="input-error"><?php _e( 'Invalid wage, minimum is CHF 320.-', ET_DOMAIN ); ?></p>
+                                    </div>
+                                    <div class="daily-wage-checkbox">
+                                        <label class="container-checkbox">
+                                            <input type="checkbox" name="daily_wage_agreed"
+                                                   class="freelancer-wage-switch"
+                                                   value="agreed">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <div class="daily-wage-agreed"><?php _e( 'To be agreed (minimum of CHF 320.-)', ET_DOMAIN ); ?></div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="input-field fre-input-field">

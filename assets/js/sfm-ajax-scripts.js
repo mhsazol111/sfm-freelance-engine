@@ -8,20 +8,34 @@
                 // allowClear: true
             });
 
-            $('.sfm-select2').on("select2:select", function (e) {
-                let data = e.params.data.text;
-                if (data == 'Select All') {
-                    console.log($(this).children('option'));
-                    $(this).children('option').prop("selected", "selected");
-                    $(this).children('option:first').prop("selected", false);
-                    $(this).trigger("change");
-                }
-            });
+            // $('.sfm-select2').on("select2:select", function (e) {
+            //     let data = e.params.data.text;
+            //     if (data == 'Select All') {
+            //         console.log($(this).children('option'));
+            //         $(this).children('option').prop("selected", "selected");
+            //         $(this).children('option:first').prop("selected", false);
+            //         $(this).trigger("change");
+            //     }
+            // });
         }
 
         if ($('.budget-select2').length) {
             $('.budget-select2').select2({
                 tags: true
+            });
+        }
+
+        if ($('.sfm-select2-limited-category').length) {
+            $('.sfm-select2-limited-category').select2({
+                width: '100%',
+                maximumSelectionLength: 2
+            });
+        }
+
+        if ($('.sfm-select2-limited-skill').length) {
+            $('.sfm-select2-limited-skill').select2({
+                width: '100%',
+                maximumSelectionLength: 7
             });
         }
 
@@ -259,6 +273,17 @@
         });
 
         // Freelancer edit profile submit
+
+        $('.freelancer-wage-switch').on('change', function (e) {
+            $('#daily_wage-error').remove();
+            $('.daily-input-wrap .input-error').remove();
+            if ($(this).is(':checked')) {
+                $('#daily_wage').val('').attr('disabled', true);
+            } else {
+                $('#daily_wage').attr('disabled', false);
+            }
+        });
+
         $(document).on("submit", "#employer-profile-edit-form", function (e) {
             e.preventDefault();
 

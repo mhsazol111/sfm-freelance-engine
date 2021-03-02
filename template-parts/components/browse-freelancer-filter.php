@@ -24,7 +24,7 @@ $current_lang = get_locale();
             <button type="submit"><i class="fas fa-search"></i></button>
         </div>
 
-        <div class="form-group fre-input-field freelancer-language-input">
+        <div class="form-group fre-input-field freelancer-language-input with-and-or">
             <select class="custom-select form-control sfm-select2" id="freelancer-category" name="freelancer-category[]"
                     multiple data-placeholder="<?php echo $category_label; ?>">
 				<?php
@@ -39,9 +39,19 @@ $current_lang = get_locale();
 				}
 				?>
             </select>
+            <div class="and-or-selector">
+                <label for="or-category">
+                    <input type="radio" name="and-or-category" value="or" id="or-category" class="custom-select"
+                           checked> <?php _e( 'Or', ET_DOMAIN ); ?>
+                </label>
+                <label for="and-category">
+                    <input type="radio" name="and-or-category" value="and" id="and-category"
+                           class="custom-select"> <?php _e( 'And', ET_DOMAIN ); ?>
+                </label>
+            </div>
         </div>
 
-        <div class="form-group fre-input-field freelancer-language-input">
+        <div class="form-group fre-input-field freelancer-language-input with-and-or">
             <select class="custom-select form-control sfm-select2" id="freelancer-skill" name="freelancer-skill[]"
                     multiple data-placeholder="<?php echo $skill_label; ?>">
 				<?php
@@ -56,9 +66,19 @@ $current_lang = get_locale();
 				}
 				?>
             </select>
+            <div class="and-or-selector">
+                <label for="or-skill">
+                    <input type="radio" name="and-or-skill" value="or" id="or-skill" class="custom-select"
+                           checked> <?php _e( 'Or', ET_DOMAIN ); ?>
+                </label>
+                <label for="and-skill">
+                    <input type="radio" name="and-or-skill" value="and" id="and-skill"
+                           class="custom-select"> <?php _e( 'And', ET_DOMAIN ); ?>
+                </label>
+            </div>
         </div>
 
-        <div class="form-group fre-input-field freelancer-language-input">
+        <div class="form-group fre-input-field freelancer-language-input with-and-or">
             <select class="custom-select form-control sfm-select2" id="freelancer-language" name="freelancer-language[]"
                     multiple data-placeholder="<?php echo $language_label; ?>">
 				<?php
@@ -73,11 +93,21 @@ $current_lang = get_locale();
 				}
 				?>
             </select>
+            <div class="and-or-selector">
+                <label for="or-language">
+                    <input type="radio" name="and-or-language" value="or" id="or-language" class="custom-select"
+                           checked> <?php _e( 'Or', ET_DOMAIN ); ?>
+                </label>
+                <label for="and-language">
+                    <input type="radio" name="and-or-language" value="and" id="and-language"
+                           class="custom-select"> <?php _e( 'And', ET_DOMAIN ); ?>
+                </label>
+            </div>
         </div>
 
-        <div class="form-group">
-            <select class="custom-select form-control sfm-select2" id="freelancer-country" name="freelancer-country">
-                <option value=""><?php echo $country_label; ?></option>
+        <div class="form-group fre-input-field freelancer-language-input with-and-or">
+            <select class="custom-select form-control sfm-select2" id="freelancer-country" name="freelancer-country[]"
+                    multiple data-placeholder="<?php echo $country_label; ?>">
 				<?php
 				foreach ( $countries as $country ) {
 					$la_opt_country = get_field( $current_lang . '_label', $country );
@@ -90,6 +120,16 @@ $current_lang = get_locale();
 				}
 				?>
             </select>
+            <div class="and-or-selector">
+                <label for="or-country">
+                    <input type="radio" name="and-or-country" value="or" id="or-country" class="custom-select"
+                           checked> <?php _e( 'Or', ET_DOMAIN ); ?>
+                </label>
+                <label for="and-country">
+                    <input type="radio" name="and-or-country" value="and" id="and-country"
+                           class="custom-select"> <?php _e( 'And', ET_DOMAIN ); ?>
+                </label>
+            </div>
         </div>
 
         <div class="clear_div">

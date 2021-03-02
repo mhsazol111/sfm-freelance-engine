@@ -3959,7 +3959,7 @@ ul.fpp-portfolio-wrap li .freelance-portfolio-wrap .portfolio-action a {
 div.fre-chosen-multi.chosen-container .chosen-results li.highlighted {
     background-color: #2094c6 !important;
 }
-#select2-freelancer-language-container button.select2-selection__choice__remove, #select2-freelancer-skill-container button.select2-selection__choice__remove, #select2-freelancer-category-container button.select2-selection__choice__remove {
+#select2-freelancer-language-container button.select2-selection__choice__remove, #select2-freelancer-skill-container button.select2-selection__choice__remove, #select2-freelancer-category-container button.select2-selection__choice__remove, #select2-freelancer-country-container button.select2-selection__choice__remove {
     left: 1px;
 }
 .fre-input-field.freelancer-language-input .select2-container span.select2-selection {
@@ -4116,6 +4116,83 @@ input:checked + .slider:before {
 .freelancer-skills-row {
     width: 100%;
 }
-span.select2-dropdown.select2-dropdown--below {
+.admin-bar span.select2-dropdown.select2-dropdown--below {
     margin-top: 32px;
+}
+.search_fields #browse-freelancer-form .form-group.with-and-or {
+    display: flex;
+    flex-wrap: wrap;
+}
+.search_fields #browse-freelancer-form .form-group.with-and-or > span.select2.select2-container {
+    width: calc(100% - 55px) !important;
+}
+.and-or-selector {
+    width: 55px;
+    padding-left: 10px;
+}
+.and-or-selector label {
+    margin-bottom: 0;
+    font-weight: 400;
+    display: block;
+}
+.and-or-selector label input {
+    height: auto !important;
+}
+.label-notice {
+    position: relative;
+    cursor: pointer;
+}
+.label-notice i {
+    background-color: #3394c6;
+    width: 18px;
+    border-radius: 50%;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-style: normal;
+    color: #fff;
+    font-size: 12px;
+    margin-left: 8px;
+}
+.label-notice span {
+    position: absolute;
+    width: 350px;
+    background-color: #d2f0ff;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: normal;
+    bottom: 20px;
+    opacity: 0;
+    visibility: hidden;
+}
+.label-notice:hover span {
+    opacity: 1;
+    visibility: visible;
+}
+.fre-daily-wage {
+    display: flex;
+    align-items: flex-start;
+}
+.fre-daily-wage .daily-input-wrap {
+    min-width: 170px;
+    width: 55%;
+    margin-right: 15px;
+}
+.daily-wage-checkbox {
+    display: flex;
+    align-items: center;
+}
+.daily-wage-agreed {
+    margin-left: 10px;
+}
+@media only screen and (max-width: 1200px) {
+    .fre-daily-wage {
+        flex-wrap: wrap;
+    }
+    .fre-daily-wage .daily-input-wrap {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
 }
