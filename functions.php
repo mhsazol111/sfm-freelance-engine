@@ -522,6 +522,11 @@ add_filter( 'user_search_columns', function ( $search_columns ) {
 } );
 
 function mass_email_to_users_admin_view() {
+	$columns = get_option( 'cso_column' );
+	if ( ! $columns ) {
+		$options = [ 'name', 'email', 'type', 'a-status', 'category', 'skill', 'country', 'city' ];
+		update_option( 'cso_column', $options );
+	}
 	ob_start();
 	get_template_part( 'template-parts/admin/users/user-email', 'page' );
 	echo ob_get_clean();
@@ -849,10 +854,10 @@ function get_eligible_project_ids( $time_period = 'daily', $required_categories 
 }
 
 
-add_action('admin_head', 'fix_profile_pagination_admin_css');
+add_action( 'admin_head', 'fix_profile_pagination_admin_css' );
 
 function fix_profile_pagination_admin_css() {
-  echo '<style>
+	echo '<style>
     .tablenav {
     	display: block !important;
 	}

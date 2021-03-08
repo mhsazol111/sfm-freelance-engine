@@ -1,5 +1,72 @@
 ;(function ($) {
     $(document).ready(function () {
+        $('body').on('click', '.custom-screen-option #screen-meta-links', function (e) {
+            $('.custom-screen-option').toggleClass('active');
+        })
+            .on('submit', '#cso-save-form', function (e) {
+                e.preventDefault();
+                var checkboxValues = $('.cso-input input:checked').map(function () {
+                    return $(this).val();
+                }).get();
+
+                $.ajax({
+                    method: 'POST',
+                    url: ajaxObject.ajaxUrl,
+                    data: {
+                        action: 'handle_cso_column',
+                        values: checkboxValues,
+                    },
+                    beforeSend: function () {
+                        $("body").append('<div id="loader-wrapper"><div class="loader"></div></div>');
+                    },
+                    success: function (res) {
+                        $("#loader-wrapper").remove();
+                        if (res.success === false) {
+                            alert('Something went wrong! Please, try again.');
+                        }
+                        window.location.reload();
+                    },
+
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            });
+
+        var cosColumns = localStorage.getItem('cosColumns');
+        if (cosColumns) {
+            var existingArr = JSON.parse(cosColumns);
+            // console.log(existingArr);
+            // for (var i = 0; i <= existingArr.length; i++) {
+            //     var value = $('.cso-input input').val();
+            //     if (existingArr[i] == value) {
+            //         console.log('abc')
+            //     }
+            //     console.log(value)
+            // }
+            $('.cso-input input').on('change', function (e) {
+                var checkboxValues = $('.cso-input input:checked').map(function () {
+                    return $(this).val();
+                }).get();
+
+
+                // if ($(this).is(':checked')) {
+                //     existingArr.push($(this).val());
+                //     localStorage.setItem('cosColumns', JSON.stringify(existingArr));
+                // } else {
+                //     var index = existingArr.indexOf($(this).val());
+                //     if (index > -1) {
+                //         existingArr.splice(index, 1);
+                //     }
+                //     localStorage.setItem('cosColumns', JSON.stringify(existingArr));
+                // }
+            });
+        } else {
+            var columnArr = ['name', 'email', 'type', 'a-status', 'category', 'skill', 'country', 'city'];
+            columnArr = JSON.stringify(columnArr);
+            localStorage.setItem('cosColumns', columnArr);
+        }
+
 
         var $elm = $('.sfm-admin-ea-body .check-column input');
         $('body').on('change', $elm, function (e) {

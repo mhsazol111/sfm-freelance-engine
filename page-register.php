@@ -215,7 +215,7 @@ $categories = Custom::all_terms('project_category', false);
                             </div>
                             <div class="fre-input-field">
                                 <div class="select-box">
-                                    <select name="user_category[]" id="user_category" class="sfm-select2" multiple required data-placeholder="<?php _e('Select category (at least one)', ET_DOMAIN); ?>">
+                                    <select name="user_category[]" id="user_category" class="<?php echo $role == 'freelancer' ? 'sfm-select2-limited-category' : 'sfm-select2'; ?>" multiple required data-placeholder="<?php _e('Select category (at least one)', ET_DOMAIN); ?>">
                                         <?php
                                          foreach ( $categories as $category ) {
                                             $la_opt_category = get_field( $current_lang . '_label', $category );

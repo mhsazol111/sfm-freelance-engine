@@ -9,6 +9,9 @@ class Send_Email_To_Users extends Email_Notification {
 		add_action( 'wp_ajax_handle_multiple_user_email', array( $this, 'send_multiple_user_email' ) );
 		add_action( 'wp_ajax_nopriv_handle_multiple_user_email', array( $this, 'send_multiple_user_email' ) );
 
+		add_action( 'wp_ajax_handle_cso_column', array( $this, 'cso_column_settings' ) );
+		add_action( 'wp_ajax_nopriv_handle_cso_column', array( $this, 'cso_column_settings' ) );
+
 		add_action( 'delete_user', array( $this, 'custom_redirect_after_deleting_user' ) );
 	}
 
@@ -114,6 +117,15 @@ class Send_Email_To_Users extends Email_Notification {
 		}
 
 		echo wp_json_encode( [ 'success' => true ] );
+		wp_die();
+	}
+
+	public function cso_column_settings() {
+		header( 'Content-Type: application/json' );
+
+		$columnSettings = update_option( 'cso_column', $_REQUEST['values'] );
+		echo wp_json_encode( $columnSettings );
+
 		wp_die();
 	}
 }

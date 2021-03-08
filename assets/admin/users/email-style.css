@@ -27,7 +27,33 @@
         transform: rotate(360deg);
     }
 }
-
+.sfm-admin-email-area-wrap {
+    overflow: hidden;
+    margin-top: 0;
+}
+.custom-screen-option {
+    background-color: #fff;
+}
+.active.custom-screen-option {
+    padding: 10px 20px;
+}
+#cso-save-form {
+    display: none;
+}
+.active #cso-save-form {
+    display: block;
+}
+.cso-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+}
+.cso-checkboxes .cso-input {
+    min-width: 150px;
+    margin-bottom: 10px;
+}
+.cso-hidden {
+    display: none;
+}
 .sfm-admin-ea-header {
     display: flex;
     justify-content: space-between;

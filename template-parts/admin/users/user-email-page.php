@@ -42,7 +42,8 @@ if ( isset( $_REQUEST['role'] ) && $_REQUEST['role'] == 'freelancer' ) {
 }
 ?>
 
-<div class="wrap">
+<div class="wrap sfm-admin-email-area-wrap">
+	<?php get_template_part( 'template-parts/admin/users/column', 'settings' ); ?>
     <div class="sfm-admin-email-area">
         <h1 class="wp-heading-inline">Email to Users</h1>
         <div class="sfm-admin-ea-header">
