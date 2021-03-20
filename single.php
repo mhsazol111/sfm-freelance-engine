@@ -18,28 +18,9 @@
     the_post();
 ?>
 
-<section class="ie-banner"
-    style="background-image:url(<?php echo get_stylesheet_directory_uri() . '/inc/images/blog_single_banner.jpg'; ?>);">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="ie-banner-content">
-                    <h1 class="ie-banner-title"><?php echo _e( "Blog", ET_DOMAIN ); ?></h1>
-                    <p class="ie-banner-description"><?php echo _e( "Lorem Ipsum is simply dummy text of the printing a", ET_DOMAIN ); ?></p>
-                    <p class="ie-banner-description"><?php echo _e( "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s", ET_DOMAIN ); ?>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <a href="#">
-        <div class="banner-bottom-coner">
-            <div class="bottom-btn-wrapper">
-                <p><?php echo _e( 'SPS', ET_DOMAIN ); ?></p>
-                <img src="<?= get_site_url(); ?>/wp-content/uploads/2020/04/arrow.svg" alt="arrow">
-            </div>
-        </div>
-    </a>
+<section class="ie-banner" style="background-color:#4d6987; padding:0px 0 85px;">
+
+
 </section>
 
 <div class="container">

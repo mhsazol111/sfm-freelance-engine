@@ -50,9 +50,9 @@ if ( have_rows( 'home_layout' ) ):
                     <a href="#">
                         <div class="banner-bottom-coner">
                             <div class="bottom-btn-wrapper">
-                                <p style="width:192px"><a href="https://www.switzerland-payroll.ch" style="color:#FFF;font-size:17px;font-weight:600;line-height:0px;"><?php echo _e( 'Estimate your income with SPS' ); ?></a></p>
+                                <p style="width:192px"><a href="<?php echo _e( 'https://www.switzerland-payroll.ch/en/calculator/' ); ?>" target="_blank" style="color:#FFF;font-size:17px;font-weight:600;line-height:0px;"><?php echo _e( 'Estimate your income with SPS' ); ?></p>
                             </div>
-                            <img src="<?= get_site_url(); ?>/wp-content/uploads/2020/12/Calculette_red.png" style="width: 29%;position: absolute;right: 0;">
+                            <img src="<?= get_site_url(); ?>/wp-content/uploads/2020/12/Calculette_red.png" style="width: 29%;position: absolute;right: 0;"></a>
                         </div>
                     </a>
                 </div>
@@ -63,11 +63,11 @@ if ( have_rows( 'home_layout' ) ):
             <section id="home-section-two">
                 <div class="container">
                     <div class="sfm-heading">
-                    <div style="margin-top:-57px;margin-bottom:30px">
-                    <a href="https://www.interiman-group.ch" target="_blank">
-                    <img width="200" height="54" src="https://www.interima.ch/wp-content/uploads/2020/04/INT_Group_Logo-fond-transparent.png" alt="" loading="lazy" style="margin-bottom:10px;"></a>
-                    <p style="font-size:14px"><?php the_sub_field( 'entity' ); ?></p>
-                    </div>
+                        <div style="margin-top:-57px;margin-bottom:30px">
+                            <a href="https://www.interiman-group.ch" target="_blank">
+                            <img width="200" height="54" src="<?= get_site_url(); ?>/wp-content/uploads/2020/12/INT_Group_Logo-fond-transparent.png" alt="" loading="lazy" style="margin-bottom:10px;"></a>
+                            <p style="font-size:14px"><?php the_sub_field( 'entity' ); ?></p>
+                        </div>    
                         <h2 class="headling-48"><?php the_sub_field( 'title' ); ?></h2>
                         <div class="title-divider"></div>
                     </div>
@@ -197,7 +197,7 @@ if ( have_rows( 'home_layout' ) ):
 		<?php endif; ?>
 		<?php
            // changement de la var pour ne pas afficher les news (news en news1) if ( 'news' == get_row_layout() ): 
-         if ( 'news1' == get_row_layout() ): ?>
+         if ( 'news' == get_row_layout() ): ?>
             <section id="home-section-six">
                 <div class="container">
                     <div class="company-title">
