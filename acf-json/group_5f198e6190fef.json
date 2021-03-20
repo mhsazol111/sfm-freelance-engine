@@ -22,25 +22,6 @@
             "maxlength": ""
         },
         {
-            "key": "field_5f6ce7b0eefe0",
-            "label": "EN Select by category",
-            "name": "en_select_by_category",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
-        },
-        {
             "key": "field_5f198efbd334c",
             "label": "EN Select by skill",
             "name": "en_select_by_skill",
@@ -115,5 +96,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1600972744
+    "modified": 1595510664
 }

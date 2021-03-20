@@ -132,6 +132,22 @@
                             "max_height": "",
                             "max_size": "",
                             "mime_types": ""
+                        },
+                        {
+                            "key": "field_5fe0da1f7933b",
+                            "label": "Calculator link",
+                            "name": "calculatorlink",
+                            "type": "url",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": ""
                         }
                     ],
                     "min": "",
@@ -144,7 +160,7 @@
                     "display": "row",
                     "sub_fields": [
                         {
-                            "key": "field_5fd8e21504758",
+                            "key": "field_5fe0d214c5522",
                             "label": "Entity",
                             "name": "entity",
                             "type": "text",
@@ -156,7 +172,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "Switzerland Freelance is an entity of the Interiman Group.",
+                            "default_value": "",
                             "placeholder": "",
                             "prepend": "",
                             "append": "",
@@ -607,7 +623,7 @@
     "hide_on_screen": [
         "the_content"
     ],
-    "active": true,
+    "active": 1,
     "description": "",
-    "modified": 1608049482
+    "modified": 1608571473
 }
