@@ -33,7 +33,9 @@ class Admin_Functions {
 			update_user_meta( $user_id, 'account_status', 'active' );
 
 			// Send Approved notification
-			do_action( 'pending_user_approval_email', $user_id );
+//			do_action( 'pending_user_approval_email', $user_id );
+			$sfm_mail_notification = new Email_Notification();
+			$sfm_mail_notification->pending_user_approval_email_cb( $user_id );
 
 			echo wp_json_encode( [
 				'success'  => true,

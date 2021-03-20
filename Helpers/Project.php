@@ -288,7 +288,9 @@ class Project {
 
 		// Send Admin notification about new project
 		if ( ! isset( $form_data['project_id'] ) && $form_data['project_id'] == '' ) {
-			do_action( 'post_project_notification', get_current_user_id(), $project_id );
+//			do_action( 'post_project_notification', get_current_user_id(), $project_id );
+			$sfm_mail_notification = new Email_Notification();
+			$sfm_mail_notification->post_project_notification_cb( get_current_user_id(), $project_id );
 		}
 
 		echo wp_json_encode( array(

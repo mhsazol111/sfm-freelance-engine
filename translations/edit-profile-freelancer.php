@@ -69,10 +69,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                             <div class="input-field fre-input-field full">
                                 <label class="fre-field-title"
-                                       for="project_category"><?php _e( 'Interested Project Categories', ET_DOMAIN ); ?></label>
-                                <select name="project_category[]" id="project_category" class="sfm-select2" multiple
+                                       for="project_category"><?php _e( 'Interested Project Categories', ET_DOMAIN ) ?></label>
+                                <select name="project_category[]" id="project_category"
+                                        class="sfm-select2-limited-category" multiple
                                         required>
-                                    <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
+									<?php
+									$categories = get_terms( array(
+										'taxonomy'   => 'project_category',
+										'hide_empty' => false,
+									) );
+
+									$current_lang = get_locale();
+
+									foreach ( $categories as $category ) {
+										$la_opt_cat = get_field( $current_lang . '_label', $category );
+										if ( get_locale() == 'en_US' ) :
+											echo '<option value="' . $category->term_id . '">' . $category->name . '</option>';
+										else:
+											echo '<option class="la-option" value="' . $category->term_id . '">' . $la_opt_cat . '</option>';
+										endif;
+									}
+									?>
                                 </select>
                                 <label id="project_category-error" class="error"
                                        for="project_category"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
@@ -80,14 +97,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                             <div class="input-field fre-input-field full">
                                 <label for="project_skills"><?php _e( 'Interested Project Skills', ET_DOMAIN ) ?></label>
-                                <select name="project_skills[]" id="project_skills" class="sfm-select2" multiple
-                                        required>
-                                    <option value=""><?php _e( 'Select All', ET_DOMAIN ) ?></option>
+                                <select name="project_skills[]" id="project_skills" class="sfm-select2-limited-skill"
+                                        multiple required>
+									<?php
+									$skills = get_terms( array(
+										'taxonomy'   => 'skill',
+										'hide_empty' => false,
+									) );
+
+									foreach ( $skills as $skill ) {
+										$la_opt_skill = get_field( $current_lang . '_label', $skill );
+										if ( get_locale() == 'en_US' ) :
+											echo '<option value="' . $skill->term_id . '">' . $skill->name . '</option>';
+										else:
+											echo '<option class="la-option" value="' . $skill->term_id . '">' . $la_opt_skill . '</option>';
+										endif;
+									}
+									?>
                                 </select>
                                 <label id="project_skills-error" class="error"
                                        for="project_skills"><?php _e( 'This field is required.', ET_DOMAIN ); ?></label>
                             </div>
                         </div>
+
                         <h3 class="profile-title"><?php _e( 'Personal Details', ET_DOMAIN ) ?></h3>
                         <div class="personal-details">
                             <div class="three-column-row">

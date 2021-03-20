@@ -27,7 +27,7 @@ class Email_Notification {
 		add_filter( 'ae_get_mail_header', array( $this, 'change_sfm_default_email_header' ) );
 		add_filter( 'ae_get_mail_footer', array( $this, 'change_sfm_default_email_footer' ) );
 
-		add_action( 'user_register_email', array( $this, 'user_register_email_cb' ), 10, 3 );
+		add_action( 'sfm_user_register_email', array( $this, 'user_register_email_cb' ), 10, 3 );
 		add_action( 'pending_user_approval_email', array( $this, 'pending_user_approval_email_cb' ), 10, 1 );
 		add_action( 'new_bid_notification', array( $this, 'new_bid_notification_cb' ), 10, 2 );
 		add_action( 'accept_proposal_notification', array( $this, 'accept_proposal_notification_cb' ), 10, 4 );
@@ -285,9 +285,9 @@ class Email_Notification {
 
 	// Send Email to admin and freelancer if a bid is accepted
 	public function declined_proposal_notification_cb( $project, $freelancer ) {
-		$user_email_fields  = get_field( 'en_proposal_declined_notification_to_freelancer', 'option' );
+		$user_email_fields = get_field( 'en_proposal_declined_notification_to_freelancer', 'option' );
 		if ( get_locale() == 'fr_FR' ) {
-			$user_email_fields  = get_field( 'fr_proposal_declined_notification_to_freelancer', 'option' );
+			$user_email_fields = get_field( 'fr_proposal_declined_notification_to_freelancer', 'option' );
 		}
 
 		$user_subject      = $user_email_fields['subject'];

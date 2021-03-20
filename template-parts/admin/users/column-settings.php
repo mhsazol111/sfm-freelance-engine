@@ -74,6 +74,26 @@
                 </label>
             </div>
         </div>
+        <div class="cso-shorting-wrap">
+<!--            <div class="cso-input">-->
+<!--                <label for="sort">-->
+<!--                    Sort By-->
+<!--                    <select name="sort" id="sort">-->
+<!--                        -->
+<!--                    </select>-->
+<!--                </label>-->
+<!--            </div>-->
+
+            <div class="cso-input">
+                <div>Order</div>
+                <label for="asc">
+                    <input type="radio" value="asc" id="asc" name="order" <?php echo in_array( 'asc', $columns ) ? 'checked' : '' ?>> Ascending
+                </label>
+                <label for="desc">
+                    <input type="radio" value="desc" id="desc" name="order" <?php echo in_array( 'desc', $columns ) ? 'checked' : '' ?>> Descending
+                </label>
+            </div>
+        </div>
 
         <div class="cso-save-btn">
             <button type="submit">Save</button>

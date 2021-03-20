@@ -54,6 +54,9 @@
 .cso-hidden {
     display: none;
 }
+.cso-shorting-wrap {
+    margin-bottom: 15px;
+}
 .sfm-admin-ea-header {
     display: flex;
     justify-content: space-between;

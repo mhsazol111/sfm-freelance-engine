@@ -490,11 +490,13 @@
                         }).show();
 
                         if (res.user_role === 'freelancer') {
-                            // console.log('freelancer got it');
-                            gtag('event', 'conversion', {'send_to': 'AW-629736632/XiKkCOe3vNEBELiJpKwC'});
+                            if (window._gaq && window._gaq._getTracker) {
+                                gtag('event', 'conversion', {'send_to': 'AW-629736632/XiKkCOe3vNEBELiJpKwC'});
+                            }
                         } else if (res.user_role === 'employer') {
-                            // console.log('employer got it');
-                            gtag('event', 'conversion', {'send_to': 'AW-629736632/C8oaCPjaq9EBELiJpKwC'});
+                            if (window._gaq && window._gaq._getTracker) {
+                                gtag('event', 'conversion', {'send_to': 'AW-629736632/C8oaCPjaq9EBELiJpKwC'});
+                            }
                         }
 
                         if (res.redirect) {

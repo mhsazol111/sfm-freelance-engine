@@ -70,7 +70,16 @@ $current_settings = unserialize( $current_settings );
 							<?php endif; ?>
                             <span class="checkmark"></span>
                         </label>
-                        <div class="freelancer-category-name"><?php _e( $category->name, ET_DOMAIN ); ?></div>
+                        <div class="freelancer-category-name">
+							<?php
+							$la_opt_cat = get_field( $current_lang . '_label', $category );
+							if ( get_locale() == 'en_US' ) :
+								_e( $category->name, ET_DOMAIN );
+							else:
+								echo $la_opt_cat;
+							endif;
+							?>
+                        </div>
                     </div>
 				<?php endforeach; ?>
             </div>
@@ -101,7 +110,16 @@ $current_settings = unserialize( $current_settings );
                             <span class="checkmark"></span>
                         </label>
 
-                        <div class="freelancer-category-name"><?php _e( $category->name, ET_DOMAIN ); ?></div>
+                        <div class="freelancer-category-name">
+							<?php
+							$la_opt_cat = get_field( $current_lang . '_label', $category );
+							if ( get_locale() == 'en_US' ) :
+								_e( $category->name, ET_DOMAIN );
+							else:
+								echo $la_opt_cat;
+							endif;
+							?>
+                        </div>
 
                         <div class="freelancer-skill-switch-row <?php echo ! $current_settings || ( $selected_cats && array_key_exists( $category->term_id, $selected_cats ) ) ? '' : 'fields-disabled'; ?>">
                             <p><?php _e( 'Must have skills', ET_DOMAIN ); ?></p>

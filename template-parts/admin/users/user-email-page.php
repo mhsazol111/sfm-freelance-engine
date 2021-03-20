@@ -1,5 +1,9 @@
 <?php
 function get_users_query( $args ) {
+	$columns = get_option( 'cso_column' );
+	$order = end( $columns );
+	$args['order'] = $order;
+
 	$users = new WP_User_Query( $args );
 
 	return $users->get_results();

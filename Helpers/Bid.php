@@ -142,8 +142,10 @@ class Bid {
 		update_post_meta( $new_bid, 'notify_id', $notification );
 
 		// Send an Email to Project author
-		$employer_id =  $project->post_author;
-		do_action( 'new_bid_notification', $employer_id, $project );
+		$employer_id           = $project->post_author;
+		$sfm_mail_notification = new Email_Notification();
+		$sfm_mail_notification->new_bid_notification_cb( $employer_id, $project );
+//		do_action( 'new_bid_notification', $employer_id, $project );
 
 		echo wp_json_encode( [
 			'status'   => true,
@@ -229,7 +231,10 @@ class Bid {
 
 		// Send email to freelancer and admin
 		$company_name = get_user_meta( $employer_id, 'company_name', true );
-		do_action( 'accept_proposal_notification', $project, $employer_id, $company_name, $freelancer_id );
+//		do_action( 'accept_proposal_notification', $project, $employer_id, $company_name, $freelancer_id );
+		$sfm_mail_notification = new Email_Notification();
+		$sfm_mail_notification->accept_proposal_notification_cb( $project, $employer_id, $company_name, $freelancer_id );
+
 
 		echo wp_json_encode( [
 			'status'   => true,
@@ -278,7 +283,7 @@ class Bid {
 		// Create a new notification for freelancer
 //		$notify_content = 'type=delete_bid&project=' . $project->ID;
 //		$notify_content = 'type=delete_bid&amp;freelancer=' . $bid->post_author . '&amp;project='. $project->ID . '&amp;bid=' . $bid->ID;
-		$notify_content = 'type=decline_bid&amp;freelancer=' . $bid->post_author . '&amp;project='. $project->ID . '&amp;bid=' . $bid->ID;
+		$notify_content = 'type=decline_bid&amp;freelancer=' . $bid->post_author . '&amp;project=' . $project->ID . '&amp;bid=' . $bid->ID;
 		$notification   = wp_insert_post( array(
 			'post_type'    => 'notify',
 			'post_content' => $notify_content,
@@ -290,11 +295,13 @@ class Bid {
 		) );
 		update_user_meta( $bid->post_author, 'fre_new_notify', $notification );
 
-		do_action( 'declined_proposal_notification', $project, $freelancer );
+//		do_action( 'declined_proposal_notification', $project, $freelancer );
+		$sfm_mail_notification = new Email_Notification();
+		$sfm_mail_notification->declined_proposal_notification_cb( $project, $freelancer );
 
 		echo wp_json_encode( [
-			'status'  => true,
-			'message' => __( 'You have successfully declined the proposal', ET_DOMAIN ),
+			'status'   => true,
+			'message'  => __( 'You have successfully declined the proposal', ET_DOMAIN ),
 			'redirect' => get_permalink( $project->ID ),
 		] );
 

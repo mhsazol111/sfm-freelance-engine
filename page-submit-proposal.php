@@ -4,39 +4,44 @@
  */
 
 // Redirects an user back to their edit profile to update the profile first
-if ( ! get_user_meta( get_current_user_id(), 'user_profile_id', true ) ) {
-	wp_redirect( home_url() . '/edit-profile' );
-}
+
 
 get_header();
 
-if ( isset( $_REQUEST['id'] ) && $_REQUEST['id'] != '' && ( USER_ROLE == 'freelancer' || current_user_can( 'administrator' ) ) ) {
-	// Check if the given id is not a project
-	$project = get_post( $_REQUEST['id'] );
-	if ( PROJECT != $project->post_type ) {
+if ( sfm_translating_as( 'employer' ) ) {
+	echo 'translating';
+} else {
+
+	if ( ! get_user_meta( get_current_user_id(), 'user_profile_id', true ) ) {
+		wp_redirect( home_url() . '/edit-profile' );
+	}
+	if ( isset( $_REQUEST['id'] ) && $_REQUEST['id'] != '' && ( USER_ROLE == 'freelancer' || current_user_can( 'administrator' ) ) ) {
+		// Check if the given id is not a project
+		$project = get_post( $_REQUEST['id'] );
+		if ( PROJECT != $project->post_type ) {
+			wp_redirect( home_url() . '/projects' );
+		}
+
+		// Check freelancer already bid on the project
+		$children = get_children( array(
+			'post_parent' => $_REQUEST['id'],
+			'post_type'   => 'bid'
+		) );
+
+		if ( ! empty( $children ) ) {
+			$author_ids = [];
+			foreach ( $children as $child ) {
+				$author_ids[] = $child->post_author;
+			}
+			if ( in_array( get_current_user_id(), $author_ids ) ) {
+				wp_redirect( get_permalink( $_REQUEST['id'] ) );
+			}
+		}
+
+	} else {
 		wp_redirect( home_url() . '/projects' );
 	}
-
-	// Check freelancer already bid on the project
-	$children = get_children( array(
-		'post_parent' => $_REQUEST['id'],
-		'post_type'   => 'bid'
-	) );
-
-	if ( ! empty( $children ) ) {
-		$author_ids = [];
-		foreach ( $children as $child ) {
-			$author_ids[] = $child->post_author;
-		}
-		if ( in_array( get_current_user_id(), $author_ids ) ) {
-			wp_redirect( get_permalink( $_REQUEST['id'] ) );
-		}
-	}
-
-} else {
-	wp_redirect( home_url() . '/projects' );
-}
-?>
+	?>
 
     <div class="fre-page-wrapper submit-proposal-wrapper">
         <div class="profile_dashboard" id="<?php echo USER_ROLE; ?>-dashboard">
@@ -169,5 +174,6 @@ if ( isset( $_REQUEST['id'] ) && $_REQUEST['id'] != '' && ( USER_ROLE == 'freela
 
         </div>
     </div>
-
-<?php get_footer(); ?>
+	<?php
+}
+get_footer();

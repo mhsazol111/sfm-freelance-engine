@@ -56,6 +56,9 @@ class Send_Email_To_Users extends Email_Notification {
 			$args['search']         = $data['search'];
 			$args['search_columns'] = array( 'user_nicename', 'user_login', 'user_email', 'display_name' );
 		}
+		$columns = get_option( 'cso_column' );
+		$order = end( $columns );
+		$args['order'] = $order;
 
 		$users = new WP_User_Query( $args );
 		$users = $users->get_results();

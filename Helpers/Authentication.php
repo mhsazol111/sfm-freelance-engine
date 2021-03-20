@@ -184,7 +184,9 @@ class Authentication {
 		}
 
 		if ( 'active' == sanitize_text_field( $_POST['account_status'] ) ) {
-			do_action( 'pending_user_approval_email', $user_id );
+//			do_action( 'pending_user_approval_email', $user_id );
+			$sfm_mail_notification = new Email_Notification();
+			$sfm_mail_notification->pending_user_approval_email_cb( $user_id );
 		}
 	}
 
@@ -276,8 +278,9 @@ class Authentication {
 		update_user_meta( $user_id, 'company_name', sanitize_text_field( $form_data['company_name'] ) );
 
 		// Send email notification
-		do_action( 'user_register_email', $_REQUEST['role'], $user_id, sanitize_text_field( $form_data['user_email'] ) );
-
+//		do_action( 'sfm_user_register_email', $_REQUEST['role'], $user_id, sanitize_text_field( $form_data['user_email'] ) );
+		$sfm_mail_notification = new Email_Notification();
+		$sfm_mail_notification->user_register_email_cb( $_REQUEST['role'], $user_id, sanitize_text_field( $form_data['user_email'] ) );
 		// Login with new user
 		wp_set_current_user( $user_id );
 		wp_set_auth_cookie( $user_id );
