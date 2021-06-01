@@ -58,7 +58,7 @@ get_header();
 ?>
 
     <div class="fre-page-wrapper messages-page-wrapper">
-        <div class="profile_dashboard" id="<?php echo $role_template; ?>-dashboard">
+        <div class="profile_dashboard" id="<?php echo USER_ROLE; ?>-dashboard">
 			<?php get_template_part( 'template-parts/sidebar', 'profile' ); // Dashboard Sidebar ?>
 
             <section id="dashboard_content">
@@ -92,7 +92,7 @@ get_header();
 										}
 										?>
                                         <div class="m_t_row active">
-                                            <a href="javascript:void(0)" class="laSidebarMessage"
+                                            <a href="#" class="laSidebarMessage"
                                                data-project="<?= $proj->ID; ?>" data-author="<?= $a_id; ?>">
 												<?php // echo get_avatar( $avater_user, 35 ); ?>
                                                 <h3><?php if ( EMPLOYER == ae_user_role() ) { ?><?= get_the_author_meta( 'display_name', $avater_user ); ?><?php } ?></h3>
@@ -132,15 +132,14 @@ get_header();
 										}
 										?>
 
-                                        <div class="m_t_row <?= $isActive ? 'active' : ''; ?>">
-                                            <a href="javascript:void(0)"
-                                               class="laSidebarMessage <?= $isActive ? 'active' : ''; ?> <?= 'unread' == $mt->status ? 'strong' : ''; ?> "
-                                               data-project="<?= $mt->ID; ?>" data-author="<?= $mt->author_id; ?>">
-												<?php //echo get_avatar( $avater_user, 35 ); ?>
-                                                <h3><?= get_the_author_meta( 'display_name', $avater_user ); ?></h3>
-                                                <p><?= wp_strip_all_tags( $mt->post_title ); ?></p>
+                                        <div class="m_t_row <?php echo $isActive ? 'active' : ''; ?>">
+                                            <a href="#"
+                                               class="laSidebarMessage <?php echo $isActive ? 'active' : ''; ?> <?php echo 'unread' == $mt->status ? 'strong' : ''; ?> "
+                                               data-project="<?php echo $mt->ID; ?>" data-author="<?php  echo $mt->author_id; ?>">
+                                                <h3><?php echo get_the_author_meta( 'display_name', $avater_user ); ?></h3>
+                                                <p><?php echo $mt->post_title; ?></p>
                                             </a>
-                                        </div><!-- End .m_t_row -->
+                                        </div>
 
 										<?php
 										$isActive = false;
@@ -176,7 +175,7 @@ get_header();
                                 <div class="message_title">
                                     <div class="la_message_inn">
                                         <div class="m_t_row active">
-                                            <a href="javascript:void(0)" class="laSidebarMessage"
+                                            <a href="#" class="laSidebarMessage"
                                                data-project="<?= $pro_ID; ?>" data-author="<?= $a_id; ?>">
                                                 <h3><?php if ( EMPLOYER == ae_user_role() || sfm_is_translating() ) { ?><?= $emp_dis_name; ?><?php } ?></h3>
                                                 <p><?= $pro_title; ?></p>
@@ -208,7 +207,6 @@ get_header();
             </section>
         </div>
     </div>
-    <?php if (isset($p_id) && isset($a_id)) ?>
     <script>
         ;(function ($) {
             $(document).ready(function () {
